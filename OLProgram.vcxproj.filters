@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{3847ea5b-b529-4122-99ac-16a4fb72c98c}</UniqueIdentifier>
+      <Extensions>*.*</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{67cc8638-c7e0-4d56-8d13-fd70f53e428f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{252dd9cc-777c-4091-9fd2-5e1717a690e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{4e6357f4-2e32-4acb-8c85-3ecb711fef80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialog">
+      <UniqueIdentifier>{0bfa05c1-2bf4-4ebb-88fc-41ebd130bea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialog\Header Files">
+      <UniqueIdentifier>{ca260c7d-31bb-4616-abfd-62c1969024d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialog\Sorce Files">
+      <UniqueIdentifier>{bd40faff-c539-41e3-9e34-70f2c326cf9f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="OLProgram_i.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DocView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OLProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SwDocument.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PMPageHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserPropertyManagerPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildTubeDlg.h">
+      <Filter>Dialog\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CutParamDlg.h">
+      <Filter>Dialog\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportDlg.h">
+      <Filter>Dialog\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="OLProgram_i.c">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OLProgram_module.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BitmapHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DocView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OLProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SwDocument.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMPageHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserPropertyManagerPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildTubeDlg.cpp">
+      <Filter>Dialog\Sorce Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CutParamDlg.cpp">
+      <Filter>Dialog\Sorce Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportDlg.cpp">
+      <Filter>Dialog\Sorce Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OLProgram.def">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="BitmapHandler.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="DocView.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="MainIconLarge.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="MainIconSmall.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="OLProgram.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SwDocument.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="toolbar_large.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="toolbar_small.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PMPageHandler.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="UserPropertyManagerPage.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="OLProgram.idl">
+      <Filter>Source Files</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OLProgram.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

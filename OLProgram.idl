@@ -1,0 +1,139 @@
+// OLProgram.idl : IDL source for OLProgram
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (OLProgram.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(3B367AB6-2571-485B-884D-1DD898FF4C30),
+	dual,
+	nonextensible,
+	helpstring("IOLProgram Interface"),
+	pointer_default(unique)
+]
+interface IOLProgram : IDispatch{
+	[id(3), helpstring("method ToolbarCallback0")] HRESULT ToolbarCallbackPathExport();
+	[id(4), helpstring("method ToolbarEnable0")] HRESULT ToolbarEnablePathExport([out, retval] long* status);
+		[id(5), helpstring("method ShowPMP")] HRESULT GeneratePath();
+	[id(6), helpstring("method EnablePMP")] HRESULT EnableGeneratePath([out, retval] long* status);
+		[id(7), helpstring("method FlyoutCallback")] HRESULT FlyoutCallback();
+	[id(8), helpstring("method FlyoutCallback0")] HRESULT FlyoutCallback0();
+	[id(9), helpstring("method FlyoutCallback1")] HRESULT FlyoutCallback1();
+	[id(10), helpstring("method FlyoutEnable0")] HRESULT FlyoutEnable0([out, retval] long* status);
+	[id(11), helpstring("method FlyoutEnableCallback0")] HRESULT FlyoutEnableCallback0([out, retval] long* status);
+	[id(12), helpstring("method ToolbarBuildTube")] HRESULT ToolbarBuildTube();
+	[id(13), helpstring("method ToolbarEnableBuildTube")] HRESULT ToolbarEnableBuildTube([out, retval] long* status);
+};
+[
+	object,
+	uuid(47D7EABD-4142-4CF8-A788-B0A8580B957B),
+	dual,
+	nonextensible,
+	helpstring("ISwDocument Interface"),
+	pointer_default(unique)
+]
+interface ISwDocument : IDispatch{
+};
+[
+	object,
+	uuid(3AF07648-E725-4DFA-9228-931E7B377EC7),
+	dual,
+	nonextensible,
+	helpstring("IDocView Interface"),
+	pointer_default(unique)
+]
+interface IDocView : IDispatch{
+};
+[
+	object,
+	uuid(9E7BF461-496C-4C45-B5C9-3056E50AD965),
+	dual,
+	nonextensible,
+	helpstring("IBitmapHandler Interface"),
+	pointer_default(unique)
+]
+interface IBitmapHandler : IDispatch{
+	[id(1), helpstring("method CreateBitmapFileFromResource")] HRESULT CreateBitmapFileFromResource([in] DWORD resID, [out, retval] BSTR* retval);
+	[id(2), helpstring("method Dispose")] HRESULT Dispose();
+};
+[
+	object,
+	uuid(E30E1B35-F62B-415C-852D-2ECB2462B438),
+	dual,
+	nonextensible,
+	helpstring("IPMPageHandler Interface"),
+	pointer_default(unique)
+]
+interface IPMPageHandler : IDispatch{
+};
+[
+	object,
+	uuid(BECAC6BB-5252-4158-8A51-41E567CA5946),
+	dual,
+	nonextensible,
+	helpstring("IUserPropertyManagerPage Interface"),
+	pointer_default(unique)
+]
+interface IUserPropertyManagerPage : IDispatch{
+};
+[
+	uuid(7A362735-8465-41E4-A7F6-D780C4C58378),
+	version(1.0),
+	helpstring("OLProgram 1.0 Type Library")
+]
+library OLProgramLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545),
+		helpstring("OLProgram Class")
+	]
+	coclass OLProgram
+	{
+		[default] interface IOLProgram;
+	};
+	[
+		uuid(1A28FAE3-74B4-4757-AB24-F2C96B1332F7),
+		helpstring("SwDocument Class")
+	]
+	coclass SwDocument
+	{
+		[default] interface ISwDocument;
+	};
+	[
+		uuid(F861E05B-FBCB-42B2-971F-F388D08EB1DC),
+		helpstring("DocView Class")
+	]
+	coclass DocView
+	{
+		[default] interface IDocView;
+	};
+	[
+		uuid(E10E72D0-04C5-4EA1-B841-8DA6152B2DF0),
+		helpstring("BitmapHandler Class")
+	]
+	coclass BitmapHandler
+	{
+		[default] interface IBitmapHandler;
+	};
+	[
+		uuid(7741B23C-DDB2-483F-A2F7-117FE59300B9),
+		helpstring("PMPageHandler Class")
+	]
+	coclass PMPageHandler
+	{
+		[default] interface IPMPageHandler;
+	};
+	[
+		uuid(F43C6FAC-004A-40F4-A66C-13C2D1DC1D1D),
+		helpstring("UserPropertyManagerPage Class")
+	]
+	coclass UserPropertyManagerPage
+	{
+		[default] interface IUserPropertyManagerPage;
+	};
+};

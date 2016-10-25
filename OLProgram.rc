@@ -1,0 +1,344 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_NEUTRAL
+#pragma code_page(936)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_PROJNAME            "OLProgram"
+    IDS_TOOLBAR_TITLE       "OLProgram"
+    IDS_TOOLBAR_TIP_PATHEXPORT "路径输出"
+    IDS_TOOLBAR_HINT_PATHEXPORT "输出路径坐标点"
+    IDS_TOOLBAR_PMPHINT_CALPATH "计算管件贯穿孔切割路径"
+    IDS_MENU_HINT           "管件切割插件"
+    IDS_TOOLBAR_PMPTIP_CALPATH "计算路径"
+    IDS_PMP_TITLE           "切割路径计算"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_FLYOUT_CALLBACK     "FlyoutCallback"
+    IDS_FLYOUT_CALLBACK0    "FlyoutCallback0"
+    IDS_FLYOUT_CALLBACK1    "FlyoutCallback1"
+    IDS_FLYOUT_ENABLE0      "FlyoutEnable0"
+    IDS_FLYOUT_HINT0        "Opens notepad.exe"
+    IDS_FLYOUT_HINT1        "Shows a flyout dialog box"
+    IDS_FLYOUT_TIP0         "Open notepad.exe"
+    IDS_FLYOUT_TIP1         "Show a flyout dialog"
+    IDS_FLYOUT_ENABLE_CALLBACK0 "FlyoutEnableCallback0"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PMP_GROUP1_TITLE    "选择大管外表面"
+    IDS_PMP_LABEL1_CAPTION  "This is a sample Label"
+    IDS_PMP_GROUP2_TITLE    "Group2"
+    IDS_PMP_OPTION2_CAPTION "Option 2"
+    IDS_PMP_OPTION3_CAPTION "Option 3"
+    IDS_PMP_TEXT1_CAPTION   "Sample Textbox"
+    IDS_PMP_LIST1_CAPTION   "EMPTY"
+    IDS_PMP_SELECT_FACE_BASETUBE "选择管外表面"
+    IDS_PMP_NUM1_CAPTION    "EMPTY"
+    IDS_PMP_COMBO1_CAPTION  "EMPTY"
+    IDS_PMP_CHECK1_TIP      "This is a sample checkbox"
+    IDS_PMP_OPTION1_TIP     "This is a sample option"
+    IDS_PMP_OPTION2_TIP     "This is a sample option"
+    IDS_PMP_OPTION3_TIP     "This is a sample option"
+    IDS_PMP_TEXT1_TIP       "You can enter text information into this control"
+    IDS_PMP_LIST1_TIP       "You can select one of these items"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PMP_SELECTTIP_BASETUBEFACE "此控件用于选择管件外表面"
+    IDS_PMP_NUM1_TIP        "This control allows you to enter numbers"
+    IDS_PMP_CHECK1_CAPTION  "Sample Checkbox"
+    IDS_PMP_OPTION1_CAPTION "Option 1"
+    IDS_PMP_COMBO1_TIP      "EMPTY"
+    IDS_PMP_SELECT_EDGE_HOLE "选择孔边线"
+    IDS_PMP_SELECTTIP_HOLEEDGE "此控件用于选择所有的孔边缘线"
+    IDS_PMP_BUTTON_CALCUL   "计算切割路径"
+    IDS_PMP_BUTTONTIP_CALCUL "计算路径点"
+    IDS_PMP_BUTTON_SETPARAM "参数设置"
+    IDS_PMP_BUTTONTIP_SETPARAM "设置切割工艺参数"
+    IDS_PMP_BUTTON_PATHEXPORT "路径输出"
+    IDS_PMP_BUTTONTIP_PATHEXPORT "输出切割路径"
+    IDS_PMP_BUTTON_CLEARPATH "清除所有路径"
+    IDS_PMP_BUTTONTIP_CLEARPATH "清除当前文档的所有路径"
+END
+
+#endif    // 中文(简体) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_BUILDTUBE DIALOGEX 0, 0, 239, 221
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "管件建模"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,64,192,50,14
+    PUSHBUTTON      "取消",IDCANCEL,127,192,50,14
+    CTEXT           "直径",IDC_STATIC_TUBEDIA,14,22,21,12
+    CTEXT           "壁厚",IDC_STATIC_TUBETHICK,87,22,21,12
+    EDITTEXT        IDC_EDIT_TUBEDIA,35,20,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_TUBETHICK,109,20,40,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_LIST3,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,104,225,83
+    GROUPBOX        "管道参数（毫米）",IDC_STATIC,7,7,225,35
+    GROUPBOX        "",IDC_STATIC,161,14,67,21
+    CTEXT           "长度",IDC_STATIC_TUBELENGTH,163,22,21,10
+    GROUPBOX        "",IDC_STATIC,11,14,67,21
+    GROUPBOX        "",IDC_STATIC,86,14,67,21
+    EDITTEXT        IDC_EDIT_TUBELENGTH,185,20,40,12,ES_AUTOHSCROLL
+    GROUPBOX        "割孔参数（毫米&&度）",IDC_STATIC,7,47,225,54
+    CTEXT           "割孔直径",IDC_STATIC_TUBEDIA2,14,63,33,12
+    CTEXT           "X向距离",IDC_STATIC_TUBETHICK2,87,63,34,12
+    EDITTEXT        IDC_EDIT_HOLEDIA,50,61,25,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_HOLEXOFFSET,124,61,25,12,ES_AUTOHSCROLL
+    GROUPBOX        "",IDC_STATIC,161,55,67,21
+    CTEXT           "轴心距离",IDC_STATIC_TUBELENGTH2,163,63,35,10
+    GROUPBOX        "",IDC_STATIC,11,55,67,21
+    GROUPBOX        "",IDC_STATIC,86,55,67,21
+    EDITTEXT        IDC_EDIT_HOLEZOFFSET,200,61,25,12,ES_AUTOHSCROLL
+    GROUPBOX        "",IDC_STATIC,11,76,67,21
+    CTEXT           "贯穿角度",IDC_STATIC_TUBELENGTH3,14,84,35,10
+    EDITTEXT        IDC_EDIT_HOLETHROUGHANG,50,83,25,12,ES_AUTOHSCROLL
+    GROUPBOX        "",IDC_STATIC,86,76,67,21
+    CTEXT           "旋转角度",IDC_STATIC_TUBELENGTH4,87,84,35,10
+    EDITTEXT        IDC_EDIT_HOLEROTANG,124,83,25,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "添加孔",IDC_BUTTON_HOLEADD,166,80,58,16
+END
+
+IDD_DIALOG_PARAM DIALOGEX 0, 0, 181, 136
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "工艺参数设置"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,32,115,50,14
+    PUSHBUTTON      "取消",IDCANCEL,100,115,50,14
+    CTEXT           "坡口角度",IDC_STATIC_CUTANGLE,34,10,40,14,SS_CENTERIMAGE
+    CTEXT           "坡口深度",IDC_STATIC_CUTWIDTH,34,26,40,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CUTANGLE,78,10,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CUTWIDTH,78,26,40,14,ES_AUTOHSCROLL
+    CTEXT           "度",IDC_STATIC,126,12,17,8
+    LTEXT           "毫米",IDC_STATIC,126,28,17,8
+    CONTROL         "坡口单独切割",IDC_CHECK_TWICECUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,96,64,10
+    CTEXT           "弓高精度",IDC_STATIC_CHODTOL,33,58,40,14,SS_CENTERIMAGE
+    CTEXT           "步长精度",IDC_STATIC_STEPTOL,33,74,40,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_CHODTOL,77,58,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_STEPTOL,77,74,40,14,ES_AUTOHSCROLL
+    CTEXT           "毫米",IDC_STATIC,125,60,17,8
+    LTEXT           "毫米",IDC_STATIC,125,76,17,8
+    CTEXT           "刀头悬空距离",IDC_STATIC_TOOLDIS,29,42,46,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_TOOLDIS,78,42,40,14,ES_AUTOHSCROLL
+    LTEXT           "毫米",IDC_STATIC,126,44,17,8
+END
+
+IDD_DIALOG_EXPORT DIALOGEX 0, 0, 133, 127
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "输出设置"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "X向顺序加工",IDC_RADIO_XDIR,"Button",BS_AUTORADIOBUTTON | WS_GROUP,31,28,60,10
+    CONTROL         "管转角顺序加工",IDC_RADIO_ROTANGDIR,"Button",BS_AUTORADIOBUTTON,31,51,72,10
+    CONTROL         "孔添加顺序加工",IDC_RADIO_CUSTOM,"Button",BS_AUTORADIOBUTTON,31,74,72,10
+    GROUPBOX        "孔加工顺序",IDC_STATIC,23,13,87,80
+    DEFPUSHBUTTON   "输出路径",IDOK,11,99,50,14
+    PUSHBUTTON      "取消",IDCANCEL,73,99,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG_BUILDTUBE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 232
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 214
+    END
+
+    IDD_DIALOG_PARAM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 174
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 129
+    END
+
+    IDD_DIALOG_EXPORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 126
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 120
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 英语(美国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// REGISTRY
+//
+
+IDR_SWDOCUMENT          REGISTRY                "SwDocument.rgs"
+IDR_DOCVIEW             REGISTRY                "DocView.rgs"
+IDR_BITMAPHANDLER       REGISTRY                "BitmapHandler.rgs"
+IDR_PMPAGEHANDLER       REGISTRY                "PMPageHandler.rgs"
+IDR_USERPROPERTYMANAGERPAGE REGISTRY                "UserPropertyManagerPage.rgs"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_ICON_LARGE          BITMAP                  "MainIconLarge.bmp"
+IDB_ICON_SMALL          BITMAP                  "MainIconSmall.bmp"
+IDB_TOOLBAR_LARGE       BITMAP                  "toolbar_large.bmp"
+IDB_TOOLBAR_SMALL       BITMAP                  "toolbar_small.bmp"
+#endif    // 英语(美国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 英语(英国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// REGISTRY
+//
+
+IDR_OLProgram           REGISTRY                "OLProgram.rgs"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "1 TYPELIB ""OLProgram.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "TODO: <Company name>"
+            VALUE "FileDescription", "TODO: <File description>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
+            VALUE "InternalName", "OLProgram.dll"
+            VALUE "OriginalFilename", "OLProgram.dll"
+            VALUE "ProductName", "TODO: <Product name>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+#endif    // 英语(英国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+1 TYPELIB "OLProgram.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,9 @@
+; OLProgram.def : Declares the module parameters.
+
+LIBRARY      "OLProgram.DLL"
+
+EXPORTS
+	DllCanUnloadNow		PRIVATE
+	DllGetClassObject	PRIVATE
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE

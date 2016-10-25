@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OLProgram", "OLProgram.vcxproj", "{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release MinDependency|Win32 = Release MinDependency|Win32
+		Release MinDependency|x64 = Release MinDependency|x64
+		Release MinSize|Win32 = Release MinSize|Win32
+		Release MinSize|x64 = Release MinSize|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+		ShoeEduDebug|Win32 = ShoeEduDebug|Win32
+		ShoeEduDebug|x64 = ShoeEduDebug|x64
+		Unicode Debug|Win32 = Unicode Debug|Win32
+		Unicode Debug|x64 = Unicode Debug|x64
+		Unicode Release MinDependency|Win32 = Unicode Release MinDependency|Win32
+		Unicode Release MinDependency|x64 = Unicode Release MinDependency|x64
+		Unicode Release MinSize|Win32 = Unicode Release MinSize|Win32
+		Unicode Release MinSize|x64 = Unicode Release MinSize|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Debug|Win32.Build.0 = Debug|Win32
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Debug|x64.ActiveCfg = Debug|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Debug|x64.Build.0 = Debug|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release MinDependency|Win32.ActiveCfg = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release MinDependency|x64.ActiveCfg = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release MinDependency|x64.Build.0 = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release MinSize|Win32.ActiveCfg = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release MinSize|x64.ActiveCfg = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release MinSize|x64.Build.0 = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release|Win32.ActiveCfg = Release|Win32
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release|Win32.Build.0 = Release|Win32
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release|x64.ActiveCfg = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release|x64.Build.0 = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.ShoeEduDebug|Win32.ActiveCfg = Debug|Win32
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.ShoeEduDebug|Win32.Build.0 = Debug|Win32
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.ShoeEduDebug|x64.ActiveCfg = Debug|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.ShoeEduDebug|x64.Build.0 = Debug|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Unicode Debug|Win32.ActiveCfg = Debug|Win32
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Unicode Debug|Win32.Build.0 = Debug|Win32
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Unicode Debug|x64.ActiveCfg = Debug|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Unicode Debug|x64.Build.0 = Debug|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Unicode Release MinDependency|Win32.ActiveCfg = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Unicode Release MinDependency|x64.ActiveCfg = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Unicode Release MinDependency|x64.Build.0 = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Unicode Release MinSize|Win32.ActiveCfg = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Unicode Release MinSize|x64.ActiveCfg = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Unicode Release MinSize|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

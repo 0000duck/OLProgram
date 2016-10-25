@@ -1,0 +1,27 @@
+HKCR
+{
+	OLProgram.DocView.1 = s 'DocView Class'
+	{
+		CLSID = s '{F861E05B-FBCB-42B2-971F-F388D08EB1DC}'
+	}
+	OLProgram.DocView = s 'DocView Class'
+	{
+		CLSID = s '{F861E05B-FBCB-42B2-971F-F388D08EB1DC}'
+		CurVer = s 'OLProgram.DocView.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {F861E05B-FBCB-42B2-971F-F388D08EB1DC} = s 'DocView Class'
+		{
+			ProgID = s 'OLProgram.DocView.1'
+			VersionIndependentProgID = s 'OLProgram.DocView'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{7A362735-8465-41E4-A7F6-D780C4C58378}'
+		}
+	}
+}

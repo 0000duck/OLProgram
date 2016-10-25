@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="COLProgramModule" Collapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram_module.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="COLProgramApp" Collapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram_module.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CBitmapHandler" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAEACAAAAgAAAAAAAAAAAQAAAJAAAAAAAAAAgA=</HashCode>
+      <FileName>BitmapHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CDocView" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgAACAAAAIAAAAAAAAAAACAAAAAJAAQACABAAAAI=</HashCode>
+      <FileName>DocView.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CHoleParam" Collapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EABAIgAAAEAAAAgABgFAAAAAAABAAAAAAAMAAEAAIIA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CHCombParam" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECABABAGAAAAAQIgAAAAAAAAAEACAACAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPathNode" Collapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEEAAAAAAAAAAQAAAAAAQABABAAAAAAEgAADAAAAAAI=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CMovePath" Collapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAgAACACAAAEAAAABAAAIAAAAAAAAEAgAAIkBAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPathComb" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAQAAAAAAAAAAAAAAQAAAAAAAAQAAAAAAAIAFAAEAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPathCombList" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkAAAAAAAAAAAAAEBAAAAAKAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="COLProgram" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQA+EhKSAAABMAGAQCARQBBUwAiGoBAgAhyhALCm4I=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPMPageHandler" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ERJBgAAAgAAAAESIIBVCAkAUigWdQIJEAAIihRAwIMA=</HashCode>
+      <FileName>PMPageHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSwDocument" Collapsed="true">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACgAESAAIYAYBAAAAAABABAUAJAAFAAAAiABBAAAI=</HashCode>
+      <FileName>SwDocument.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CUserPropertyManagerPage" Collapsed="true">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAgAgAAAAIBAAAAAQAACAAADREAABIAHBiIDBAAIE=</HashCode>
+      <FileName>UserPropertyManagerPage.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CBuildTubeDlg" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAIAAEAgKAgAAAAABAAAQAiECAAIAACABQGAACgAAA=</HashCode>
+      <FileName>BuildTubeDlg.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CCutParamDlg" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAIAAAQAABSAAAAIACAAAAIAAAAEgQAAAAA=</HashCode>
+      <FileName>CutParamDlg.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CExportDlg" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEEABAAAAAAABAAAQAAACAAAAAAAAAAAAAgEBA=</HashCode>
+      <FileName>ExportDlg.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="_ref_fm3d" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAYAE=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="_IID" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAACAQABAAAAAAAA=</HashCode>
+      <FileName>OLProgram_i.c</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IOLProgramVtbl" Collapsed="true">
+    <Position X="10.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAIAQAAJBAAAAACABAAAAwAAigAAAAAQABAAAIA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ISwDocumentVtbl" Collapsed="true">
+    <Position X="14" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAJBAAAAAAAAAAAAQAAgAAAAAAAABAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IDocViewVtbl" Collapsed="true">
+    <Position X="8.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAJBAAAAAAAAAAAAQAAgAAAAAAAABAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IBitmapHandlerVtbl" Collapsed="true">
+    <Position X="7" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIIAACAJBAAAAAAAAAAAAQAAgAAAAAAAABAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IPMPageHandlerVtbl" Collapsed="true">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAJBAAAAAAAAAAAAQAAgAAAAAAAABAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IUserPropertyManagerPageVtbl" Collapsed="true">
+    <Position X="7" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAJBAAAAAAAAAAAAQAAgAAAAAAAABAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="PNT3D" Collapsed="true">
+    <Position X="7" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="VEC3D" Collapsed="true">
+    <Position X="7" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="RFRAME" Collapsed="true">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LHParamList" Collapsed="true">
+    <Position X="12.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LHCombParamList" Collapsed="true">
+    <Position X="10.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LNodeList" Collapsed="true">
+    <Position X="14" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPathList" Collapsed="true">
+    <Position X="10.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPathCombList" Collapsed="true">
+    <Position X="7" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPathEntityList" Collapsed="true">
+    <Position X="8.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="TMapIUnknownToDocument" Collapsed="true">
+    <Position X="10.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="TMapIUnknownToModelView" Collapsed="true">
+    <Position X="12.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SwDocument.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="IID" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram_i.c</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="CLSID" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram_i.c</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="OLProgram" Collapsed="true">
+    <Position X="12.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="SwDocument" Collapsed="true">
+    <Position X="8.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DocView" Collapsed="true">
+    <Position X="8.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BitmapHandler" Collapsed="true">
+    <Position X="7" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PMPageHandler" Collapsed="true">
+    <Position X="14" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="UserPropertyManagerPage" Collapsed="true">
+    <Position X="14" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OLProgram_i.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

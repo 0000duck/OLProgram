@@ -1,0 +1,57 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'OLProgram'
+		'OLProgram.DLL'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}
+
+HKCR
+{
+	OLProgram.SwAddin.1 = s 'SwAddin Class'
+	{
+		CLSID = s '{3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545}'
+	}
+	OLProgram.SwAddin = s 'SwAddin Class'
+	{
+		CLSID = s '{3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545}'
+		CurVer = s 'OLProgram.SwAddin.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545} = s 'SwAddin Class'
+		{
+			ProgID = s 'OLProgram.SwAddin.1'
+			VersionIndependentProgID = s 'OLProgram.SwAddin'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{7A362735-8465-41E4-A7F6-D780C4C58378}'
+		}
+	}
+}
+
+HKLM
+{
+	NoRemove SOFTWARE
+	{
+		NoRemove SolidWorks
+		{
+			NoRemove AddIns
+			{
+				ForceRemove {3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545} = d '0'
+				{
+					val Description = s 'OLProgram AddIn'
+					val Title = s 'OLProgram'
+				}
+			}
+		}
+	}
+}

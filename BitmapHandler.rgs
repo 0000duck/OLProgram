@@ -1,0 +1,27 @@
+HKCR
+{
+	OLProgram.BitmapHandler.1 = s 'BitmapHandler Class'
+	{
+		CLSID = s '{E10E72D0-04C5-4EA1-B841-8DA6152B2DF0}'
+	}
+	OLProgram.BitmapHandler = s 'BitmapHandler Class'
+	{
+		CLSID = s '{E10E72D0-04C5-4EA1-B841-8DA6152B2DF0}'
+		CurVer = s 'OLProgram.BitmapHandler.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {E10E72D0-04C5-4EA1-B841-8DA6152B2DF0} = s 'BitmapHandler Class'
+		{
+			ProgID = s 'OLProgram.BitmapHandler.1'
+			VersionIndependentProgID = s 'OLProgram.BitmapHandler'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{7A362735-8465-41E4-A7F6-D780C4C58378}'
+		}
+	}
+}
