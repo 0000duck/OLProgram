@@ -1685,7 +1685,7 @@ void COLProgram::ExportPathToTXT()
 			//step1:将路径点坐标从基线坐标系转换到沿X轴平移后的坐标系。
 			TransWorldPath(ChangeFrame, pMovePath);
 			//step2:将平移后的坐标系旋转dRotAng，路径点跟着旋转，所以旋转后点坐标不发生改变。
-		//	mathRotateRFrame(ChangeFrame.O,ChangeFrame.X,dRotAng,ChangeFrame);
+			mathRotateRFrame(ChangeFrame.O,ChangeFrame.X,dRotAng,ChangeFrame);
 			//step3:将旋转后的坐标系中的路径点坐标转换到基线坐标系中。
 			TransLocalPath(ChangeFrame,pMovePath);
 			//step4:将基线坐标系中的坐标转换到平移X后的坐标系中。
