@@ -1277,59 +1277,6 @@ STDMETHODIMP CEliteSoftWare::ToolbarEnableBuildTube(long* status)
 	return S_OK;
 }
 
-STDMETHODIMP CEliteSoftWare::FlyoutCallback(void)
-{
-	CComBSTR tip;
-	CComBSTR callback;
-	CComBSTR enable;
-	CComBSTR hint;
-	CComPtr<IFlyoutGroup> flyGroup;
-	
-	HRESULT hr = iCmdMgr->GetFlyoutGroup(FLYOUT_GROUP_ID, &flyGroup);
-	flyGroup->RemoveAllCommandItems();
-	
-	callback.LoadString(IDS_FLYOUT_CALLBACK0);	
-	enable.LoadString(IDS_FLYOUT_ENABLE_CALLBACK0);
-	hint.LoadString(IDS_FLYOUT_HINT0);
-	long cmdCount;
-	flyGroup->AddCommandItem(GetCurrentFile(), hint, 0, callback, enable, &cmdCount);
-
-	callback.LoadString(IDS_FLYOUT_CALLBACK1);
-	enable.LoadString(IDS_FLYOUT_ENABLE_CALLBACK0);
-	hint.LoadString(IDS_FLYOUT_HINT1);
-	flyGroup->AddCommandItem(L"FlyoutCommand 1", hint, 0, callback, enable, &cmdCount);
-
-	return S_OK;
-}
-
-STDMETHODIMP CEliteSoftWare::FlyoutCallback0(void)
-{
-	// TODO: Add your implementation code here
-	::WinExec("Notepad.exe", SW_SHOW);
-	return S_OK;
-}
-
-STDMETHODIMP CEliteSoftWare::FlyoutCallback1(void)
-{
-	// TODO: Add your implementation code here
-	
-	return S_OK;
-}
-
-STDMETHODIMP CEliteSoftWare::FlyoutEnable0(long* status)
-{
-	// TODO: Add your implementation code here
-	*status = 1;
-	return S_OK;
-}
-
-STDMETHODIMP CEliteSoftWare::FlyoutEnableCallback0(long* status)
-{
-	// TODO: Add your implementation code here
-	*status = 1;
-	return S_OK;
-}
-
 BSTR CEliteSoftWare::GetCurrentFile()
 {	
 	BSTR ret = SysAllocString(L"No File Currently Open");

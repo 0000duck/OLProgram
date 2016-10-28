@@ -37,53 +37,21 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_FLYOUT_CALLBACK     "FlyoutCallback"
-    IDS_FLYOUT_CALLBACK0    "FlyoutCallback0"
-    IDS_FLYOUT_CALLBACK1    "FlyoutCallback1"
-    IDS_FLYOUT_ENABLE0      "FlyoutEnable0"
-    IDS_FLYOUT_HINT0        "Opens notepad.exe"
-    IDS_FLYOUT_HINT1        "Shows a flyout dialog box"
-    IDS_FLYOUT_TIP0         "Open notepad.exe"
-    IDS_FLYOUT_TIP1         "Show a flyout dialog"
-    IDS_FLYOUT_ENABLE_CALLBACK0 "FlyoutEnableCallback0"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_PMP_GROUP1_TITLE    "选择大管外表面"
-    IDS_PMP_GROUP2_TITLE    "Group2"
-    IDS_PMP_OPTION2_CAPTION "Option 2"
-    IDS_PMP_OPTION3_CAPTION "Option 3"
-    IDS_PMP_TEXT1_CAPTION   "Sample Textbox"
-    IDS_PMP_LIST1_CAPTION   "EMPTY"
+    IDS_PMP_GROUP1_TITLE    "选择管外表面"
     IDS_PMP_SELECT_FACE_BASETUBE "选择管外表面"
-    IDS_PMP_NUM1_CAPTION    "EMPTY"
-    IDS_PMP_COMBO1_CAPTION  "EMPTY"
-    IDS_PMP_CHECK1_TIP      "This is a sample checkbox"
-    IDS_PMP_OPTION1_TIP     "This is a sample option"
-    IDS_PMP_OPTION2_TIP     "This is a sample option"
-    IDS_PMP_OPTION3_TIP     "This is a sample option"
-    IDS_PMP_TEXT1_TIP       "You can enter text information into this control"
-    IDS_PMP_LIST1_TIP       "You can select one of these items"
 END
 
 STRINGTABLE
 BEGIN
-    IDS_PMP_SELECTTIP_BASETUBEFACE "此控件用于选择管件外表面"
-    IDS_PMP_NUM1_TIP        "This control allows you to enter numbers"
-    IDS_PMP_CHECK1_CAPTION  "Sample Checkbox"
-    IDS_PMP_OPTION1_CAPTION "Option 1"
-    IDS_PMP_COMBO1_TIP      "EMPTY"
+    IDS_PMP_SELECTTIP_BASETUBEFACE "此控件用于选择管件外表面。"
     IDS_PMP_SELECT_EDGE_HOLE "选择孔边线"
-    IDS_PMP_SELECTTIP_HOLEEDGE "此控件用于选择所有的孔边缘线"
+    IDS_PMP_SELECTTIP_HOLEEDGE "此控件用于选择所有的孔边缘线。"
     IDS_PMP_BUTTON_CALCUL   "计算切割路径"
     IDS_PMP_BUTTONTIP_CALCUL "计算路径点"
     IDS_PMP_BUTTON_SETPARAM "参数设置"
-    IDS_PMP_BUTTONTIP_SETPARAM "设置切割工艺参数"
-    IDS_PMP_BUTTON_PATHEXPORT "路径输出"
-    IDS_PMP_BUTTONTIP_PATHEXPORT "输出切割路径"
+    IDS_PMP_BUTTONTIP_SETPARAM "设置切割工艺参数。"
     IDS_PMP_BUTTON_CLEARPATH "清除所有路径"
-    IDS_PMP_BUTTONTIP_CLEARPATH "清除当前文档的所有路径"
+    IDS_PMP_BUTTONTIP_CLEARPATH "清除当前文档的所有路径。"
 END
 
 #endif    // 中文(简体) resources
@@ -113,7 +81,7 @@ BEGIN
     CTEXT           "壁厚",IDC_STATIC_TUBETHICK,87,22,21,12
     EDITTEXT        IDC_EDIT_TUBEDIA,35,20,40,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_TUBETHICK,109,20,40,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_LIST3,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,104,225,83
+    CONTROL         "",IDC_LIST_HPARAM,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,104,225,83
     GROUPBOX        "管道参数（毫米）",IDC_STATIC,7,7,225,35
     GROUPBOX        "",IDC_STATIC,161,14,67,21
     CTEXT           "长度",IDC_STATIC_TUBELENGTH,163,22,21,10
@@ -121,20 +89,20 @@ BEGIN
     GROUPBOX        "",IDC_STATIC,86,14,67,21
     EDITTEXT        IDC_EDIT_TUBELENGTH,185,20,40,12,ES_AUTOHSCROLL
     GROUPBOX        "割孔参数（毫米&&度）",IDC_STATIC,7,47,225,54
-    CTEXT           "割孔直径",IDC_STATIC_TUBEDIA2,14,63,33,12
-    CTEXT           "X向距离",IDC_STATIC_TUBETHICK2,87,63,34,12
+    CTEXT           "割孔直径",IDC_STATIC_HDIA,14,63,33,12
+    CTEXT           "X向距离",IDC_STATIC_XOFFSET,87,63,34,12
     EDITTEXT        IDC_EDIT_HOLEDIA,50,61,25,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_HOLEXOFFSET,124,61,25,12,ES_AUTOHSCROLL
     GROUPBOX        "",IDC_STATIC,161,55,67,21
-    CTEXT           "轴心距离",IDC_STATIC_TUBELENGTH2,163,63,35,10
+    CTEXT           "轴心距离",IDC_STATIC_CDIS,163,63,35,10
     GROUPBOX        "",IDC_STATIC,11,55,67,21
     GROUPBOX        "",IDC_STATIC,86,55,67,21
     EDITTEXT        IDC_EDIT_HOLEZOFFSET,200,61,25,12,ES_AUTOHSCROLL
     GROUPBOX        "",IDC_STATIC,11,76,67,21
-    CTEXT           "贯穿角度",IDC_STATIC_TUBELENGTH3,14,84,35,10
+    CTEXT           "贯穿角度",IDC_STATIC_TANG,14,84,35,10
     EDITTEXT        IDC_EDIT_HOLETHROUGHANG,50,83,25,12,ES_AUTOHSCROLL
     GROUPBOX        "",IDC_STATIC,86,76,67,21
-    CTEXT           "旋转角度",IDC_STATIC_TUBELENGTH4,87,84,35,10
+    CTEXT           "旋转角度",IDC_STATIC_RANG,87,84,35,10
     EDITTEXT        IDC_EDIT_HOLEROTANG,124,83,25,12,ES_AUTOHSCROLL
     PUSHBUTTON      "添加孔",IDC_BUTTON_HOLEADD,166,80,58,16
 END
@@ -232,7 +200,7 @@ IDR_SWDOCUMENT          REGISTRY                "SwDocument.rgs"
 IDR_DOCVIEW             REGISTRY                "DocView.rgs"
 IDR_BITMAPHANDLER       REGISTRY                "BitmapHandler.rgs"
 IDR_PMPAGEHANDLER       REGISTRY                "PMPageHandler.rgs"
-IDR_USERPROPERTYMANAGERPAGE REGISTRY                "UserPropertyManagerPage.rgs"
+IDR_USERPROPERTYMANAGERPAGE REGISTRY            "UserPropertyManagerPage.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //

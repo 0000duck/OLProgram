@@ -37,12 +37,11 @@ private:
 	CComPtr<ICommandManager> iCmdMgr;
 	CComObject<CBitmapHandler> *iBmp;
 	long addinID;
-	long toolbarID;
 	long m_swMajNum;
 	long m_swMinNum;
 public:
-	LPathEntityList m_LPathEntityList;
-	LHCombParamList  m_LHoleParamList;
+	LPathEntityList m_LPathEntityList; // 软件所有的路径集合
+	LHCombParamList  m_LHoleParamList; // 软件所有的孔参数集合
 	int m_nExportOrder; // 标记路径输出排序方式
 
 //This mapping will contain references to all open Documents, and ensure 
@@ -151,11 +150,6 @@ public:
 	STDMETHOD(ToolbarEnablePathExport)(long* status);
 	STDMETHOD(ToolbarBuildTube)(void);
 	STDMETHOD(ToolbarEnableBuildTube)(long* status);
-	STDMETHOD(FlyoutCallback)(void);
-	STDMETHOD(FlyoutCallback0)(void);
-	STDMETHOD(FlyoutCallback1)(void);
-	STDMETHOD(FlyoutEnable0)(long* status);
-	STDMETHOD(FlyoutEnableCallback0)(long* status);
 	STDMETHOD(GeneratePath)(void);
 	STDMETHOD(EnableGeneratePath)(long* status);
 };

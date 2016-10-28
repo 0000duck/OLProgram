@@ -16,17 +16,12 @@ import "ocidl.idl";
 	pointer_default(unique)
 ]
 interface IEliteSoftWare : IDispatch{
-	[id(3), helpstring("method ToolbarCallback0")] HRESULT ToolbarCallbackPathExport();
-	[id(4), helpstring("method ToolbarEnable0")] HRESULT ToolbarEnablePathExport([out, retval] long* status);
-		[id(5), helpstring("method ShowPMP")] HRESULT GeneratePath();
-	[id(6), helpstring("method EnablePMP")] HRESULT EnableGeneratePath([out, retval] long* status);
-		[id(7), helpstring("method FlyoutCallback")] HRESULT FlyoutCallback();
-	[id(8), helpstring("method FlyoutCallback0")] HRESULT FlyoutCallback0();
-	[id(9), helpstring("method FlyoutCallback1")] HRESULT FlyoutCallback1();
-	[id(10), helpstring("method FlyoutEnable0")] HRESULT FlyoutEnable0([out, retval] long* status);
-	[id(11), helpstring("method FlyoutEnableCallback0")] HRESULT FlyoutEnableCallback0([out, retval] long* status);
-	[id(12), helpstring("method ToolbarBuildTube")] HRESULT ToolbarBuildTube();
-	[id(13), helpstring("method ToolbarEnableBuildTube")] HRESULT ToolbarEnableBuildTube([out, retval] long* status);
+	[id(3), helpstring("method ToolbarCallbackPathExport")] HRESULT ToolbarCallbackPathExport();
+	[id(4), helpstring("method ToolbarEnablePathExport")] HRESULT ToolbarEnablePathExport([out, retval] long* status);
+	[id(5), helpstring("method GeneratePath")] HRESULT GeneratePath();
+	[id(6), helpstring("method EnableGeneratePath")] HRESULT EnableGeneratePath([out, retval] long* status);
+	[id(7), helpstring("method ToolbarBuildTube")] HRESULT ToolbarBuildTube();
+	[id(8), helpstring("method ToolbarEnableBuildTube")] HRESULT ToolbarEnableBuildTube([out, retval] long* status);
 };
 [
 	object,

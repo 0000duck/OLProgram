@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Fri Oct 28 11:18:15 2016
+/* at Fri Oct 28 16:29:17 2016
  */
 /* Compiler settings for EliteSoftWare.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
@@ -187,18 +187,6 @@ EXTERN_C const IID IID_IEliteSoftWare;
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE EnableGeneratePath( 
             /* [retval][out] */ long *status) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE FlyoutCallback( void) = 0;
-        
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE FlyoutCallback0( void) = 0;
-        
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE FlyoutCallback1( void) = 0;
-        
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE FlyoutEnable0( 
-            /* [retval][out] */ long *status) = 0;
-        
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE FlyoutEnableCallback0( 
-            /* [retval][out] */ long *status) = 0;
-        
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ToolbarBuildTube( void) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ToolbarEnableBuildTube( 
@@ -267,23 +255,6 @@ EXTERN_C const IID IID_IEliteSoftWare;
             IEliteSoftWare * This,
             /* [retval][out] */ long *status);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *FlyoutCallback )( 
-            IEliteSoftWare * This);
-        
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *FlyoutCallback0 )( 
-            IEliteSoftWare * This);
-        
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *FlyoutCallback1 )( 
-            IEliteSoftWare * This);
-        
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *FlyoutEnable0 )( 
-            IEliteSoftWare * This,
-            /* [retval][out] */ long *status);
-        
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *FlyoutEnableCallback0 )( 
-            IEliteSoftWare * This,
-            /* [retval][out] */ long *status);
-        
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *ToolbarBuildTube )( 
             IEliteSoftWare * This);
         
@@ -338,21 +309,6 @@ EXTERN_C const IID IID_IEliteSoftWare;
 
 #define IEliteSoftWare_EnableGeneratePath(This,status)	\
     ( (This)->lpVtbl -> EnableGeneratePath(This,status) ) 
-
-#define IEliteSoftWare_FlyoutCallback(This)	\
-    ( (This)->lpVtbl -> FlyoutCallback(This) ) 
-
-#define IEliteSoftWare_FlyoutCallback0(This)	\
-    ( (This)->lpVtbl -> FlyoutCallback0(This) ) 
-
-#define IEliteSoftWare_FlyoutCallback1(This)	\
-    ( (This)->lpVtbl -> FlyoutCallback1(This) ) 
-
-#define IEliteSoftWare_FlyoutEnable0(This,status)	\
-    ( (This)->lpVtbl -> FlyoutEnable0(This,status) ) 
-
-#define IEliteSoftWare_FlyoutEnableCallback0(This,status)	\
-    ( (This)->lpVtbl -> FlyoutEnableCallback0(This,status) ) 
 
 #define IEliteSoftWare_ToolbarBuildTube(This)	\
     ( (This)->lpVtbl -> ToolbarBuildTube(This) ) 

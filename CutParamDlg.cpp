@@ -17,7 +17,7 @@ CCutParamDlg::CCutParamDlg(CWnd* pParent /*=NULL*/)
 	, m_bTwiceCut(TRUE)
 	, m_dChodTol(0.01)
 	, m_dStepTol(0.01)
-	, m_dToolDis(3)
+	, m_dToolDis(3.)
 {
 }
 

@@ -64,9 +64,6 @@ public:
 		COM_INTERFACE_ENTRY(IPropertyManagerPage2Handler9)
 	END_COM_MAP()
 
-
-
-
 	// IPMPageHandler
 public:
 	void CalMovePath();  // ¼ÆËãÂ·¾¶

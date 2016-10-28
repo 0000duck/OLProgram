@@ -6,8 +6,6 @@
 #include "BuildTubeDlg.h"
 #include "afxdialogex.h"
 
-extern void TrimZeroForCSring(CString& str);
-
 // CBuildTubeDlg ¶Ô»°¿ò
 IMPLEMENT_DYNAMIC(CBuildTubeDlg, CDialogEx)
 
@@ -40,7 +38,7 @@ void CBuildTubeDlg::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxDouble(pDX, m_dTubeThick, 0.0000001, 10000000);
 	DDX_Text(pDX, IDC_EDIT_TUBELENGTH, m_dTubeLength);
 	DDV_MinMaxDouble(pDX, m_dTubeLength, 0.0000001, 10000000);
-	DDX_Control(pDX, IDC_LIST3, CHParamListCtrl);
+	DDX_Control(pDX, IDC_LIST_HPARAM, CHParamListCtrl);
 	DDX_Text(pDX, IDC_EDIT_HOLEDIA, m_dHoleDia);
 	DDV_MinMaxDouble(pDX, m_dHoleDia, 0.0000001, 100000000);
 	DDX_Text(pDX, IDC_EDIT_HOLEXOFFSET, m_dHoleXOffset);
