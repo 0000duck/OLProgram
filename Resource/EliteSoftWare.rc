@@ -70,25 +70,25 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 // Dialog
 //
 
-IDD_DIALOG_BUILDTUBE DIALOGEX 0, 0, 239, 221
+IDD_DIALOG_BUILDTUBE DIALOGEX 0, 0, 421, 298
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "管件建模"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "确定",IDOK,64,192,50,14
-    PUSHBUTTON      "取消",IDCANCEL,127,192,50,14
+    DEFPUSHBUTTON   "确定",IDOK,64,277,50,14
+    PUSHBUTTON      "取消",IDCANCEL,127,277,50,14
     CTEXT           "直径",IDC_STATIC_TUBEDIA,14,22,21,12
     CTEXT           "壁厚",IDC_STATIC_TUBETHICK,87,22,21,12
     EDITTEXT        IDC_EDIT_TUBEDIA,35,20,40,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_TUBETHICK,109,20,40,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_LIST_HPARAM,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,104,225,83
-    GROUPBOX        "管道参数（毫米）",IDC_STATIC,7,7,225,35
+    CONTROL         "",IDC_LIST_HPARAM,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,189,407,83
+    GROUPBOX        "管道参数（毫米）",IDC_STATIC,7,7,407,35
     GROUPBOX        "",IDC_STATIC,161,14,67,21
     CTEXT           "长度",IDC_STATIC_TUBELENGTH,163,22,21,10
     GROUPBOX        "",IDC_STATIC,11,14,67,21
     GROUPBOX        "",IDC_STATIC,86,14,67,21
     EDITTEXT        IDC_EDIT_TUBELENGTH,185,20,40,12,ES_AUTOHSCROLL
-    GROUPBOX        "割孔参数（毫米&&度）",IDC_STATIC,7,47,225,54
+    GROUPBOX        "割孔参数（毫米&&度）",IDC_STATIC,7,47,407,54
     CTEXT           "割孔直径",IDC_STATIC_HDIA,14,63,33,12
     CTEXT           "X向距离",IDC_STATIC_XOFFSET,87,63,34,12
     EDITTEXT        IDC_EDIT_HOLEDIA,50,61,25,12,ES_AUTOHSCROLL
@@ -105,6 +105,7 @@ BEGIN
     CTEXT           "旋转角度",IDC_STATIC_RANG,87,84,35,10
     EDITTEXT        IDC_EDIT_HOLEROTANG,124,83,25,12,ES_AUTOHSCROLL
     PUSHBUTTON      "添加孔",IDC_BUTTON_HOLEADD,166,80,58,16
+    CONTROL         "",IDC_STATIC_PIC,"Static",SS_ETCHEDFRAME,63,131,20,20
 END
 
 IDD_DIALOG_PARAM DIALOGEX 0, 0, 181, 136
@@ -157,9 +158,9 @@ BEGIN
     IDD_DIALOG_BUILDTUBE, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 232
+        RIGHTMARGIN, 414
         TOPMARGIN, 7
-        BOTTOMMARGIN, 214
+        BOTTOMMARGIN, 291
     END
 
     IDD_DIALOG_PARAM, DIALOG
@@ -200,17 +201,17 @@ IDR_SWDOCUMENT          REGISTRY                "SwDocument.rgs"
 IDR_DOCVIEW             REGISTRY                "DocView.rgs"
 IDR_BITMAPHANDLER       REGISTRY                "BitmapHandler.rgs"
 IDR_PMPAGEHANDLER       REGISTRY                "PMPageHandler.rgs"
-IDR_USERPROPERTYMANAGERPAGE REGISTRY            "UserPropertyManagerPage.rgs"
+IDR_USERPROPERTYMANAGERPAGE REGISTRY                "UserPropertyManagerPage.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Bitmap
 //
 
-IDB_ICON_LARGE          BITMAP                  "MainIconLarge.bmp"
-IDB_ICON_SMALL          BITMAP                  "MainIconSmall.bmp"
-IDB_TOOLBAR_LARGE       BITMAP                  "toolbar_large.bmp"
-IDB_TOOLBAR_SMALL       BITMAP                  "toolbar_small.bmp"
+IDB_ICON_LARGE          BITMAP                  "Resource\\bmp\\MainIconLarge.bmp"
+IDB_ICON_SMALL          BITMAP                  "Resource\\bmp\\MainIconSmall.bmp"
+IDB_TOOLBAR_LARGE       BITMAP                  "Resource\\bmp\\toolbar_large.bmp"
+IDB_TOOLBAR_SMALL       BITMAP                  "Resource\\bmp\\toolbar_small.bmp"
 #endif    // 英语(美国) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -227,7 +228,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 // REGISTRY
 //
 
-IDR_ELITESOFTWARE           REGISTRY                "EliteSoftWare.rgs"
+IDR_ELITESOFTWARE       REGISTRY                "EliteSoftWare.rgs"
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////

@@ -71,6 +71,31 @@ BOOL CBuildTubeDlg::OnInitDialog()
 		GetDlgItem(IDC_EDIT_TUBETHICK)->EnableWindow(FALSE);
 		GetDlgItem(IDC_EDIT_TUBELENGTH)->EnableWindow(FALSE);
 	}
+
+
+
+	CBitmap hbmp; 
+	HBITMAP hbitmap; 
+	//将pStatic指向要显示的地方 
+	CStatic *pStaic; 
+	pStaic=(CStatic*)GetDlgItem(IDC_STATIC_PIC); 
+	//装载资源 0.bmp 
+	hbitmap=(HBITMAP)::LoadImage (::AfxGetInstanceHandle(),L"D:\\Git\\Elite\\Elite\\Elite\\Debug\\Resource\\tube.jpg",IMAGE_BITMAP,0,0,LR_LOADFROMFILE|LR_CREATEDIBSECTION); 
+	hbmp.Attach(hbitmap); 
+	//获取图片格式 
+	BITMAP bm; 
+	hbmp.GetBitmap(&bm); 
+	CDC dcMem; 
+	dcMem.CreateCompatibleDC(GetDC()); 
+	CBitmap *poldBitmap=(CBitmap*)dcMem.SelectObject(hbmp); 
+	CRect lRect; 
+	pStaic->GetClientRect(&lRect); 
+	//显示位图 
+	pStaic->GetDC()->StretchBlt(lRect.left ,lRect.top ,lRect.Width(),lRect.Height(),&dcMem,0 ,0,bm.bmWidth,bm.bmHeight,SRCCOPY); 
+	dcMem.SelectObject(&poldBitmap); 
+
+
+
 	UpdateData(FALSE);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }

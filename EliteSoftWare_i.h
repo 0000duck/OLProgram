@@ -4,9 +4,9 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Fri Oct 28 16:29:17 2016
+/* at Fri Oct 28 17:17:13 2016
  */
-/* Compiler settings for EliteSoftWare.idl:
+/* Compiler settings for Resource\EliteSoftWare.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 

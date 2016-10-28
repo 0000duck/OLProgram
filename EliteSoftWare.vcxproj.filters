@@ -1,159 +1,158 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{3847ea5b-b529-4122-99ac-16a4fb72c98c}</UniqueIdentifier>
-      <Extensions>*.*</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{67cc8638-c7e0-4d56-8d13-fd70f53e428f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{252dd9cc-777c-4091-9fd2-5e1717a690e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Generated Files">
-      <UniqueIdentifier>{4e6357f4-2e32-4acb-8c85-3ecb711fef80}</UniqueIdentifier>
+    <Filter Include="Base">
+      <UniqueIdentifier>{eeba5af4-445d-490a-aa91-8be0596a2c60}</UniqueIdentifier>
     </Filter>
     <Filter Include="Dialog">
-      <UniqueIdentifier>{0bfa05c1-2bf4-4ebb-88fc-41ebd130bea3}</UniqueIdentifier>
+      <UniqueIdentifier>{878e42ec-9e3b-4a57-8bb6-635697c63979}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Dialog\Header Files">
-      <UniqueIdentifier>{ca260c7d-31bb-4616-abfd-62c1969024d7}</UniqueIdentifier>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{c3d0033b-6b50-4969-8f08-3eebbd8a5f8e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Dialog\Sorce Files">
-      <UniqueIdentifier>{bd40faff-c539-41e3-9e34-70f2c326cf9f}</UniqueIdentifier>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{ac7ae10b-380f-42f3-b81b-8d5830a8ea51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers Files">
+      <UniqueIdentifier>{a6e1cfe6-8917-49d6-bd24-89977ab140ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8d9311bd-1395-494a-91ac-51133086bdee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BitmapHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DocView.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SwDocument.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PMPageHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UserPropertyManagerPage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildTubeDlg.h">
-      <Filter>Dialog\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CutParamDlg.h">
-      <Filter>Dialog\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ExportDlg.h">
-      <Filter>Dialog\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EliteSoftWare.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EliteSoftWare_i.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MathBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PathModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="BitmapHandler.cpp">
+    <ClCompile Include="Base\MathBase.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\PathModel.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\BuildTubeDlg.cpp">
+      <Filter>Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\CutParamDlg.cpp">
+      <Filter>Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog\ExportDlg.cpp">
+      <Filter>Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\BitmapHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DocView.cpp">
+    <ClCompile Include="Source Files\DocView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="Source Files\EliteSoftWare.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SwDocument.cpp">
+    <ClCompile Include="Source Files\EliteSoftWare_module.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PMPageHandler.cpp">
+    <ClCompile Include="Source Files\PMPageHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserPropertyManagerPage.cpp">
+    <ClCompile Include="Source Files\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BuildTubeDlg.cpp">
-      <Filter>Dialog\Sorce Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CutParamDlg.cpp">
-      <Filter>Dialog\Sorce Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ExportDlg.cpp">
-      <Filter>Dialog\Sorce Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EliteSoftWare.cpp">
+    <ClCompile Include="Source Files\SwDocument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EliteSoftWare_module.cpp">
+    <ClCompile Include="Source Files\UserPropertyManagerPage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EliteSoftWare_i.c">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="PathModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MathBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BitmapHandler.rgs">
+    <ClInclude Include="Base\MathBase.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\PathModel.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog\BuildTubeDlg.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog\CutParamDlg.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog\ExportDlg.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\BitmapHandler.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\DocView.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\EliteSoftWare.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\PMPageHandler.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\SwDocument.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\UserPropertyManagerPage.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EliteSoftWare_i.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\BitmapHandler.rgs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="DocView.rgs">
+    <None Include="Resource\DocView.rgs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="MainIconLarge.bmp">
+    <None Include="Resource\EliteSoftWare.def">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="MainIconSmall.bmp">
+    <None Include="Resource\EliteSoftWare.rgs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="SwDocument.rgs">
+    <None Include="Resource\PMPageHandler.rgs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="toolbar_large.bmp">
+    <None Include="Resource\SwDocument.rgs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="toolbar_small.bmp">
+    <None Include="Resource\UserPropertyManagerPage.rgs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="PMPageHandler.rgs">
+    <None Include="Resource\bmp\EliteSoftWare.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="UserPropertyManagerPage.rgs">
+    <None Include="Resource\bmp\MainIconLarge.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EliteSoftWare.def">
+    <None Include="Resource\bmp\MainIconSmall.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EliteSoftWare.rgs">
+    <None Include="Resource\bmp\toolbar_large.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\bmp\toolbar_small.bmp">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="EliteSoftWare.idl">
+    <Midl Include="Resource\EliteSoftWare.idl">
       <Filter>Resource Files</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="EliteSoftWare.rc">
+    <ResourceCompile Include="Resource\EliteSoftWare.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

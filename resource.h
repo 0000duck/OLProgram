@@ -64,15 +64,16 @@
 #define IDC_BUTTON_HOLEADD              221
 #define IDC_RADIO_XDIR                  222
 #define IDC_RADIO_CUSTOM                223
+#define IDC_STATIC_PIC                  223
 #define IDC_RADIO_ROTANGDIR             224
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        214
+#define _APS_NEXT_RESOURCE_VALUE        217
 #define _APS_NEXT_COMMAND_VALUE         32768
-#define _APS_NEXT_CONTROL_VALUE         223
+#define _APS_NEXT_CONTROL_VALUE         224
 #define _APS_NEXT_SYMED_VALUE           114
 #endif
 #endif
