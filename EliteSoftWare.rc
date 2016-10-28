@@ -51,7 +51,6 @@ END
 STRINGTABLE
 BEGIN
     IDS_PMP_GROUP1_TITLE    "选择大管外表面"
-    IDS_PMP_LABEL1_CAPTION  "This is a sample Label"
     IDS_PMP_GROUP2_TITLE    "Group2"
     IDS_PMP_OPTION2_CAPTION "Option 2"
     IDS_PMP_OPTION3_CAPTION "Option 3"

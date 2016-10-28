@@ -1,5 +1,4 @@
 // PMPageHandler.h : Declaration of the CPMPageHandler
-// PMPageHandler.h : Declaration of the CPMPageHandler
 
 #pragma once
 #include "EliteSoftWare_i.h"

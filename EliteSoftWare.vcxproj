@@ -284,6 +284,8 @@
     <ClInclude Include="ExportDlg.h" />
     <ClInclude Include="EliteSoftWare.h" />
     <ClInclude Include="EliteSoftWare_i.h" />
+    <ClInclude Include="MathBase.h" />
+    <ClInclude Include="PathModel.h" />
     <ClInclude Include="PMPageHandler.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -306,6 +308,8 @@
       </PrecompiledHeaderOutputFile>
     </ClCompile>
     <ClCompile Include="EliteSoftWare_module.cpp" />
+    <ClCompile Include="MathBase.cpp" />
+    <ClCompile Include="PathModel.cpp" />
     <ClCompile Include="PMPageHandler.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="SwDocument.cpp" />

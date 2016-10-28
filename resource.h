@@ -10,14 +10,12 @@
 #define IDR_DOCVIEW                     107
 #define IDS_TOOLBAR_PMPHINT_CALPATH     107
 #define IDS_MENU_HINT                   108
-#define IDS_TOOLBAR_PMPENABLE           109
 #define IDS_TOOLBAR_PMPTIP_CALPATH      110
 #define IDR_BITMAPHANDLER               111
 #define IDS_PMP_TITLE                   111
 #define IDR_PMPAGEHANDLER               112
 #define IDS_PMP_GROUP1_TITLE            112
 #define IDR_USERPROPERTYMANAGERPAGE     113
-#define IDS_PMP_LABEL1_CAPTION          113
 #define IDS_PMP_GROUP2_TITLE            114
 #define IDS_PMP_OPTION2_CAPTION         115
 #define IDS_PMP_OPTION3_CAPTION         116

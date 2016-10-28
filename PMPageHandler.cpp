@@ -72,10 +72,6 @@ void CPMPageHandler::SetCutParam()
 		m_bTwiceCut = dlg.m_bTwiceCut;
 	}
 }
-extern void mathVProduct(VEC3D v1, VEC3D v2, VEC3D rtvec);
-extern BOOL mathUniVec(VEC3D v, double min_len = 0.0000001);
-extern void mathRotVecXY(VEC3D e1, VEC3D e2, double angle, VEC3D rot_v);
-extern double mathDis3D(PNT3D pt1, PNT3D pt2);
 
 // <out>dLength[0]:获取未偏移的路径长度；
 //      dLength[1]:获取偏移后的路径长度；
