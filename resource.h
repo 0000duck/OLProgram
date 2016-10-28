@@ -1,9 +1,8 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by OLProgram.rc
+// Used by EliteSoftWare.rc
 //
-#define IDS_PROJNAME                    100
-#define IDR_OLProgram                   101
+#define IDR_EliteSoftWare                   101
 #define IDS_TOOLBAR_TITLE               101
 #define IDS_TOOLBAR_TIP_PATHEXPORT      104
 #define IDS_TOOLBAR_HINT_PATHEXPORT     105

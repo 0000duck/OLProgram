@@ -2,13 +2,13 @@
 
 #include "stdafx.h"
 #include "PMPageHandler.h"
-#include "OLProgram.h"
+#include "EliteSoftWare.h"
 #include "CutParamDlg.h"
 #include "BuildTubeDlg.h"
 
 
 // CPMPageHandler
-void CPMPageHandler::Init(COLProgram *app)
+void CPMPageHandler::Init(CEliteSoftWare *app)
 {
 	userAddin = app;
 	iSwApp = userAddin->GetSldWorksPtr();

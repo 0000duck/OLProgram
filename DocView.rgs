@@ -1,20 +1,20 @@
 HKCR
 {
-	OLProgram.DocView.1 = s 'DocView Class'
+	EliteSoftWare.DocView.1 = s 'DocView Class'
 	{
 		CLSID = s '{F861E05B-FBCB-42B2-971F-F388D08EB1DC}'
 	}
-	OLProgram.DocView = s 'DocView Class'
+	EliteSoftWare.DocView = s 'DocView Class'
 	{
 		CLSID = s '{F861E05B-FBCB-42B2-971F-F388D08EB1DC}'
-		CurVer = s 'OLProgram.DocView.1'
+		CurVer = s 'EliteSoftWare.DocView.1'
 	}
 	NoRemove CLSID
 	{
 		ForceRemove {F861E05B-FBCB-42B2-971F-F388D08EB1DC} = s 'DocView Class'
 		{
-			ProgID = s 'OLProgram.DocView.1'
-			VersionIndependentProgID = s 'OLProgram.DocView'
+			ProgID = s 'EliteSoftWare.DocView.1'
+			VersionIndependentProgID = s 'EliteSoftWare.DocView'
 			ForceRemove 'Programmable'
 			InprocServer32 = s '%MODULE%'
 			{

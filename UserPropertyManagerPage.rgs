@@ -1,20 +1,20 @@
 HKCR
 {
-	OLProgram.UserPropertyManagerPage.1 = s 'UserPropertyManagerPage Class'
+	EliteSoftWare.UserPropertyManagerPage.1 = s 'UserPropertyManagerPage Class'
 	{
 		CLSID = s '{F43C6FAC-004A-40F4-A66C-13C2D1DC1D1D}'
 	}
-	OLProgram.UserPropertyManagerPage = s 'UserPropertyManagerPage Class'
+	EliteSoftWare.UserPropertyManagerPage = s 'UserPropertyManagerPage Class'
 	{
 		CLSID = s '{F43C6FAC-004A-40F4-A66C-13C2D1DC1D1D}'
-		CurVer = s 'OLProgram.UserPropertyManagerPage.1'
+		CurVer = s 'EliteSoftWare.UserPropertyManagerPage.1'
 	}
 	NoRemove CLSID
 	{
 		ForceRemove {F43C6FAC-004A-40F4-A66C-13C2D1DC1D1D} = s 'UserPropertyManagerPage Class'
 		{
-			ProgID = s 'OLProgram.UserPropertyManagerPage.1'
-			VersionIndependentProgID = s 'OLProgram.UserPropertyManagerPage'
+			ProgID = s 'EliteSoftWare.UserPropertyManagerPage.1'
+			VersionIndependentProgID = s 'EliteSoftWare.UserPropertyManagerPage'
 			ForceRemove 'Programmable'
 			InprocServer32 = s '%MODULE%'
 			{

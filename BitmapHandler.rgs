@@ -1,20 +1,20 @@
 HKCR
 {
-	OLProgram.BitmapHandler.1 = s 'BitmapHandler Class'
+	EliteSoftWare.BitmapHandler.1 = s 'BitmapHandler Class'
 	{
 		CLSID = s '{E10E72D0-04C5-4EA1-B841-8DA6152B2DF0}'
 	}
-	OLProgram.BitmapHandler = s 'BitmapHandler Class'
+	EliteSoftWare.BitmapHandler = s 'BitmapHandler Class'
 	{
 		CLSID = s '{E10E72D0-04C5-4EA1-B841-8DA6152B2DF0}'
-		CurVer = s 'OLProgram.BitmapHandler.1'
+		CurVer = s 'EliteSoftWare.BitmapHandler.1'
 	}
 	NoRemove CLSID
 	{
 		ForceRemove {E10E72D0-04C5-4EA1-B841-8DA6152B2DF0} = s 'BitmapHandler Class'
 		{
-			ProgID = s 'OLProgram.BitmapHandler.1'
-			VersionIndependentProgID = s 'OLProgram.BitmapHandler'
+			ProgID = s 'EliteSoftWare.BitmapHandler.1'
+			VersionIndependentProgID = s 'EliteSoftWare.BitmapHandler'
 			ForceRemove 'Programmable'
 			InprocServer32 = s '%MODULE%'
 			{

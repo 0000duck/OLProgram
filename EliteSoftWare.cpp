@@ -1,13 +1,12 @@
-// OLProgram.cpp : Implementation of COLProgram
+// EliteSoftWare.cpp : Implementation of CEliteSoftWare
 
 #include "stdafx.h"
-#include "OLProgram.h"
+#include "EliteSoftWare.h"
 #include "SwDocument.h"
 #include <string>
 #include <list>
 #include "UserPropertyManagerPage.h"
 #include "BitmapHandler.h"
-#include "fstream"
 #include "fstream"
 #include "ExportDlg.h"
 #include "BuildTubeDlg.h"
@@ -287,8 +286,8 @@ void CPathComb::Release()
 	m_PathList.RemoveAll();
 }
 
-// COLProgram
-COLProgram::~COLProgram()
+// CEliteSoftWare
+CEliteSoftWare::~CEliteSoftWare()
 {
 	POSITION entPos = m_LPathEntityList.GetHeadPosition();
 	while(entPos)
@@ -314,10 +313,10 @@ COLProgram::~COLProgram()
 	m_LHoleParamList.RemoveAll();
 }
 
-void COLProgram::AddCommandManager()
+void CEliteSoftWare::AddCommandManager()
 {
 	CComPtr<ICommandGroup> icmdGroup;
-
+	
 	HRESULT hret = S_OK;
 
 	CComObject<CBitmapHandler>::CreateInstance(&iBmp);
@@ -328,8 +327,8 @@ void COLProgram::AddCommandManager()
 	int docTypes[numDocumentTypes];
 
 	docTypes[0] = swDocASSEMBLY,
-		docTypes[1] = swDocDRAWING,
-		docTypes[2] = swDocPART;
+	docTypes[1] = swDocDRAWING,
+	docTypes[2] = swDocPART;
 
 
 	CComBSTR title;
@@ -357,8 +356,8 @@ void COLProgram::AddCommandManager()
 			ignorePrevious = true;
 		}
 	}
-
-
+		
+	
 	iCmdMgr->CreateCommandGroup2(MAIN_CMD_GROUP_ID, title, title, hint, -1, ignorePrevious, &cmdGroupErr, &icmdGroup);
 
 	CComBSTR smallImageFile;
@@ -401,13 +400,11 @@ void COLProgram::AddCommandManager()
 	hint.LoadString(IDS_TOOLBAR_HINT_PATHEXPORT);
 	hret = icmdGroup->AddCommandItem2(tip, -1, hint, tip, 0, L"ToolbarCallbackPathExport", L"ToolbarEnablePathExport", MAIN_ITEM_ID3, menuToolbarOption, &cmdIndex2);
 
-	
-
 	icmdGroup->put_HasToolbar(true);
 	icmdGroup->put_HasMenu(true);
 	icmdGroup->Activate(&cmdActivated);
 
-	bool bresult = false;
+/*	bool bresult = false;
 
 	CComPtr<IFlyoutGroup> flyGroup; 
 	CComBSTR smallIcon;
@@ -457,62 +454,62 @@ void COLProgram::AddCommandManager()
 			// if not, add one
 			iCmdMgr->AddCommandTab(docType, title, &cmdTab);
 
-			CComPtr<ICommandTabBox> cmdBox;
+			//			CComPtr<ICommandTabBox> cmdBox;
 
-			cmdTab->AddCommandTabBox(&cmdBox);
+			//			cmdTab->AddCommandTabBox(&cmdBox);
 
 			// create 3 commands on this tab
-			long CommandIDCount = 2;
+			//		long CommandIDCount = 2;
 
 
-			long CommandIDs[2];
-			long TextDisplayStyles[2];
+			//		long CommandIDs[2];
+			//		long TextDisplayStyles[2];
 
-			long cmdID = 0;
+			//		long cmdID = 0;
 
 			// the 3 command buttons have different text styles
-			icmdGroup->get_CommandID(cmdIndex0, &cmdID);      
-			CommandIDs[0] = cmdID;
-			TextDisplayStyles[0] = swCommandTabButton_TextHorizontal;
+			//		icmdGroup->get_CommandID(cmdIndex0, &cmdID);      
+			//		CommandIDs[0] = cmdID;
+			//		TextDisplayStyles[0] = swCommandTabButton_TextHorizontal;
 
-			icmdGroup->get_CommandID(cmdIndex1, &cmdID);
-			CommandIDs[1] = cmdID;
-			TextDisplayStyles[1] = swCommandTabButton_TextHorizontal;
+			//		icmdGroup->get_CommandID(cmdIndex1, &cmdID);
+			//		CommandIDs[1] = cmdID;
+			//		TextDisplayStyles[1] = swCommandTabButton_TextHorizontal;
 
-			icmdGroup->get_ToolbarId(&cmdID);
-			CommandIDs[2] = cmdID;
-			TextDisplayStyles[2] = swCommandTabButton_TextHorizontal;
+			//		icmdGroup->get_ToolbarId(&cmdID);
+			//		CommandIDs[2] = cmdID;
+			//		TextDisplayStyles[2] = swCommandTabButton_TextHorizontal;
 
-			VARIANT_BOOL vbResult = VARIANT_FALSE;
+			//		VARIANT_BOOL vbResult = VARIANT_FALSE;
 
-			cmdBox->IAddCommands(CommandIDCount, CommandIDs, TextDisplayStyles, &vbResult);
+			//		cmdBox->IAddCommands(CommandIDCount, CommandIDs, TextDisplayStyles, &vbResult);
 
-			long CommandIDs1[1];
-			long TextDisplayStyles1[1];
+			//		long CommandIDs1[1];
+			//		long TextDisplayStyles1[1];
 
-			CommandIDCount = 1;
+			//		CommandIDCount = 1;
 
 			//flyGroup->get_CmdID(&cmdID);
-			CommandIDs1[0] = cmdID;
-			TextDisplayStyles1[0] = swCommandTabButton_TextBelow | swCommandTabButton_ActionFlyout;
+			//		CommandIDs1[0] = cmdID;
+			//		TextDisplayStyles1[0] = swCommandTabButton_TextBelow | swCommandTabButton_ActionFlyout;
 
 
-			CComPtr<ICommandTabBox> cmdBox1;
+			//		CComPtr<ICommandTabBox> cmdBox1;
 
-			cmdTab->AddCommandTabBox(&cmdBox1);
+			//	cmdTab->AddCommandTabBox(&cmdBox1);
 
-			cmdBox1->IAddCommands(CommandIDCount, CommandIDs1, TextDisplayStyles1, &vbResult);
+			//	cmdBox1->IAddCommands(CommandIDCount, CommandIDs1, TextDisplayStyles1, &vbResult);
 
-			CComPtr<ICommandTabBox> cmdBoxNew1; 
+			//	CComPtr<ICommandTabBox> cmdBoxNew1; 
 
-			cmdTab->AddSeparator(cmdBox1, cmdID, &cmdBoxNew1);
+			//	cmdTab->AddSeparator(cmdBox1, cmdID, &cmdBoxNew1);
 		}
-	}
+	}*/
 	//Clean up
 	delete [] registryIDs;
 }
 
-void COLProgram::RemoveCommandManager()
+void CEliteSoftWare::RemoveCommandManager()
 {
 	iBmp->Dispose();
 	iBmp->Release();
@@ -525,7 +522,7 @@ void COLProgram::RemoveCommandManager()
 	ret = iCmdMgr->RemoveCommandGroup(MAIN_CMD_GROUP_ID, &cmdRemoved);
 }
 
-bool COLProgram::CompareIDs(long * storedIDs, long storedSize, long * addinIDs, long addinSize)
+bool CEliteSoftWare::CompareIDs(long * storedIDs, long storedSize, long * addinIDs, long addinSize)
 {
 	std::list<long> storedList;
     std::list<long> addinList;
@@ -562,7 +559,7 @@ bool COLProgram::CompareIDs(long * storedIDs, long storedSize, long * addinIDs, 
     return true;
 }
 
-void COLProgram::AddPMP()
+void CEliteSoftWare::AddPMP()
 {
 	CComObject<CUserPropertyManagerPage>::CreateInstance(&userPropertyPage);
 	userPropertyPage->AddRef();
@@ -570,21 +567,21 @@ void COLProgram::AddPMP()
 }
 
 //Remove the user Property Manager Page
-void COLProgram::RemovePMP()
+void CEliteSoftWare::RemovePMP()
 {
 	userPropertyPage->Destroy();
 	userPropertyPage->Release();
 	userPropertyPage = NULL;
 }
 
-STDMETHODIMP COLProgram::OnDocChange(void)
+STDMETHODIMP CEliteSoftWare::OnDocChange(void)
 {
 	// TODO: Add your implementation code here
 	return S_OK;
 }
 
 //Called after a document is opened
-STDMETHODIMP COLProgram::OnFileOpenPostNotify(BSTR fileName)
+STDMETHODIMP CEliteSoftWare::OnFileOpenPostNotify(BSTR fileName)
 {
 	HRESULT hres = S_OK;
 	hres = AttachEventsToAllDocuments();
@@ -592,12 +589,12 @@ STDMETHODIMP COLProgram::OnFileOpenPostNotify(BSTR fileName)
 }
 
 //Called when a new document is created or a document is loaded
-STDMETHODIMP COLProgram::OnDocLoad(BSTR docTitle, BSTR docPath)
+STDMETHODIMP CEliteSoftWare::OnDocLoad(BSTR docTitle, BSTR docPath)
 {
 
 	return S_OK;
 }
-VARIANT_BOOL COLProgram::AttachEventHandlers()
+VARIANT_BOOL CEliteSoftWare::AttachEventHandlers()
 {
 	VARIANT_BOOL attached = VARIANT_TRUE;
 	this->m_libid = LIBID_SldWorks;
@@ -619,7 +616,7 @@ VARIANT_BOOL COLProgram::AttachEventHandlers()
 	return attached;
 }
 
-HRESULT COLProgram::AttachEventsToAllDocuments()
+HRESULT CEliteSoftWare::AttachEventsToAllDocuments()
 {
 	VARIANT_BOOL attached = VARIANT_TRUE;
 	USES_CONVERSION;
@@ -633,7 +630,7 @@ HRESULT COLProgram::AttachEventsToAllDocuments()
 			iter = openDocs.find(iModelDoc2);
 			if (iter == openDocs.end())
 			{
-				ATLTRACE("\tCOLProgram::DocumentLoadNotify current part not found\n");
+				ATLTRACE("\tCEliteSoftWare::DocumentLoadNotify current part not found\n");
 				attached = AttachModelEventHandler(iModelDoc2);
 				if(!attached)
 					return E_FAIL;
@@ -660,7 +657,7 @@ HRESULT COLProgram::AttachEventsToAllDocuments()
 }
 
 //Create an event handling object for this document and listen for the model's events
-VARIANT_BOOL COLProgram::AttachModelEventHandler(CComPtr<IModelDoc2> iModelDoc2)
+VARIANT_BOOL CEliteSoftWare::AttachModelEventHandler(CComPtr<IModelDoc2> iModelDoc2)
 {
 	VARIANT_BOOL attached = VARIANT_TRUE;
 	if (iModelDoc2 == NULL)
@@ -673,7 +670,7 @@ VARIANT_BOOL COLProgram::AttachModelEventHandler(CComPtr<IModelDoc2> iModelDoc2)
 		//Cretae a new Document event handler
 		CComObject<CSwDocument> *pDoc;
 		CComObject<CSwDocument>::CreateInstance( &pDoc);
-		pDoc->Init((CComObject<COLProgram>*)this, iModelDoc2);
+		pDoc->Init((CComObject<CEliteSoftWare>*)this, iModelDoc2);
 
 		//Listen for the doc's events
 		attached = pDoc->AttachEventHandlers();
@@ -689,7 +686,7 @@ VARIANT_BOOL COLProgram::AttachModelEventHandler(CComPtr<IModelDoc2> iModelDoc2)
 }
 
 //Stop listening for SolidWorks Events
-VARIANT_BOOL COLProgram::DetachEventHandlers()
+VARIANT_BOOL CEliteSoftWare::DetachEventHandlers()
 {
 	VARIANT_BOOL detached = VARIANT_TRUE;
 
@@ -717,7 +714,7 @@ VARIANT_BOOL COLProgram::DetachEventHandlers()
 }
 
 //Stop listening for events on the specified model
-VARIANT_BOOL COLProgram::DetachModelEventHandler(IUnknown *iUnk)
+VARIANT_BOOL CEliteSoftWare::DetachModelEventHandler(IUnknown *iUnk)
 {
 	VARIANT_BOOL detached = VARIANT_TRUE;
 	TMapIUnknownToDocument::iterator iter;
@@ -737,21 +734,21 @@ VARIANT_BOOL COLProgram::DetachModelEventHandler(IUnknown *iUnk)
 }
 
 //Called when the active model document changes in SolidWorks
-STDMETHODIMP COLProgram::OnModelDocChange(void)
+STDMETHODIMP CEliteSoftWare::OnModelDocChange(void)
 {
 	// TODO: Add your implementation code here
 	return S_OK;
 }
 
 //Called when a new file is created
-STDMETHODIMP COLProgram::OnFileNew(LPDISPATCH newDoc, long docType, BSTR templateName)
+STDMETHODIMP CEliteSoftWare::OnFileNew(LPDISPATCH newDoc, long docType, BSTR templateName)
 {
 	HRESULT hres = S_OK;
 	hres = AttachEventsToAllDocuments();
    return hres;
 }
 
-STDMETHODIMP COLProgram::ConnectToSW(LPDISPATCH ThisSW, long Cookie, VARIANT_BOOL * IsConnected)
+STDMETHODIMP CEliteSoftWare::ConnectToSW(LPDISPATCH ThisSW, long Cookie, VARIANT_BOOL * IsConnected)
 {
 	ThisSW->QueryInterface(__uuidof(ISldWorks), (void**)&iSwApp);
 	addinID = Cookie;
@@ -759,7 +756,7 @@ STDMETHODIMP COLProgram::ConnectToSW(LPDISPATCH ThisSW, long Cookie, VARIANT_BOO
 
 	VARIANT_BOOL status = VARIANT_FALSE;
 
-	iSwApp->SetAddinCallbackInfo((long)_AtlBaseModule.GetModuleInstance(), static_cast<IOLProgram*>(this), addinID, &status);
+	iSwApp->SetAddinCallbackInfo((long)_AtlBaseModule.GetModuleInstance(), static_cast<IEliteSoftWare*>(this), addinID, &status);
 	//Get the current type library version.
 	{
 		USES_CONVERSION;
@@ -784,7 +781,7 @@ STDMETHODIMP COLProgram::ConnectToSW(LPDISPATCH ThisSW, long Cookie, VARIANT_BOO
 	m_nExportOrder = 0;
 	return S_OK;
 }
-STDMETHODIMP COLProgram::DisconnectFromSW(VARIANT_BOOL * IsDisconnected)
+STDMETHODIMP CEliteSoftWare::DisconnectFromSW(VARIANT_BOOL * IsDisconnected)
 {
 	//Remove the addin's UI
 	RemoveCommandManager();
@@ -800,20 +797,20 @@ STDMETHODIMP COLProgram::DisconnectFromSW(VARIANT_BOOL * IsDisconnected)
 	return S_OK;
 }
 
-STDMETHODIMP COLProgram::ToolbarCallbackPathExport(void)
+STDMETHODIMP CEliteSoftWare::ToolbarCallbackPathExport(void)
 {
 	ExportPathToTXT();
 	return S_OK;
 }
 
-STDMETHODIMP COLProgram::ToolbarBuildTube(void)
+STDMETHODIMP CEliteSoftWare::ToolbarBuildTube(void)
 {
     BuildTubeAndHole();
 	return S_OK;
 }
 
 // 参数化创建管件
-void COLProgram::BuildTubeAndHole()
+void CEliteSoftWare::BuildTubeAndHole()
 {
 	long docType = -1;
 	CComPtr<IModelDoc2> iSwModel;
@@ -1108,7 +1105,7 @@ void COLProgram::BuildTubeAndHole()
 }
 
 // 检查路径的变换坐标系是否反向
-BOOL COLProgram::CheckTransFrame(RFRAME& local_frame, LPathCombList &PathCombList)
+BOOL CEliteSoftWare::CheckTransFrame(RFRAME& local_frame, LPathCombList &PathCombList)
 {
 	POSITION nPCombPos = PathCombList.GetHeadPosition();
 	while(nPCombPos)
@@ -1143,7 +1140,7 @@ BOOL COLProgram::CheckTransFrame(RFRAME& local_frame, LPathCombList &PathCombLis
 }
 
 // 将路径组中每条路径的点坐标从世界坐标系转换到局部坐标系中
-void COLProgram::TransWorldPathComb(RFRAME& local_frame, LPathCombList &PathCombList)
+void CEliteSoftWare::TransWorldPathComb(RFRAME& local_frame, LPathCombList &PathCombList)
 {
 	POSITION nPCombPos = PathCombList.GetHeadPosition();
 	while(nPCombPos)
@@ -1164,7 +1161,7 @@ void COLProgram::TransWorldPathComb(RFRAME& local_frame, LPathCombList &PathComb
 }
 
 // 将路径组中每条路径的点坐标从世界坐标系转换到局部坐标系中
-void COLProgram::TransLocalPathComb(RFRAME& local_frame, LPathCombList &PathCombList)
+void CEliteSoftWare::TransLocalPathComb(RFRAME& local_frame, LPathCombList &PathCombList)
 {
 	POSITION nPCombPos = PathCombList.GetHeadPosition();
 	while(nPCombPos)
@@ -1185,7 +1182,7 @@ void COLProgram::TransLocalPathComb(RFRAME& local_frame, LPathCombList &PathComb
 }
 
 // 将一条路径的点坐标从世界坐标系转换到局部坐标系中
-void COLProgram::TransWorldPath(RFRAME& local_frame, CMovePath* pMovePath)
+void CEliteSoftWare::TransWorldPath(RFRAME& local_frame, CMovePath* pMovePath)
 {
  	if (NULL == pMovePath)
  		return;
@@ -1209,7 +1206,7 @@ void COLProgram::TransWorldPath(RFRAME& local_frame, CMovePath* pMovePath)
 }
 
 // 将一条路径点坐标从世界坐标系转换到局部坐标系中
-void COLProgram::TransLocalPath(RFRAME& local_frame, CMovePath* pMovePath)
+void CEliteSoftWare::TransLocalPath(RFRAME& local_frame, CMovePath* pMovePath)
 {
 	if (NULL == pMovePath)
 		return;
@@ -1231,7 +1228,7 @@ void COLProgram::TransLocalPath(RFRAME& local_frame, CMovePath* pMovePath)
 	}
 }
 
-void COLProgram::SetPathCombListParam(LPathCombList &PathCombList)
+void CEliteSoftWare::SetPathCombListParam(LPathCombList &PathCombList)
 {
 	CHCombParam* pHParamComb = GetCurHoleParam();
 	if (NULL == pHParamComb)
@@ -1254,7 +1251,7 @@ void COLProgram::SetPathCombListParam(LPathCombList &PathCombList)
 	}
 }
 
-void COLProgram::SetMovePathParam(CMovePath* pMovePath, CHCombParam* pPathParamComb)
+void CEliteSoftWare::SetMovePathParam(CMovePath* pMovePath, CHCombParam* pPathParamComb)
 {
 	if(NULL==pMovePath || pPathParamComb==NULL)
 		return;
@@ -1309,7 +1306,7 @@ void COLProgram::SetMovePathParam(CMovePath* pMovePath, CHCombParam* pPathParamC
 	}
 }
 
-CHCombParam* COLProgram::GetCurHoleParam()
+CHCombParam* CEliteSoftWare::GetCurHoleParam()
 {
 	BSTR sCurrentFileName = GetCurrentFile();
 	CHCombParam* pHParamComb = NULL;
@@ -1331,7 +1328,7 @@ CHCombParam* COLProgram::GetCurHoleParam()
 	return pHParamComb;
 }
 
-CPathCombList* COLProgram::GetCurPComb()
+CPathCombList* CEliteSoftWare::GetCurPComb()
 {
 	BSTR sCurrentFileName = GetCurrentFile();
 	CPathCombList* pPCombList = NULL;
@@ -1353,7 +1350,7 @@ CPathCombList* COLProgram::GetCurPComb()
 	return pPCombList;
 }
 
-void COLProgram::SetExportRFrame(RFRAME& _export_rframe)
+void CEliteSoftWare::SetExportRFrame(RFRAME& _export_rframe)
 {
 	CHCombParam* pHCombParam = GetCurHoleParam();
 	if (NULL == pHCombParam)
@@ -1362,7 +1359,7 @@ void COLProgram::SetExportRFrame(RFRAME& _export_rframe)
 	_export_rframe.O[2] = -pHCombParam->m_dTubeDia*0.5;
 }
 
-void COLProgram::DrawPathComb(CPathCombList* pPathCombs)
+void CEliteSoftWare::DrawPathComb(CPathCombList* pPathCombs)
 {
 	CComPtr<IModelDoc2> iSwModel;
 	iSwApp->get_IActiveDoc2(&iSwModel);
@@ -1491,7 +1488,7 @@ void COLProgram::DrawPathComb(CPathCombList* pPathCombs)
     }
 }
 
-void COLProgram::SetPCombExOrder(CPathCombList* pPathCombs, int nOrder)
+void CEliteSoftWare::SetPCombExOrder(CPathCombList* pPathCombs, int nOrder)
 {
 	if (NULL == pPathCombs)
 	{
@@ -1581,7 +1578,7 @@ void COLProgram::SetPCombExOrder(CPathCombList* pPathCombs, int nOrder)
 }
 
 // 路径输出
-void COLProgram::ExportPathToTXT()
+void CEliteSoftWare::ExportPathToTXT()
 {
 	long docType = -1;
 	CComPtr<IModelDoc2> iSwModel;
@@ -1941,21 +1938,21 @@ void COLProgram::ExportPathToTXT()
 	AfxMessageBox(_T("路径输出完成。"));
 }
 
-STDMETHODIMP COLProgram::ToolbarEnablePathExport(long* status)
+STDMETHODIMP CEliteSoftWare::ToolbarEnablePathExport(long* status)
 {
 	// TODO: Add your implementation code here
 	*status = 1;
 	return S_OK;
 }
 
-STDMETHODIMP COLProgram::ToolbarEnableBuildTube(long* status)
+STDMETHODIMP CEliteSoftWare::ToolbarEnableBuildTube(long* status)
 {
 	// TODO: Add your implementation code here
 	*status = 1;
 	return S_OK;
 }
 
-STDMETHODIMP COLProgram::FlyoutCallback(void)
+STDMETHODIMP CEliteSoftWare::FlyoutCallback(void)
 {
 	CComBSTR tip;
 	CComBSTR callback;
@@ -1980,35 +1977,35 @@ STDMETHODIMP COLProgram::FlyoutCallback(void)
 	return S_OK;
 }
 
-STDMETHODIMP COLProgram::FlyoutCallback0(void)
+STDMETHODIMP CEliteSoftWare::FlyoutCallback0(void)
 {
 	// TODO: Add your implementation code here
 	::WinExec("Notepad.exe", SW_SHOW);
 	return S_OK;
 }
 
-STDMETHODIMP COLProgram::FlyoutCallback1(void)
+STDMETHODIMP CEliteSoftWare::FlyoutCallback1(void)
 {
 	// TODO: Add your implementation code here
 	
 	return S_OK;
 }
 
-STDMETHODIMP COLProgram::FlyoutEnable0(long* status)
+STDMETHODIMP CEliteSoftWare::FlyoutEnable0(long* status)
 {
 	// TODO: Add your implementation code here
 	*status = 1;
 	return S_OK;
 }
 
-STDMETHODIMP COLProgram::FlyoutEnableCallback0(long* status)
+STDMETHODIMP CEliteSoftWare::FlyoutEnableCallback0(long* status)
 {
 	// TODO: Add your implementation code here
 	*status = 1;
 	return S_OK;
 }
 
-BSTR COLProgram::GetCurrentFile()
+BSTR CEliteSoftWare::GetCurrentFile()
 {	
 	BSTR ret = SysAllocString(L"No File Currently Open");
 	CComPtr<IModelDoc2> iSwModel;
@@ -2023,7 +2020,7 @@ BSTR COLProgram::GetCurrentFile()
 }
 
 
-STDMETHODIMP COLProgram::GeneratePath(void)
+STDMETHODIMP CEliteSoftWare::GeneratePath(void)
 {
 	// TODO: Add your implementation code here
 	CHCombParam* pCombParam = GetCurHoleParam();
@@ -2054,7 +2051,7 @@ STDMETHODIMP COLProgram::GeneratePath(void)
 	return S_OK;
 }
 
-STDMETHODIMP COLProgram::EnableGeneratePath(long* status)
+STDMETHODIMP CEliteSoftWare::EnableGeneratePath(long* status)
 {
 	*status = 0;
 	if (userPropertyPage != NULL)

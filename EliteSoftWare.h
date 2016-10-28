@@ -1,8 +1,8 @@
-// OLProgram.h : Declaration of the COLProgram
+// EliteSoftWare.h : Declaration of the CEliteSoftWare
 
 #pragma once
 
-#include "OLProgram_i.h"
+#include "EliteSoftWare_i.h"
 
 #include "resource.h"       // main symbols
 #include <comsvcs.h>
@@ -436,17 +436,17 @@ class CBitmapHandler;
 #define MAIN_ITEM_ID2 1
 #define MAIN_ITEM_ID3 2
 #define FLYOUT_GROUP_ID 99
-// COLProgram
+// CEliteSoftWare
 
 
-class ATL_NO_VTABLE COLProgram :
+class ATL_NO_VTABLE CEliteSoftWare :
 	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<COLProgram, &CLSID_OLProgram>,
-	public IDispatchImpl<IOLProgram, &IID_IOLProgram, &LIBID_OLProgramLib, 1, 0>,
+	public CComCoClass<CEliteSoftWare, &CLSID_EliteSoftWare>,
+	public IDispatchImpl<IEliteSoftWare, &IID_IEliteSoftWare, &LIBID_EliteSoftWareLib, 1, 0>,
 	public ISwAddin,
-	public IDispEventImpl<ID_SLDWORKS_EVENTS, COLProgram, &__uuidof(DSldWorksEvents), &LIBID_SldWorks, ID_SLDWORKS_TLB_MAJOR, ID_SLDWORKS_TLB_MINOR> 
+	public IDispEventImpl<ID_SLDWORKS_EVENTS, CEliteSoftWare, &__uuidof(DSldWorksEvents), &LIBID_SldWorks, ID_SLDWORKS_TLB_MAJOR, ID_SLDWORKS_TLB_MINOR> 
 	{
-	typedef IDispEventImpl<ID_SLDWORKS_EVENTS, COLProgram, &__uuidof(DSldWorksEvents), &LIBID_SldWorks, ID_SLDWORKS_TLB_MAJOR, ID_SLDWORKS_TLB_MINOR> CSldWorksEvents;
+	typedef IDispEventImpl<ID_SLDWORKS_EVENTS, CEliteSoftWare, &__uuidof(DSldWorksEvents), &LIBID_SldWorks, ID_SLDWORKS_TLB_MAJOR, ID_SLDWORKS_TLB_MINOR> CSldWorksEvents;
 
 private:
 	CComPtr<ISldWorks> iSwApp;
@@ -468,10 +468,10 @@ public:
 	CComObject<CUserPropertyManagerPage> *userPropertyPage;
 
 public:
-	COLProgram()
+	CEliteSoftWare()
 	{
 	}
-	~COLProgram();
+	~CEliteSoftWare();
 	DECLARE_PROTECT_FINAL_CONSTRUCT()
 
 	HRESULT FinalConstruct()
@@ -483,18 +483,18 @@ public:
 	{
 	}
 
-	DECLARE_REGISTRY_RESOURCEID(IDR_OLProgram)
+	DECLARE_REGISTRY_RESOURCEID(IDR_EliteSoftWare)
 
-	DECLARE_NOT_AGGREGATABLE(COLProgram)
+	DECLARE_NOT_AGGREGATABLE(CEliteSoftWare)
 
-	BEGIN_COM_MAP(COLProgram)
-		COM_INTERFACE_ENTRY(IOLProgram)
+	BEGIN_COM_MAP(CEliteSoftWare)
+		COM_INTERFACE_ENTRY(IEliteSoftWare)
 		COM_INTERFACE_ENTRY(IDispatch)
 		COM_INTERFACE_ENTRY(ISwAddin)
 	END_COM_MAP()
 
 
-	// IOLProgram
+	// IEliteSoftWare
 public:
 
 	// ISwAddin Methods
@@ -542,7 +542,7 @@ TMapIUnknownToDocument OpenDocumentsTable() { return openDocs; }
 	STDMETHOD(OnFileOpenPostNotify)(BSTR fileName);
 
 	
-	BEGIN_SINK_MAP(COLProgram)
+	BEGIN_SINK_MAP(CEliteSoftWare)
 		SINK_ENTRY_EX(ID_SLDWORKS_EVENTS, __uuidof(DSldWorksEvents), swAppActiveDocChangeNotify, OnDocChange)
 		SINK_ENTRY_EX(ID_SLDWORKS_EVENTS, __uuidof(DSldWorksEvents), swAppDocumentLoadNotify, OnDocLoad)
 		SINK_ENTRY_EX(ID_SLDWORKS_EVENTS, __uuidof(DSldWorksEvents), swAppFileNewNotify2, OnFileNew)
@@ -571,4 +571,4 @@ public:
 	STDMETHOD(EnableGeneratePath)(long* status);
 };
 
-OBJECT_ENTRY_AUTO(__uuidof(OLProgram), COLProgram)
+OBJECT_ENTRY_AUTO(__uuidof(EliteSoftWare), CEliteSoftWare)

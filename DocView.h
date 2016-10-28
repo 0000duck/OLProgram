@@ -1,8 +1,8 @@
 // DocView.h : Declaration of the CDocView
 
 #pragma once
-#include "OLProgram.h"
-#include "OLProgram_i.h"
+#include "EliteSoftWare.h"
+#include "EliteSoftWare_i.h"
 #include "resource.h"       // main symbols
 #include <comsvcs.h>
 class CSwDocument;
@@ -14,14 +14,14 @@ class CSwDocument;
 class ATL_NO_VTABLE CDocView :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public CComCoClass<CDocView, &CLSID_DocView>,
-	public IDispatchImpl<IDocView, &IID_IDocView, &LIBID_OLProgramLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
+	public IDispatchImpl<IDocView, &IID_IDocView, &LIBID_EliteSoftWareLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
 	public IDispEventImpl<ID_MODELVIEW_EVENTS, CDocView, &__uuidof(DModelViewEvents), &LIBID_SldWorks, ID_SLDWORKS_TLB_MAJOR, ID_SLDWORKS_TLB_MINOR>
 {
 	typedef IDispEventImpl<ID_MODELVIEW_EVENTS, CDocView, &__uuidof(DModelViewEvents), &LIBID_SldWorks, ID_SLDWORKS_TLB_MAJOR, ID_SLDWORKS_TLB_MINOR> CModelViewEvents;
 
 private:
 	CComPtr<IModelView> modelView;
-	COLProgram *userAddin;
+	CEliteSoftWare *userAddin;
 	CSwDocument *parentDoc;
 
 public:
@@ -55,7 +55,7 @@ END_COM_MAP()
 // IDocView
 public:
 	//Utility Methods
-	void Init(COLProgram *theApp, IModelView *iModelView, CSwDocument *iParent);
+	void Init(CEliteSoftWare *theApp, IModelView *iModelView, CSwDocument *iParent);
 	VARIANT_BOOL AttachEventHandlers();
 	VARIANT_BOOL DetachEventHandlers();
 

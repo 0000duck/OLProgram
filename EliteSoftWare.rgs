@@ -2,8 +2,8 @@ HKCR
 {
 	NoRemove AppID
 	{
-		'%APPID%' = s 'OLProgram'
-		'OLProgram.DLL'
+		'%APPID%' = s 'EliteSoftWare'
+		'EliteSoftWare.DLL'
 		{
 			val AppID = s '%APPID%'
 		}
@@ -12,21 +12,21 @@ HKCR
 
 HKCR
 {
-	OLProgram.SwAddin.1 = s 'SwAddin Class'
+	EliteSoftWare.SwAddin.1 = s 'SwAddin Class'
 	{
 		CLSID = s '{3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545}'
 	}
-	OLProgram.SwAddin = s 'SwAddin Class'
+	EliteSoftWare.SwAddin = s 'SwAddin Class'
 	{
 		CLSID = s '{3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545}'
-		CurVer = s 'OLProgram.SwAddin.1'
+		CurVer = s 'EliteSoftWare.SwAddin.1'
 	}
 	NoRemove CLSID
 	{
 		ForceRemove {3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545} = s 'SwAddin Class'
 		{
-			ProgID = s 'OLProgram.SwAddin.1'
-			VersionIndependentProgID = s 'OLProgram.SwAddin'
+			ProgID = s 'EliteSoftWare.SwAddin.1'
+			VersionIndependentProgID = s 'EliteSoftWare.SwAddin'
 			ForceRemove 'Programmable'
 			InprocServer32 = s '%MODULE%'
 			{
@@ -48,8 +48,8 @@ HKLM
 			{
 				ForceRemove {3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545} = d '0'
 				{
-					val Description = s 'OLProgram AddIn'
-					val Title = s 'OLProgram'
+					val Description = s 'EliteSoftWare AddIn'
+					val Title = s 'EliteSoftWare'
 				}
 			}
 		}

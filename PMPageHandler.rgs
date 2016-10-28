@@ -1,20 +1,20 @@
 HKCR
 {
-	OLProgram.PMPageHandler.1 = s 'PMPageHandler Class'
+	EliteSoftWare.PMPageHandler.1 = s 'PMPageHandler Class'
 	{
 		CLSID = s '{7741B23C-DDB2-483F-A2F7-117FE59300B9}'
 	}
-	OLProgram.PMPageHandler = s 'PMPageHandler Class'
+	EliteSoftWare.PMPageHandler = s 'PMPageHandler Class'
 	{
 		CLSID = s '{7741B23C-DDB2-483F-A2F7-117FE59300B9}'
-		CurVer = s 'OLProgram.PMPageHandler.1'
+		CurVer = s 'EliteSoftWare.PMPageHandler.1'
 	}
 	NoRemove CLSID
 	{
 		ForceRemove {7741B23C-DDB2-483F-A2F7-117FE59300B9} = s 'PMPageHandler Class'
 		{
-			ProgID = s 'OLProgram.PMPageHandler.1'
-			VersionIndependentProgID = s 'OLProgram.PMPageHandler'
+			ProgID = s 'EliteSoftWare.PMPageHandler.1'
+			VersionIndependentProgID = s 'EliteSoftWare.PMPageHandler'
 			ForceRemove 'Programmable'
 			InprocServer32 = s '%MODULE%'
 			{

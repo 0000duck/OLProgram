@@ -19,12 +19,12 @@
 extern "C"   {
 #endif
 
-EXTERN_PROXY_FILE( OLProgram )
+EXTERN_PROXY_FILE( EliteSoftWare )
 
 
 PROXYFILE_LIST_START
 /* Start of list */
-  REFERENCE_PROXY_FILE( OLProgram ),
+  REFERENCE_PROXY_FILE( EliteSoftWare ),
 /* End of list */
 PROXYFILE_LIST_END
 

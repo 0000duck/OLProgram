@@ -2,14 +2,14 @@
 
 #pragma once
 
-#include "OLProgram.h"
+#include "EliteSoftWare.h"
 
 #include "resource.h"       // main symbols
 //Defines
 #define ID_PART_EVENTS 1
 #define ID_ASSEMBLY_EVENTS 2
 #define ID_DRAWING_EVENTS 3
-class COLProgram;
+class CEliteSoftWare;
 
 #include <map>
 class CDocView;
@@ -20,7 +20,7 @@ typedef std::map<IUnknown*, CDocView*> TMapIUnknownToModelView;
 class ATL_NO_VTABLE CSwDocument :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public CComCoClass<CSwDocument, &CLSID_SwDocument>,
-	public IDispatchImpl<ISwDocument, &IID_ISwDocument, &LIBID_OLProgramLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
+	public IDispatchImpl<ISwDocument, &IID_ISwDocument, &LIBID_EliteSoftWareLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
 	public IDispEventImpl<ID_PART_EVENTS, CSwDocument, &__uuidof(DPartDocEvents), &LIBID_SldWorks, ID_SLDWORKS_TLB_MAJOR, ID_SLDWORKS_TLB_MINOR>,	
 	public IDispEventImpl<ID_ASSEMBLY_EVENTS, CSwDocument, &__uuidof(DAssemblyDocEvents), &LIBID_SldWorks, ID_SLDWORKS_TLB_MAJOR, ID_SLDWORKS_TLB_MINOR>,	
 	public IDispEventImpl<ID_DRAWING_EVENTS, CSwDocument, &__uuidof(DDrawingDocEvents), &LIBID_SldWorks, ID_SLDWORKS_TLB_MAJOR, ID_SLDWORKS_TLB_MINOR>
@@ -35,7 +35,7 @@ private:
 	long type;
 	CComPtr<IModelDoc2> iDocument;
 	CComPtr<ISldWorks> iSwApp;
-	COLProgram* userAddin;
+	CEliteSoftWare* userAddin;
 
 	TMapIUnknownToModelView openModelViews;
 public:
@@ -69,7 +69,7 @@ END_COM_MAP()
 // ISwDocument
 public:
 
-	void Init(COLProgram* addinPtr, IModelDoc2* modDoc);
+	void Init(CEliteSoftWare* addinPtr, IModelDoc2* modDoc);
 	long GetType();
 
 	VARIANT_BOOL AttachEventHandlers(void);

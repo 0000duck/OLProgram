@@ -108,7 +108,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>comsvcs.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ModuleDefinitionFile>.\OLProgram.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>.\EliteSoftWare.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -119,10 +119,10 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TargetEnvironment>Win32</TargetEnvironment>
       <GenerateStublessProxies>true</GenerateStublessProxies>
-      <HeaderFileName>OLProgram_i.h</HeaderFileName>
-      <InterfaceIdentifierFileName>OLProgram_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>OLProgram_p.c</ProxyFileName>
-      <TypeLibraryName>$(IntDir)/OLProgram.tlb</TypeLibraryName>
+      <HeaderFileName>EliteSoftWare_i.h</HeaderFileName>
+      <InterfaceIdentifierFileName>EliteSoftWare_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>EliteSoftWare_p.c</ProxyFileName>
+      <TypeLibraryName>$(IntDir)/EliteSoftWare.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -157,7 +157,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>comsvcs.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ModuleDefinitionFile>.\OLProgram.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>.\EliteSoftWare.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <IgnoreSpecificDefaultLibraries>mfcs100ud.lib;msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -167,10 +167,10 @@
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <GenerateStublessProxies>true</GenerateStublessProxies>
-      <HeaderFileName>OLProgram_i.h</HeaderFileName>
-      <InterfaceIdentifierFileName>OLProgram_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>OLProgram_p.c</ProxyFileName>
-      <TypeLibraryName>$(IntDir)/OLProgram.tlb</TypeLibraryName>
+      <HeaderFileName>EliteSoftWare_i.h</HeaderFileName>
+      <InterfaceIdentifierFileName>EliteSoftWare_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>EliteSoftWare_p.c</ProxyFileName>
+      <TypeLibraryName>$(IntDir)/EliteSoftWare.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -206,7 +206,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>comsvcs.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ModuleDefinitionFile>.\OLProgram.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>.\EliteSoftWare.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -217,10 +217,10 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TargetEnvironment>Win32</TargetEnvironment>
       <GenerateStublessProxies>true</GenerateStublessProxies>
-      <HeaderFileName>OLProgram_i.h</HeaderFileName>
-      <InterfaceIdentifierFileName>OLProgram_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>OLProgram_p.c</ProxyFileName>
-      <TypeLibraryName>$(IntDir)/OLProgram.tlb</TypeLibraryName>
+      <HeaderFileName>EliteSoftWare_i.h</HeaderFileName>
+      <InterfaceIdentifierFileName>EliteSoftWare_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>EliteSoftWare_p.c</ProxyFileName>
+      <TypeLibraryName>$(IntDir)/EliteSoftWare.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -250,7 +250,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>comsvcs.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ModuleDefinitionFile>.\OLProgram.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>.\EliteSoftWare.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <IgnoreSpecificDefaultLibraries>mfcs100u.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -260,10 +260,10 @@
     <Midl>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <GenerateStublessProxies>true</GenerateStublessProxies>
-      <HeaderFileName>OLProgram_i.h</HeaderFileName>
-      <InterfaceIdentifierFileName>OLProgram_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>OLProgram_p.c</ProxyFileName>
-      <TypeLibraryName>$(IntDir)/OLProgram.tlb</TypeLibraryName>
+      <HeaderFileName>EliteSoftWare_i.h</HeaderFileName>
+      <InterfaceIdentifierFileName>EliteSoftWare_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>EliteSoftWare_p.c</ProxyFileName>
+      <TypeLibraryName>$(IntDir)/EliteSoftWare.tlb</TypeLibraryName>
     </Midl>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -282,8 +282,8 @@
     <ClInclude Include="CutParamDlg.h" />
     <ClInclude Include="DocView.h" />
     <ClInclude Include="ExportDlg.h" />
-    <ClInclude Include="OLProgram.h" />
-    <ClInclude Include="OLProgram_i.h" />
+    <ClInclude Include="EliteSoftWare.h" />
+    <ClInclude Include="EliteSoftWare_i.h" />
     <ClInclude Include="PMPageHandler.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -296,8 +296,8 @@
     <ClCompile Include="CutParamDlg.cpp" />
     <ClCompile Include="DocView.cpp" />
     <ClCompile Include="ExportDlg.cpp" />
-    <ClCompile Include="OLProgram.cpp" />
-    <ClCompile Include="OLProgram_i.c">
+    <ClCompile Include="EliteSoftWare.cpp" />
+    <ClCompile Include="EliteSoftWare_i.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -305,7 +305,7 @@
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeaderOutputFile>
     </ClCompile>
-    <ClCompile Include="OLProgram_module.cpp" />
+    <ClCompile Include="EliteSoftWare_module.cpp" />
     <ClCompile Include="PMPageHandler.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="SwDocument.cpp" />
@@ -314,10 +314,10 @@
   <ItemGroup>
     <None Include="BitmapHandler.rgs" />
     <None Include="DocView.rgs" />
+    <None Include="EliteSoftWare.def" />
+    <None Include="EliteSoftWare.rgs" />
     <None Include="MainIconLarge.bmp" />
     <None Include="MainIconSmall.bmp" />
-    <None Include="OLProgram.def" />
-    <None Include="OLProgram.rgs" />
     <None Include="PMPageHandler.rgs" />
     <None Include="SwDocument.rgs" />
     <None Include="toolbar_large.bmp" />
@@ -325,17 +325,17 @@
     <None Include="UserPropertyManagerPage.rgs" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="OLProgram.idl" />
+    <Midl Include="EliteSoftWare.idl" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="OLProgram.rc" />
+    <ResourceCompile Include="EliteSoftWare.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="OLProgram.rc" />
+      <UserProperties RESOURCE_FILE="EliteSoftWare.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

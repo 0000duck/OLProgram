@@ -1,8 +1,8 @@
-// OLProgram.idl : IDL source for OLProgram
+// EliteSoftWare.idl : IDL source for EliteSoftWare
 //
 
 // This file will be processed by the MIDL tool to
-// produce the type library (OLProgram.tlb) and marshalling code.
+// produce the type library (EliteSoftWare.tlb) and marshalling code.
 
 import "oaidl.idl";
 import "ocidl.idl";
@@ -12,10 +12,10 @@ import "ocidl.idl";
 	uuid(3B367AB6-2571-485B-884D-1DD898FF4C30),
 	dual,
 	nonextensible,
-	helpstring("IOLProgram Interface"),
+	helpstring("IEliteSoftWare Interface"),
 	pointer_default(unique)
 ]
-interface IOLProgram : IDispatch{
+interface IEliteSoftWare : IDispatch{
 	[id(3), helpstring("method ToolbarCallback0")] HRESULT ToolbarCallbackPathExport();
 	[id(4), helpstring("method ToolbarEnable0")] HRESULT ToolbarEnablePathExport([out, retval] long* status);
 		[id(5), helpstring("method ShowPMP")] HRESULT GeneratePath();
@@ -83,18 +83,18 @@ interface IUserPropertyManagerPage : IDispatch{
 [
 	uuid(7A362735-8465-41E4-A7F6-D780C4C58378),
 	version(1.0),
-	helpstring("OLProgram 1.0 Type Library")
+	helpstring("EliteSoftWare 1.0 Type Library")
 ]
-library OLProgramLib
+library EliteSoftWareLib
 {
 	importlib("stdole2.tlb");
 	[
 		uuid(3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545),
-		helpstring("OLProgram Class")
+		helpstring("EliteSoftWare Class")
 	]
-	coclass OLProgram
+	coclass EliteSoftWare
 	{
-		[default] interface IOLProgram;
+		[default] interface IEliteSoftWare;
 	};
 	[
 		uuid(1A28FAE3-74B4-4757-AB24-F2C96B1332F7),

@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "SwDocument.h"
-#include "OLProgram.h"
+#include "EliteSoftWare.h"
 #include "DocView.h"
 
 // CSwDocument
@@ -20,7 +20,7 @@ CSwDocument::~CSwDocument()
 	return;
 }
 
-void CSwDocument::Init(COLProgram* addinPtr, IModelDoc2* modDoc)
+void CSwDocument::Init(CEliteSoftWare* addinPtr, IModelDoc2* modDoc)
 {
 	userAddin = addinPtr;
 	iSwApp = userAddin->GetSldWorksPtr();

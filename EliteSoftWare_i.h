@@ -4,9 +4,9 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Tue Oct 25 13:22:55 2016
+/* at Thu Oct 27 19:13:12 2016
  */
-/* Compiler settings for OLProgram.idl:
+/* Compiler settings for EliteSoftWare.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
@@ -36,8 +36,8 @@
 #include "ole2.h"
 #endif /*COM_NO_WINDOWS_H*/
 
-#ifndef __OLProgram_i_h__
-#define __OLProgram_i_h__
+#ifndef __EliteSoftWare_i_h__
+#define __EliteSoftWare_i_h__
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1020)
 #pragma once
@@ -45,10 +45,10 @@
 
 /* Forward Declarations */ 
 
-#ifndef __IOLProgram_FWD_DEFINED__
-#define __IOLProgram_FWD_DEFINED__
-typedef interface IOLProgram IOLProgram;
-#endif 	/* __IOLProgram_FWD_DEFINED__ */
+#ifndef __IEliteSoftWare_FWD_DEFINED__
+#define __IEliteSoftWare_FWD_DEFINED__
+typedef interface IEliteSoftWare IEliteSoftWare;
+#endif 	/* __IEliteSoftWare_FWD_DEFINED__ */
 
 
 #ifndef __ISwDocument_FWD_DEFINED__
@@ -81,16 +81,16 @@ typedef interface IUserPropertyManagerPage IUserPropertyManagerPage;
 #endif 	/* __IUserPropertyManagerPage_FWD_DEFINED__ */
 
 
-#ifndef __OLProgram_FWD_DEFINED__
-#define __OLProgram_FWD_DEFINED__
+#ifndef __EliteSoftWare_FWD_DEFINED__
+#define __EliteSoftWare_FWD_DEFINED__
 
 #ifdef __cplusplus
-typedef class OLProgram OLProgram;
+typedef class EliteSoftWare EliteSoftWare;
 #else
-typedef struct OLProgram OLProgram;
+typedef struct EliteSoftWare EliteSoftWare;
 #endif /* __cplusplus */
 
-#endif 	/* __OLProgram_FWD_DEFINED__ */
+#endif 	/* __EliteSoftWare_FWD_DEFINED__ */
 
 
 #ifndef __SwDocument_FWD_DEFINED__
@@ -162,19 +162,19 @@ extern "C"{
 #endif 
 
 
-#ifndef __IOLProgram_INTERFACE_DEFINED__
-#define __IOLProgram_INTERFACE_DEFINED__
+#ifndef __IEliteSoftWare_INTERFACE_DEFINED__
+#define __IEliteSoftWare_INTERFACE_DEFINED__
 
-/* interface IOLProgram */
+/* interface IEliteSoftWare */
 /* [unique][helpstring][nonextensible][dual][uuid][object] */ 
 
 
-EXTERN_C const IID IID_IOLProgram;
+EXTERN_C const IID IID_IEliteSoftWare;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
     
     MIDL_INTERFACE("3B367AB6-2571-485B-884D-1DD898FF4C30")
-    IOLProgram : public IDispatch
+    IEliteSoftWare : public IDispatch
     {
     public:
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE ToolbarCallbackPathExport( void) = 0;
@@ -208,34 +208,34 @@ EXTERN_C const IID IID_IOLProgram;
     
 #else 	/* C style interface */
 
-    typedef struct IOLProgramVtbl
+    typedef struct IEliteSoftWareVtbl
     {
         BEGIN_INTERFACE
         
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IOLProgram * This,
+            IEliteSoftWare * This,
             /* [in] */ REFIID riid,
             /* [annotation][iid_is][out] */ 
             __RPC__deref_out  void **ppvObject);
         
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IOLProgram * This);
+            IEliteSoftWare * This);
         
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IOLProgram * This);
+            IEliteSoftWare * This);
         
         HRESULT ( STDMETHODCALLTYPE *GetTypeInfoCount )( 
-            IOLProgram * This,
+            IEliteSoftWare * This,
             /* [out] */ UINT *pctinfo);
         
         HRESULT ( STDMETHODCALLTYPE *GetTypeInfo )( 
-            IOLProgram * This,
+            IEliteSoftWare * This,
             /* [in] */ UINT iTInfo,
             /* [in] */ LCID lcid,
             /* [out] */ ITypeInfo **ppTInfo);
         
         HRESULT ( STDMETHODCALLTYPE *GetIDsOfNames )( 
-            IOLProgram * This,
+            IEliteSoftWare * This,
             /* [in] */ REFIID riid,
             /* [size_is][in] */ LPOLESTR *rgszNames,
             /* [range][in] */ UINT cNames,
@@ -243,7 +243,7 @@ EXTERN_C const IID IID_IOLProgram;
             /* [size_is][out] */ DISPID *rgDispId);
         
         /* [local] */ HRESULT ( STDMETHODCALLTYPE *Invoke )( 
-            IOLProgram * This,
+            IEliteSoftWare * This,
             /* [in] */ DISPID dispIdMember,
             /* [in] */ REFIID riid,
             /* [in] */ LCID lcid,
@@ -254,49 +254,49 @@ EXTERN_C const IID IID_IOLProgram;
             /* [out] */ UINT *puArgErr);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *ToolbarCallbackPathExport )( 
-            IOLProgram * This);
+            IEliteSoftWare * This);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *ToolbarEnablePathExport )( 
-            IOLProgram * This,
+            IEliteSoftWare * This,
             /* [retval][out] */ long *status);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GeneratePath )( 
-            IOLProgram * This);
+            IEliteSoftWare * This);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *EnableGeneratePath )( 
-            IOLProgram * This,
+            IEliteSoftWare * This,
             /* [retval][out] */ long *status);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *FlyoutCallback )( 
-            IOLProgram * This);
+            IEliteSoftWare * This);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *FlyoutCallback0 )( 
-            IOLProgram * This);
+            IEliteSoftWare * This);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *FlyoutCallback1 )( 
-            IOLProgram * This);
+            IEliteSoftWare * This);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *FlyoutEnable0 )( 
-            IOLProgram * This,
+            IEliteSoftWare * This,
             /* [retval][out] */ long *status);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *FlyoutEnableCallback0 )( 
-            IOLProgram * This,
+            IEliteSoftWare * This,
             /* [retval][out] */ long *status);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *ToolbarBuildTube )( 
-            IOLProgram * This);
+            IEliteSoftWare * This);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *ToolbarEnableBuildTube )( 
-            IOLProgram * This,
+            IEliteSoftWare * This,
             /* [retval][out] */ long *status);
         
         END_INTERFACE
-    } IOLProgramVtbl;
+    } IEliteSoftWareVtbl;
 
-    interface IOLProgram
+    interface IEliteSoftWare
     {
-        CONST_VTBL struct IOLProgramVtbl *lpVtbl;
+        CONST_VTBL struct IEliteSoftWareVtbl *lpVtbl;
     };
 
     
@@ -304,60 +304,60 @@ EXTERN_C const IID IID_IOLProgram;
 #ifdef COBJMACROS
 
 
-#define IOLProgram_QueryInterface(This,riid,ppvObject)	\
+#define IEliteSoftWare_QueryInterface(This,riid,ppvObject)	\
     ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
 
-#define IOLProgram_AddRef(This)	\
+#define IEliteSoftWare_AddRef(This)	\
     ( (This)->lpVtbl -> AddRef(This) ) 
 
-#define IOLProgram_Release(This)	\
+#define IEliteSoftWare_Release(This)	\
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IOLProgram_GetTypeInfoCount(This,pctinfo)	\
+#define IEliteSoftWare_GetTypeInfoCount(This,pctinfo)	\
     ( (This)->lpVtbl -> GetTypeInfoCount(This,pctinfo) ) 
 
-#define IOLProgram_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
+#define IEliteSoftWare_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
     ( (This)->lpVtbl -> GetTypeInfo(This,iTInfo,lcid,ppTInfo) ) 
 
-#define IOLProgram_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
+#define IEliteSoftWare_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
     ( (This)->lpVtbl -> GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId) ) 
 
-#define IOLProgram_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
+#define IEliteSoftWare_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
     ( (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr) ) 
 
 
-#define IOLProgram_ToolbarCallbackPathExport(This)	\
+#define IEliteSoftWare_ToolbarCallbackPathExport(This)	\
     ( (This)->lpVtbl -> ToolbarCallbackPathExport(This) ) 
 
-#define IOLProgram_ToolbarEnablePathExport(This,status)	\
+#define IEliteSoftWare_ToolbarEnablePathExport(This,status)	\
     ( (This)->lpVtbl -> ToolbarEnablePathExport(This,status) ) 
 
-#define IOLProgram_GeneratePath(This)	\
+#define IEliteSoftWare_GeneratePath(This)	\
     ( (This)->lpVtbl -> GeneratePath(This) ) 
 
-#define IOLProgram_EnableGeneratePath(This,status)	\
+#define IEliteSoftWare_EnableGeneratePath(This,status)	\
     ( (This)->lpVtbl -> EnableGeneratePath(This,status) ) 
 
-#define IOLProgram_FlyoutCallback(This)	\
+#define IEliteSoftWare_FlyoutCallback(This)	\
     ( (This)->lpVtbl -> FlyoutCallback(This) ) 
 
-#define IOLProgram_FlyoutCallback0(This)	\
+#define IEliteSoftWare_FlyoutCallback0(This)	\
     ( (This)->lpVtbl -> FlyoutCallback0(This) ) 
 
-#define IOLProgram_FlyoutCallback1(This)	\
+#define IEliteSoftWare_FlyoutCallback1(This)	\
     ( (This)->lpVtbl -> FlyoutCallback1(This) ) 
 
-#define IOLProgram_FlyoutEnable0(This,status)	\
+#define IEliteSoftWare_FlyoutEnable0(This,status)	\
     ( (This)->lpVtbl -> FlyoutEnable0(This,status) ) 
 
-#define IOLProgram_FlyoutEnableCallback0(This,status)	\
+#define IEliteSoftWare_FlyoutEnableCallback0(This,status)	\
     ( (This)->lpVtbl -> FlyoutEnableCallback0(This,status) ) 
 
-#define IOLProgram_ToolbarBuildTube(This)	\
+#define IEliteSoftWare_ToolbarBuildTube(This)	\
     ( (This)->lpVtbl -> ToolbarBuildTube(This) ) 
 
-#define IOLProgram_ToolbarEnableBuildTube(This,status)	\
+#define IEliteSoftWare_ToolbarEnableBuildTube(This,status)	\
     ( (This)->lpVtbl -> ToolbarEnableBuildTube(This,status) ) 
 
 #endif /* COBJMACROS */
@@ -368,7 +368,7 @@ EXTERN_C const IID IID_IOLProgram;
 
 
 
-#endif 	/* __IOLProgram_INTERFACE_DEFINED__ */
+#endif 	/* __IEliteSoftWare_INTERFACE_DEFINED__ */
 
 
 #ifndef __ISwDocument_INTERFACE_DEFINED__
@@ -947,21 +947,21 @@ EXTERN_C const IID IID_IUserPropertyManagerPage;
 
 
 
-#ifndef __OLProgramLib_LIBRARY_DEFINED__
-#define __OLProgramLib_LIBRARY_DEFINED__
+#ifndef __EliteSoftWareLib_LIBRARY_DEFINED__
+#define __EliteSoftWareLib_LIBRARY_DEFINED__
 
-/* library OLProgramLib */
+/* library EliteSoftWareLib */
 /* [helpstring][version][uuid] */ 
 
 
-EXTERN_C const IID LIBID_OLProgramLib;
+EXTERN_C const IID LIBID_EliteSoftWareLib;
 
-EXTERN_C const CLSID CLSID_OLProgram;
+EXTERN_C const CLSID CLSID_EliteSoftWare;
 
 #ifdef __cplusplus
 
 class DECLSPEC_UUID("3BB8AFA7-E4D6-4BA6-BFBD-C39729E1F545")
-OLProgram;
+EliteSoftWare;
 #endif
 
 EXTERN_C const CLSID CLSID_SwDocument;
@@ -1003,7 +1003,7 @@ EXTERN_C const CLSID CLSID_UserPropertyManagerPage;
 class DECLSPEC_UUID("F43C6FAC-004A-40F4-A66C-13C2D1DC1D1D")
 UserPropertyManagerPage;
 #endif
-#endif /* __OLProgramLib_LIBRARY_DEFINED__ */
+#endif /* __EliteSoftWareLib_LIBRARY_DEFINED__ */
 
 /* Additional Prototypes for ALL interfaces */
 

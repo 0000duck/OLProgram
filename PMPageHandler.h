@@ -2,11 +2,11 @@
 // PMPageHandler.h : Declaration of the CPMPageHandler
 
 #pragma once
-#include "OLProgram_i.h"
+#include "EliteSoftWare_i.h"
 #include "resource.h"       // main symbols
 #include <comsvcs.h>
-#include "OLProgram.h"
-class COLProgram;
+#include "EliteSoftWare.h"
+class CEliteSoftWare;
 
 #define SELECTION_BASETUBEFACE 11
 #define SELECTION_BASETUBEEDGE 12
@@ -19,7 +19,7 @@ class COLProgram;
 class ATL_NO_VTABLE CPMPageHandler :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public CComCoClass<CPMPageHandler, &CLSID_PMPageHandler>,
-	public IDispatchImpl<IPMPageHandler, &IID_IPMPageHandler, &LIBID_OLProgramLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
+	public IDispatchImpl<IPMPageHandler, &IID_IPMPageHandler, &LIBID_EliteSoftWareLib, /*wMajor =*/ 1, /*wMinor =*/ 0>,
 	public IPropertyManagerPage2Handler9
 {
 public:
@@ -32,7 +32,7 @@ public:
 
 // 
 public:
-	COLProgram *userAddin;
+	CEliteSoftWare *userAddin;
 	CComPtr<ISldWorks> iSwApp;
 	// 切割工艺参数
 	//////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,7 @@ public:
 // 	double m_dTubeLength;// 管件长度
 	//////////////////////////////////////////////////////////////////////////
 public:
-	void Init(COLProgram *app);
+	void Init(CEliteSoftWare *app);
 	DECLARE_PROTECT_FINAL_CONSTRUCT()
 
 	HRESULT FinalConstruct()

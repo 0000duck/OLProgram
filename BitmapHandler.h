@@ -1,7 +1,7 @@
 // BitmapHandler.h : Declaration of the CBitmapHandler
 
 #pragma once
-#include "OLProgram_i.h"
+#include "EliteSoftWare_i.h"
 #include "resource.h"       // main symbols
 #include <comsvcs.h>
 
@@ -12,7 +12,7 @@
 class ATL_NO_VTABLE CBitmapHandler :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public CComCoClass<CBitmapHandler, &CLSID_BitmapHandler>,
-	public IDispatchImpl<IBitmapHandler, &IID_IBitmapHandler, &LIBID_OLProgramLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+	public IDispatchImpl<IBitmapHandler, &IID_IBitmapHandler, &LIBID_EliteSoftWareLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
 	CBitmapHandler()

@@ -1,10 +1,10 @@
 // UserPropertyManagerPage.h : Declaration of the CUserPropertyManagerPage
 
 #pragma once
-#include "OLProgram_i.h"
+#include "EliteSoftWare_i.h"
 #include "resource.h"       // main symbols
 #include <comsvcs.h>
-class COLProgram;
+class CEliteSoftWare;
 class CPMPageHandler;
 
 //Control IDs
@@ -30,12 +30,12 @@ class CPMPageHandler;
 class ATL_NO_VTABLE CUserPropertyManagerPage :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public CComCoClass<CUserPropertyManagerPage, &CLSID_UserPropertyManagerPage>,
-	public IDispatchImpl<IUserPropertyManagerPage, &IID_IUserPropertyManagerPage, &LIBID_OLProgramLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+	public IDispatchImpl<IUserPropertyManagerPage, &IID_IUserPropertyManagerPage, &LIBID_EliteSoftWareLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
 
 private:
-	COLProgram *userAddin;
+	CEliteSoftWare *userAddin;
 	CComPtr<ISldWorks> iSwApp;
 	CComPtr<IPropertyManagerPage2> swPropertyPage;
 	CComObject<CPMPageHandler> *handler;
@@ -98,7 +98,7 @@ END_COM_MAP()
 
 // IUserPropertyManagerPage
 public:
-	void Init(COLProgram *app);
+	void Init(CEliteSoftWare *app);
 	void CreatePropertyManagerPage();
 	void Destroy();
 	void Show();

@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "OLProgram.h"
+#include "EliteSoftWare.h"
 #include "CutParamDlg.h"
 #include "afxdialogex.h"
 

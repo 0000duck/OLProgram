@@ -1,6 +1,6 @@
-; OLProgram.def : Declares the module parameters.
+; EliteSoftWare.def : Declares the module parameters.
 
-LIBRARY      "OLProgram.DLL"
+LIBRARY      "EliteSoftWare.DLL"
 
 EXPORTS
 	DllCanUnloadNow		PRIVATE

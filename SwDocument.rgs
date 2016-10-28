@@ -1,20 +1,20 @@
 HKCR
 {
-	OLProgram.SwDocument.1 = s 'SwDocument Class'
+	EliteSoftWare.SwDocument.1 = s 'SwDocument Class'
 	{
 		CLSID = s '{1A28FAE3-74B4-4757-AB24-F2C96B1332F7}'
 	}
-	OLProgram.SwDocument = s 'SwDocument Class'
+	EliteSoftWare.SwDocument = s 'SwDocument Class'
 	{
 		CLSID = s '{1A28FAE3-74B4-4757-AB24-F2C96B1332F7}'
-		CurVer = s 'OLProgram.SwDocument.1'
+		CurVer = s 'EliteSoftWare.SwDocument.1'
 	}
 	NoRemove CLSID
 	{
 		ForceRemove {1A28FAE3-74B4-4757-AB24-F2C96B1332F7} = s 'SwDocument Class'
 		{
-			ProgID = s 'OLProgram.SwDocument.1'
-			VersionIndependentProgID = s 'OLProgram.SwDocument'
+			ProgID = s 'EliteSoftWare.SwDocument.1'
+			VersionIndependentProgID = s 'EliteSoftWare.SwDocument'
 			ForceRemove 'Programmable'
 			InprocServer32 = s '%MODULE%'
 			{

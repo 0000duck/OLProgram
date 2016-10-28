@@ -3,20 +3,20 @@
 
 #include "stdafx.h"
 #include "resource.h"
-#include "OLProgram.h"
+#include "EliteSoftWare.h"
 
 
-class COLProgramModule : public CAtlDllModuleT< COLProgramModule >
+class CEliteSoftWareModule : public CAtlDllModuleT< CEliteSoftWareModule >
 {
 public :
 
-	DECLARE_LIBID(LIBID_OLProgramLib)
+	DECLARE_LIBID(LIBID_EliteSoftWareLib)
 
 };
 
-COLProgramModule _AtlModule;
+CEliteSoftWareModule _AtlModule;
 
-class COLProgramApp : public CWinApp
+class CEliteSoftWareApp : public CWinApp
 {
 public:
 
@@ -27,17 +27,17 @@ public:
     DECLARE_MESSAGE_MAP()
 };
 
-BEGIN_MESSAGE_MAP(COLProgramApp, CWinApp)
+BEGIN_MESSAGE_MAP(CEliteSoftWareApp, CWinApp)
 END_MESSAGE_MAP()
 
-COLProgramApp theApp;
+CEliteSoftWareApp theApp;
 
-BOOL COLProgramApp::InitInstance()
+BOOL CEliteSoftWareApp::InitInstance()
 {
     return CWinApp::InitInstance();
 }
 
-int COLProgramApp::ExitInstance()
+int CEliteSoftWareApp::ExitInstance()
 {
     return CWinApp::ExitInstance();
 }

@@ -3,11 +3,11 @@
 #include "stdafx.h"
 #include "UserPropertyManagerPage.h"
 #include "PMPageHandler.h"
-#include "OLProgram.h"
-
+#include "EliteSoftWare.h"
 
 // CUserPropertyManagerPage
-void CUserPropertyManagerPage::Init(COLProgram *app)
+
+void CUserPropertyManagerPage::Init(CEliteSoftWare *app)
 {
 	userAddin = app;
 	iSwApp = userAddin->GetSldWorksPtr();
@@ -20,7 +20,6 @@ void CUserPropertyManagerPage::CreatePropertyManagerPage()
 	CComObject<CPMPageHandler>::CreateInstance(&handler);
 	handler->Init(userAddin);
 	handler->AddRef();
-
 	CComBSTR title;
 	title.LoadString(IDS_PMP_TITLE);
 	long errors = 0;

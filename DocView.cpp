@@ -5,7 +5,7 @@
 #include "SwDocument.h"
 
 // CDocView
-void CDocView::Init(COLProgram *theApp, IModelView *iModelView, CSwDocument *iParent)
+void CDocView::Init(CEliteSoftWare *theApp, IModelView *iModelView, CSwDocument *iParent)
 {
 	userAddin = theApp;
 	iModelView->AddRef();
@@ -59,7 +59,6 @@ STDMETHODIMP CDocView::OnDestroy(long destroyType)
 STDMETHODIMP CDocView::OnRepaint(long paintType)
 {
 	// TODO: Add your implementation code here
-
 	ATLTRACE("\tCPartHandler::OnRepaint called\n");
 	return S_OK;
 }
