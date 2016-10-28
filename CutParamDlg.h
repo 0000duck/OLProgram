@@ -29,5 +29,6 @@ public:
 
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCheckTwicecut();
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+//	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	virtual BOOL OnInitDialog();
 };

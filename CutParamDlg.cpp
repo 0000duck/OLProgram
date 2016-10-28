@@ -48,7 +48,7 @@ void CCutParamDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CCutParamDlg, CDialogEx)
 	ON_BN_CLICKED(IDOK, &CCutParamDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_CHECK_TWICECUT, &CCutParamDlg::OnBnClickedCheckTwicecut)
-	ON_WM_CREATE()
+//	ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 
@@ -66,29 +66,28 @@ void CCutParamDlg::OnBnClickedOk()
 void CCutParamDlg::OnBnClickedCheckTwicecut()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	UpdateData(FALSE);
-	CButton *pCheckbox = (CButton*)GetDlgItem(IDC_CHECK_TWICECUT);
-	if(pCheckbox->GetCheck())                // 被选中
-	{
-		m_bTwiceCut = FALSE;
-		pCheckbox->SetCheck(FALSE);
-	}
-	else          // 没有选中
-	{
-		m_bTwiceCut = TRUE;
-		pCheckbox->SetCheck(TRUE);
-	}
-	//m_bTwiceCut =! m_bTwiceCut;
 	UpdateData(TRUE);
+	CButton *pCheckbox = (CButton*)GetDlgItem(IDC_CHECK_TWICECUT);
+	pCheckbox->SetCheck(m_bTwiceCut);
 }
 
 
-int CCutParamDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+//int CCutParamDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+//{
+//	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
+//		return -1;
+//
+//	// TODO:  在此添加您专用的创建代码
+//
+//	return 0;
+//}
+
+
+BOOL CCutParamDlg::OnInitDialog()
 {
-	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
-		return -1;
+	CDialogEx::OnInitDialog();
+	UpdateData(FALSE);
 
-	// TODO:  在此添加您专用的创建代码
+	return TRUE;  // return TRUE unless you set the focus to a control
 
-	return 0;
 }

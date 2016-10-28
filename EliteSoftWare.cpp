@@ -903,7 +903,7 @@ void CEliteSoftWare::BuildTubeAndHole()
 		swSketMgr->InsertSketch(VARIANT_TRUE);
 		if (VARIANT_FALSE == retval)
 		{
-			AfxMessageBox(_T("无法选择到前视基准面，无法生成中心线"));
+			AfxMessageBox(_T("无法选择到前视基准面，无法生成中心线。"));
 			iSwModel = NULL;
 			return;
 		}
@@ -944,7 +944,7 @@ void CEliteSoftWare::BuildTubeAndHole()
 		swDocExt->SelectByID2(_T("上视基准面"), L"PLANE", 0, 0, 0, True, 0, NULL, swSelectOptionDefault,&retval);
 		if (VARIANT_FALSE == retval)
 		{
-			AfxMessageBox(_T("无法选择到上视基准面，无法生成基准面"));
+			AfxMessageBox(_T("无法选择到上视基准面，无法生成基准面。"));
 			iSwModel = NULL;
 			return;
 		}
@@ -952,7 +952,7 @@ void CEliteSoftWare::BuildTubeAndHole()
 		swDocExt->SelectByID2(L"Line1@草图2", L"EXTSKETCHSEGMENT", 0, 0, 0, True, 1, NULL, 0, &retval);
 		if (VARIANT_FALSE == retval)
 		{
-			AfxMessageBox(_T("无法选择到中心线，无法生成基准面"));
+			AfxMessageBox(_T("无法选择到中心线，无法生成基准面。"));
 			iSwModel = NULL;
 			return;
 		}
@@ -980,7 +980,7 @@ void CEliteSoftWare::BuildTubeAndHole()
 		swDocExt->SelectByID2(bstrText, L"EXTSKETCHSEGMENT", 0, 0, 0, True, 1, NULL, 0, &retval);
 		if (VARIANT_FALSE == retval)
 		{
-			AfxMessageBox(_T("无法选择到中心线，无法生成基准面"));
+			AfxMessageBox(_T("无法选择到中心线，无法生成基准面。"));
 			iSwModel = NULL;
 			return;
 		}

@@ -25,9 +25,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OLProgram_i.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="BitmapHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -38,9 +35,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OLProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SwDocument.h">
@@ -61,14 +55,14 @@
     <ClInclude Include="ExportDlg.h">
       <Filter>Dialog\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EliteSoftWare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EliteSoftWare_i.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OLProgram_i.c">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OLProgram_module.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BitmapHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,9 +70,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OLProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SwDocument.cpp">
@@ -99,11 +90,17 @@
     <ClCompile Include="ExportDlg.cpp">
       <Filter>Dialog\Sorce Files</Filter>
     </ClCompile>
+    <ClCompile Include="EliteSoftWare.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EliteSoftWare_module.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EliteSoftWare_i.c">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="OLProgram.def">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="BitmapHandler.rgs">
       <Filter>Resource Files</Filter>
     </None>
@@ -114,9 +111,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="MainIconSmall.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="OLProgram.rgs">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="SwDocument.rgs">
@@ -134,14 +128,20 @@
     <None Include="UserPropertyManagerPage.rgs">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="EliteSoftWare.def">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="EliteSoftWare.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="OLProgram.idl">
-      <Filter>Source Files</Filter>
+    <Midl Include="EliteSoftWare.idl">
+      <Filter>Resource Files</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="OLProgram.rc">
+    <ResourceCompile Include="EliteSoftWare.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
