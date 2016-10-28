@@ -8,22 +8,10 @@ class CEliteSoftWare;
 class CPMPageHandler;
 
 //Control IDs
-#define GROUP0		0
 #define GROUP1		1
 #define GROUP2		2
 #define GROUP3		3
 #define GROUP4		4
-#define	TEXT1		5
-#define CHECK1		6
-#define OPTION1		7
-#define OPTION2		8
-#define OPTION3		9	
-#define LIST1		10
-#define SELECTION1	11
-#define NUM1		12
-#define COMBO1		13
-
-
 
 // CUserPropertyManagerPage
 
@@ -44,30 +32,24 @@ protected:
 	//Generic Control
 	IPropertyManagerPageControl *control;
 
-	//Groups
-//	IPropertyManagerPageGroup *group0;
+	// Groups
 	IPropertyManagerPageGroup *group1;
 	IPropertyManagerPageGroup *group2;
 	IPropertyManagerPageGroup *group3;
 	IPropertyManagerPageGroup *group4;
 
-	//In Group1
-	IPropertyManagerPageTextbox		*text1;
-	IPropertyManagerPageCheckbox	*check1;
-	IPropertyManagerPageOption		*option1;
-	IPropertyManagerPageOption		*option2;
-	IPropertyManagerPageOption		*option3;
-	IPropertyManagerPageListbox		*list1;
-
-	//In Group2
+	// In Group1
 	IPropertyManagerPageSelectionbox *selection_BaseTubeFace;
+
+	// In Group2
 	IPropertyManagerPageSelectionbox *selection_HoleEdges;
-//	IPropertyManagerPageButton       *button_BuildTube;
-	IPropertyManagerPageButton       *button_CalculPath;
+
+	// In Group3
 	IPropertyManagerPageButton       *button_SetParam;
+
+	// In Group4
+	IPropertyManagerPageButton       *button_CalculPath;
 	IPropertyManagerPageButton       *button_ClearPath;
-	IPropertyManagerPageNumberbox	 *num1;
-	IPropertyManagerPageCombobox	 *combo1;
 public:
 	CUserPropertyManagerPage()
 	{
@@ -92,9 +74,6 @@ BEGIN_COM_MAP(CUserPropertyManagerPage)
 	COM_INTERFACE_ENTRY(IUserPropertyManagerPage)
 	COM_INTERFACE_ENTRY(IDispatch)
 END_COM_MAP()
-
-
-
 
 // IUserPropertyManagerPage
 public:

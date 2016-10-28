@@ -2,7 +2,7 @@
 #include "afxwin.h"
 
 
-// CCutParamDlg 对话框
+// 切割参数设置对话框
 
 class CCutParamDlg : public CDialogEx
 {
@@ -29,6 +29,5 @@ public:
 
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCheckTwicecut();
-//	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	virtual BOOL OnInitDialog();
 };

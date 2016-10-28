@@ -42,7 +42,6 @@ int CExportDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	// test
 	return 0;
 }
 

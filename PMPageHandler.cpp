@@ -11,17 +11,20 @@
 void CPMPageHandler::Init(CEliteSoftWare *app)
 {
 	userAddin = app;
-	iSwApp = userAddin->GetSldWorksPtr();
+	if (NULL != userAddin)
+	{
+		iSwApp = userAddin->GetSldWorksPtr();
+	}
+	else
+	{
+		AfxMessageBox(_T("当前文档App类为空，请关闭当前文档，并重建文档。"));
+	}
 
 	m_dCutAng   = 45.;
 	m_dCutWidth = 10.;
 	m_dChodTol  = 0.01;
 	m_dStepTol  = 0.01;
 	m_dToolDis  = 3. ;
-
-// 	m_dTubeDia    = 1000;
-// 	m_dTubeThick  = 30;
-// 	m_dTubeLength = 4000;
 	m_bTwiceCut = TRUE;
 }
 
@@ -43,9 +46,6 @@ HRESULT __stdcall CPMPageHandler::OnButtonPress(long Id)
 	case BUTTON_CLEARPATH:
 		ClearAllPath();
 		break;
-// 	case BUTTON_BUILDTUBE:
-// 		BuildTubeAndHole();
-// 		break;
 	default:
 		break;
 	}
@@ -159,6 +159,7 @@ CHCombParam* CPMPageHandler::GetCurHoleParams()
 	return pHParamComb;
 }
 
+//　根据原始路径点，获取对应的孔参数
 CHoleParam* CPMPageHandler::GetHParam(int ptNum, double* ptArray)
 {
 	CHCombParam* pPathParamComb = GetCurHoleParams();
@@ -199,13 +200,15 @@ CHoleParam* CPMPageHandler::GetHParam(int ptNum, double* ptArray)
 	}
 	if (!bFindPara)
 	{
-		AfxMessageBox(_T("路径未找到匹配参数"));
+		AfxMessageBox(_T("路径未找到匹配参数."));
 	}
 	return pPathParam;
 }
+
 #define MIN_DBL 1.0e-10
 extern double mathDistPntLin(PNT3D p, PNT3D begin, VEC3D dir);
 extern double mathGetAngle(VEC3D v1, VEC3D v2, double min_len);
+
 // 用于计算路径偏移后的节点
 void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface, CMovePath* movePath, BOOL bRevOffVec)
 {
@@ -269,7 +272,6 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		double dZThick = sqrt(dRWTube*dRWTube - ptCDis*ptCDis) - sqrt(dRNTube*dRNTube - ptCDis*ptCDis);
 		double dHThick = dZThick/sin(pHParam->m_dThroughAng); // 孔在管上的总深度
 
-		//double dDThick = m_dCutWidth/1000;//坡口深度，用户设置
 		double dDunDeep = m_dCutWidth/1000;////坡口深度，用户设置，超过dHThick，则提醒或者自动设为dHThick
 		if (dDunDeep>dHThick)
 		{
@@ -346,10 +348,8 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 			pokouAng = tmpAng*0.5;
 		}
 		//////////////////////////////////////////////////////////////////////////
-// 		for (int i=0; i<3; i++)
-// 		{
-// 			vecStart[i] = retFacePt[i];
-// 		}
+
+
 		VEC3D pokouVec;
 		mathRotVecXY(dThroughVec,offsetVec,pokouAng,pokouVec);
 		mathUniVec(pokouVec);
@@ -402,13 +402,6 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 			pNode->m_OffsetDrawEndPnt[i] = vecEnd[i];
 		}
 
-// 		for (int i=0; i<3; i++)
-// 		{
-// 			pNode->m_OrgCutPosition[i]   = ptDun[i];
-// 			pNode->m_OrgDirection[i]  = pokouVec[i];
-// 			pNode->m_OrgCutDrawEndPnt[i] = vecEnd[i];
-// 		}
-
 		//刀头悬空距离
 		for (int i=0; i<3; i++)
 		{
@@ -438,7 +431,7 @@ void CPMPageHandler::ClearAllPath()
 
 	if (docType != swDocPART && docType != swDocASSEMBLY)
 	{
-		AfxMessageBox(_T("打开的不是零件"),MB_OK|MB_ICONINFORMATION);
+		AfxMessageBox(_T("打开的不是零件。"),MB_OK|MB_ICONINFORMATION);
 		iSwModel = NULL;
 		return ;
 	}
@@ -467,305 +460,14 @@ void CPMPageHandler::ClearAllPath()
 	if (!bFind)
 	{
 		pPathCombList = NULL;
-		AfxMessageBox(_T("该文档所有路径已清除"));
+		AfxMessageBox(_T("该文档所有路径已清除。"));
 		return;
 	}
 	pPathCombList->Realse();//释放当前文档中的路径
 	//////////////////////////////////////////////////////////////////////////
 	
-	AfxMessageBox(_T("该文档所有路径已清除"));
+	AfxMessageBox(_T("该文档所有路径已清除。"));
 }
-
-//// 参数化创建管件
-//void CPMPageHandler::BuildTubeAndHole()
-//{
-//	long docType = -1;
-//	CComPtr<IModelDoc2> iSwModel;
-//
-//	iSwApp->get_IActiveDoc2(&iSwModel);
-//
-//	if(iSwModel != NULL)
-//	{
-//		iSwModel->GetType(&docType);
-//	}
-//
-//	if (docType != swDocPART && docType != swDocASSEMBLY)
-//	{
-//		AfxMessageBox(_T("打开的不是零件"),MB_OK|MB_ICONINFORMATION);
-//		iSwModel = NULL;
-//		return ;
-//	}
-//
-//	//////////////////////////////////////////////////////////////////////////
-//	BSTR sFileName;
-//	iSwModel->GetTitle(&sFileName);
-//	CHCombParam* pHCombParams = userAddin->GetCurHoleParam();
-//	if (NULL == pHCombParams)
-//	{
-//		pHCombParams = new CHCombParam(sFileName);
-//		userAddin->m_LHoleParamList.AddTail(pHCombParams);
-//	}
-//
-//	pHCombParams->m_dTubeDia = m_dTubeDia/1000.;
-//	pHCombParams->m_dTubeLength = m_dTubeLength/1000.;
-//	pHCombParams->m_dTubeThick = m_dTubeThick/1000.;
-//
-//	AFX_MANAGE_STATE(AfxGetStaticModuleState());
-//	CBuildTubeDlg BuildTubeDlg;
-//	BuildTubeDlg.m_dTubeDia    = m_dTubeDia;
-//	BuildTubeDlg.m_dTubeLength = m_dTubeLength;
-//	BuildTubeDlg.m_dTubeThick  = m_dTubeThick;
-//	BuildTubeDlg.SetHParamList(pHCombParams);
-//	BuildTubeDlg.m_bBulidTube = pHCombParams->m_bBulidTube;
-//	if (BuildTubeDlg.DoModal() != IDOK)
-//		return;
-//	m_dTubeDia    = BuildTubeDlg.m_dTubeDia;
-//	m_dTubeLength = BuildTubeDlg.m_dTubeLength;
-//	m_dTubeThick  = BuildTubeDlg.m_dTubeThick;
-//	m_dCutWidth = BuildTubeDlg.m_dTubeThick;
-//	double dRWCircle = m_dTubeDia*0.5/1000.;                  // 外圆直径
-//	double dRNCircle = (m_dTubeDia*0.5 - m_dTubeThick)/1000.; // 内圆直径
-//
-//	CComPtr<IModelDocExtension> swDocExt;
-//	CComPtr<ISketchManager> swSketMgr;
-//	CComPtr<IFeatureManager> swFeatmgr;
-//	iSwModel->get_Extension(&swDocExt);
-//	iSwModel->get_SketchManager(&swSketMgr);
-//	iSwModel->get_FeatureManager(&swFeatmgr);
-//
-//	if (NULL == swFeatmgr)
-//	{
-//		AfxMessageBox(_T("swFeature == NULL"));
-//		return;
-//	}
-//
-//	VARIANT_BOOL retval;	
-//	// 参数化创建管件
-//	//////////////////////////////////////////////////////////////////////////
-//	if (pHCombParams->m_bBulidTube) //如果
-//	{
-//		// prepare: 设置绘制方式和显示方式	
-//		iSwModel->SetAddToDB(VARIANT_TRUE);
-//		iSwModel->SetDisplayWhenAdded(VARIANT_FALSE);
-//		iSwModel->ClearSelection2(VARIANT_TRUE);
-//
-//		// step1：创建待切割圆管
-//		iSwModel->SelectByID(_T("右视基准面"),_T("PLANE"),0.,0.,0.,&retval);
-//		if (VARIANT_FALSE == retval)
-//		{
-//			AfxMessageBox(_T("无法选择到右视基准面，无法生成圆管"));
-//			iSwModel = NULL;
-//			return;
-//		}
-//		swSketMgr->InsertSketch(VARIANT_TRUE);
-//		CComPtr<ISketchSegment> swSketchWArc;
-//		CComPtr<ISketchSegment> swSketchNArc;
-//		swSketMgr->CreateCircleByRadius(0.,0.,0.,dRWCircle,&swSketchWArc);
-//		swSketMgr->CreateCircleByRadius(0.,0.,0.,dRNCircle,&swSketchNArc);
-//		swSketMgr->InsertSketch(VARIANT_TRUE);
-//		iSwModel->FeatureBoss(1,0,0,0,0,m_dTubeLength/1000.,m_dTubeLength/1000.,0,0,0,0,2,2,0,0);
-//
-//		// step2：创建大管轴线，用于创建的基准面
-//		iSwModel->SelectByID(_T("前视基准面"),_T("PLANE"),0.,0.,0.,&retval);
-//		swSketMgr->InsertSketch(VARIANT_TRUE);
-//		if (VARIANT_FALSE == retval)
-//		{
-//			AfxMessageBox(_T("无法选择到前视基准面，无法生成中心线"));
-//			iSwModel = NULL;
-//			return;
-//		}
-//		CComPtr<ISketchSegment> swSketchCLine;
-//		swSketMgr->CreateCenterLine(0,0,0,1,0,0,&swSketchCLine);
-//		swSketMgr->InsertSketch(VARIANT_TRUE);
-//		iSwModel->ClearSelection2(VARIANT_TRUE);
-//		iSwModel->SetAddToDB(VARIANT_FALSE);
-//		iSwModel->SetDisplayWhenAdded(VARIANT_TRUE);
-//		pHCombParams->m_bBulidTube = FALSE;
-//	}
-//	//////////////////////////////////////////////////////////////////////////
-//
-//	// 参数化创建孔
-//	//////////////////////////////////////////////////////////////////////////
-//	iSwModel->SetAddToDB(VARIANT_TRUE);
-//	iSwModel->SetDisplayWhenAdded(VARIANT_FALSE);
-//	//////////////////////////////////////////////////////////////////////////
-//	// 测试贯穿角度
-//	// 增加基准面ID变化和草图ID变化，这样可以用来画斜着贯穿的孔
-//	int nHoleID = 0;
-//	POSITION paraPos = pHCombParams->m_LHParamList.GetHeadPosition();
-//	while(paraPos)
-//	{
-//		CHoleParam* pPathParam = pHCombParams->m_LHParamList.GetNext(paraPos);
-//		if(NULL == pPathParam)
-//			continue;
-// 		if (nHoleID < pHCombParams->m_nHoleID)
-// 		{// 防止重复添加已添加的孔
-// 			nHoleID++;
-// 			continue;
-// 		}
-//		nHoleID++;
-//
-//		// step1：创建基准面		
-//		swDocExt->SelectByID2(_T("上视基准面"), L"PLANE", 0, 0, 0, True, 0, NULL, swSelectOptionDefault,&retval);
-//		if (VARIANT_FALSE == retval)
-//		{
-//			AfxMessageBox(_T("无法选择到上视基准面，无法生成基准面"));
-//			iSwModel = NULL;
-//			return;
-//		}
-//
-//		swDocExt->SelectByID2(L"Line1@草图2", L"EXTSKETCHSEGMENT", 0, 0, 0, True, 1, NULL, 0, &retval);
-//		if (VARIANT_FALSE == retval)
-//		{
-//			AfxMessageBox(_T("无法选择到中心线，无法生成基准面"));
-//			iSwModel = NULL;
-//			return;
-//		}
-//
-//		CComQIPtr<IDispatch> pRefPlane;
-//		swFeatmgr->InsertRefPlane(swRefPlaneReferenceConstraint_Angle, pPathParam->m_dExRotAng, 
-//			swRefPlaneReferenceConstraint_Coincident, 0, 0, 0,&pRefPlane);
-//		pHCombParams->m_nRefPlaneID++;
-//
-//		CString sID;
-//		BSTR bstrText;
-//		// step2：绘制待切割孔
-//		sID.Format(_T("基准面%d"),pHCombParams->m_nRefPlaneID);
-//		bstrText = sID.AllocSysString();
-//		iSwModel->SelectByID(bstrText,_T("PLANE"),0.,0.,0.,&retval);
-//		swSketMgr->InsertSketch(VARIANT_TRUE);
-//
-//		CComPtr<ISketchSegment> swSketchLine;
-//		swSketMgr->CreateCenterLine(pPathParam->m_dOffsetX,0,0,pPathParam->m_dOffsetX,1,0,&swSketchLine);
-//		pHCombParams->m_nSketID++;
-//
-//		iSwModel->SelectByID(bstrText,_T("PLANE"),0.,0.,0.,&retval);
-//		sID.Format(_T("Line1@草图%d"),pHCombParams->m_nSketID);
-//		bstrText = sID.AllocSysString();
-//		swDocExt->SelectByID2(bstrText, L"EXTSKETCHSEGMENT", 0, 0, 0, True, 1, NULL, 0, &retval);
-//		if (VARIANT_FALSE == retval)
-//		{
-//			AfxMessageBox(_T("无法选择到中心线，无法生成基准面"));
-//			iSwModel = NULL;
-//			return;
-//		}
-//
-//		CComQIPtr<IDispatch> pRefPlaneForThough;
-//		swFeatmgr->InsertRefPlane(swRefPlaneReferenceConstraint_Angle, (PI*0.5+pPathParam->m_dThroughAng), 
-//			swRefPlaneReferenceConstraint_Coincident, 0, 0, 0,&pRefPlaneForThough);
-//		pHCombParams->m_nRefPlaneID++;
-//		swSketMgr->InsertSketch(VARIANT_TRUE);
-//
-//		sID.Format(_T("基准面%d"),pHCombParams->m_nRefPlaneID);
-//		bstrText = sID.AllocSysString();
-//		iSwModel->SelectByID(bstrText,_T("PLANE"),0.,0.,0.,&retval);
-//		swSketMgr->InsertSketch(VARIANT_TRUE);
-//
-//		// 测试坐标系
-//// 		CComPtr<ISketchSegment> swSketchLine1;
-//// 		swSketMgr->CreateCenterLine(0,0,0,0,0,1,&swSketchLine1);
-//// 		CComPtr<ISketchSegment> swSketchLineX;
-//// 		swSketMgr->CreateCenterLine(0,0,0,1.23,0,0,&swSketchLineX);
-//// 		CComPtr<ISketchSegment> swSketchLineY;
-//// 		swSketMgr->CreateCenterLine(0,0,0,0,2,0,&swSketchLineY);
-//
-//		//////////////////////////////////////////////////////////////////////////
-//		// 以下为两种X偏向之代表的不同意义的情况的两种代码，根据实际情况，让一种使能就可以
-//		// 1.X偏向距离为贯穿孔与大圆轴线投影到平面后交点的距离
-//// 		CComPtr<ISketchSegment> swSketchHole;
-//// 		PNT3D ptCenter;
-//// 		ptCenter[0] = pPathParam->m_dCenterDis;
-//// 		ptCenter[1] = cos(PI*0.5-pPathParam->m_dThroughAng)*(pPathParam->m_dOffsetX);
-//// 		ptCenter[2] = 0;
-//// 		swSketMgr->CreateCircleByRadius(ptCenter[0],ptCenter[1], ptCenter[2], pPathParam->m_dHoleR, &swSketchHole); 
-//
-//		// 2.X偏向距离为贯穿孔轴线与大管外圆交点的距离
-//		CComPtr<ISketchSegment> swSketchHole;
-//		double dis = sqrt((pHCombParams->m_dTubeDia*0.5)*(pHCombParams->m_dTubeDia*0.5)-
-//			pPathParam->m_dCenterDis*pPathParam->m_dCenterDis);
-//		double dis2 = 1./tan(pPathParam->m_dThroughAng)*dis;
-//		double dCenterXOffset = dis2+pPathParam->m_dOffsetX;
-//		PNT3D ptCenter;
-//		ptCenter[0] = pPathParam->m_dCenterDis;
-//		ptCenter[1] = cos(PI*0.5-pPathParam->m_dThroughAng)*dCenterXOffset;
-//		ptCenter[2] = 0;
-//		swSketMgr->CreateCircleByRadius(ptCenter[0], ptCenter[1], ptCenter[2], pPathParam->m_dHoleR, &swSketchHole);
-//		//////////////////////////////////////////////////////////////////////////
-//		pHCombParams->m_nSketID++;
-//		pHCombParams->m_nHoleID++;
-//		swSketMgr->InsertSketch(VARIANT_TRUE);
-//		iSwModel->FeatureCut(1,0,VARIANT_FALSE,0,0,m_dTubeDia/10.,m_dTubeDia/10.,0,0,0,0,2,2,0,0);
-//	}
-//	//////////////////////////////////////////////////////////////////////////
-//
-//	// 以下代码可以正常创建贯穿角度为90度的孔，暂时先保留
-//	//////////////////////////////////////////////////////////////////////////
-//// 	int nHoleID = 0;
-//// 	POSITION paraPos = pHCombParamList->m_LHParamList.GetHeadPosition();
-//// 	while(paraPos)
-//// 	{
-//// 		CHoleParam* pPathParam = pHCombParamList->m_LHParamList.GetNext(paraPos);
-//// 		if(NULL == pPathParam)
-//// 			continue;
-//// 		if (nHoleID < pHCombParamList->m_nHoleID)
-//// 		{// 防止重复添加已添加的孔
-//// 			nHoleID++;
-//// 			continue;
-//// 		}
-//// 
-//// 		nHoleID++;
-//// 		// step1：创建基准面		
-//// 		swDocExt->SelectByID2(_T("上视基准面"), L"PLANE", 0, 0, 0, True, 0, NULL, swSelectOptionDefault,&retval);
-//// 		if (VARIANT_FALSE == retval)
-//// 		{
-//// 			AfxMessageBox(_T("无法选择到上视基准面，无法生成基准面"));
-//// 			iSwModel = NULL;
-//// 			return;
-//// 		}
-//// 
-//// 		swDocExt->SelectByID2(L"Line1@草图2", L"EXTSKETCHSEGMENT", 0, 0, 0, True, 1, NULL, 0, &retval);
-//// 		if (VARIANT_FALSE == retval)
-//// 		{
-//// 			AfxMessageBox(_T("无法选择到中心线，无法生成基准面"));
-//// 			iSwModel = NULL;
-//// 			return;
-//// 		}
-//// 
-//// 		CComQIPtr<IDispatch> pRefPlane;
-//// 		swFeatmgr->InsertRefPlane(swRefPlaneReferenceConstraint_Angle, pPathParam->m_dRotAng, 
-//// 			swRefPlaneReferenceConstraint_Coincident, 0, 0, 0,&pRefPlane);
-//// 		pHCombParamList->m_nHoleID++;
-//// 
-//// 		// step2：绘制待切割孔
-//// 		CString sID;
-//// 		sID.Format(_T("基准面%d"),pHCombParamList->m_nHoleID);
-//// 		//BSTR bstrText = _bstr_t(s); 
-//// 		BSTR bstrText = sID.AllocSysString();
-//// 		iSwModel->SelectByID(bstrText,_T("PLANE"),0.,0.,0.,&retval);
-//// 		swSketMgr->InsertSketch(VARIANT_TRUE);
-//// 
-//// 		CComPtr<ISketchSegment> swSketchHole;
-//// 		swSketMgr->CreateCircleByRadius(pPathParam->m_dOffsetX/*输入X向偏移*/,pPathParam->m_dCenterDis/*输入轴心距*/,
-//// 			                            0., pPathParam->m_dHoleR/*输入孔半径*/,&swSketchHole); 
-//// 		if (NULL == swSketchHole)
-//// 		{
-//// 			AfxMessageBox(_T("第%d个孔创建失败。"),pHCombParamList->m_nHoleID);
-//// 		}
-//// 		swSketMgr->InsertSketch(VARIANT_TRUE);
-//// 
-//// 		iSwModel->FeatureCut(1,0,VARIANT_TRUE,0,0,m_dTubeDia/1000.,m_dTubeDia/1000.,0,0,0,0,2,2,0,0);
-//// 		
-//// 	}
-//	//////////////////////////////////////////////////////////////////////////
-//
-//	// end:
-//	iSwModel->SetAddToDB(VARIANT_FALSE);
-//	iSwModel->SetDisplayWhenAdded(VARIANT_TRUE);
-//	//////////////////////////////////////////////////////////////////////////
-//
-//	iSwModel = NULL;
-//	return;
-//}
 
 // 计算路径
 void CPMPageHandler::CalMovePath()
@@ -782,7 +484,7 @@ void CPMPageHandler::CalMovePath()
 
 	if (docType != swDocPART && docType != swDocASSEMBLY)
 	{
-		AfxMessageBox(_T("打开的不是零件"),MB_OK|MB_ICONINFORMATION);
+		AfxMessageBox(_T("打开的文档不是零件。"),MB_OK|MB_ICONINFORMATION);
 		iSwModel = NULL;
 		return ;
 	}
@@ -793,7 +495,7 @@ void CPMPageHandler::CalMovePath()
 	swSelectionMgr->GetSelectedObjectCount(&count);
 	if (count < 2)
 	{
-		AfxMessageBox(_T("请按提示选择面和线"));
+		AfxMessageBox(_T("请按提示选择面和线。"));
 		return;
 	}
 
@@ -812,7 +514,7 @@ void CPMPageHandler::CalMovePath()
 	}
 	if (!bFineBasetube)
 	{
-		AfxMessageBox(_T("为选择大管外表面！"));
+		AfxMessageBox(_T("为选择大管外表面。"));
 		iSwModel = NULL;
 		return;
 	}
@@ -906,71 +608,8 @@ void CPMPageHandler::CalMovePath()
 	pPathCombList->m_LPathCombList.AddTail(pPathComb);
 
  	// 通过3D草图的形式，绘制路径
-	//////////////////////////////////////////////////////////////////////////
- 	iSwModel->Insert3DSketch2(VARIANT_TRUE);
- 	iSwModel->SetAddToDB(VARIANT_TRUE);
+ 	userAddin->DrawPathComb(pPathComb);
 	
- 	CComPtr<ISketchManager> iswSketchManger;
- 	iSwModel->get_SketchManager(&iswSketchManger);
- 	CComPtr<ISketchSegment> iSegment; 	
- 	
-	POSITION pos = pPathComb->m_PathList.GetHeadPosition();
-	while(pos)
-	{
-		CMovePath* pMovePath = pPathComb->m_PathList.GetNext(pos);
-		if(NULL == pMovePath)
-			continue;
-		POSITION nodepos = pMovePath->m_PathNodeList.GetHeadPosition();
-		while(nodepos)
-		{
-			CPathNode* pNode = pMovePath->m_PathNodeList.GetNext(nodepos);
-			iSegment = NULL;
-			if (pNode == NULL)
-				continue;
-			iSegment = NULL;
-			//iswSketchManger->CreateCircle()
-			iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
-				pNode->m_OffsetDrawEndPnt[0],pNode->m_OffsetDrawEndPnt[1],pNode->m_OffsetDrawEndPnt[2],&iSegment);
-			if (m_bTwiceCut)
-			{
-				iSegment = NULL;
-				iswSketchManger->CreateLine(pNode->m_OrgCutPosition[0],pNode->m_OrgCutPosition[1],pNode->m_OrgCutPosition[2],
-					pNode->m_OrgCutDrawEndPnt[0],pNode->m_OrgCutDrawEndPnt[1],pNode->m_OrgCutDrawEndPnt[2],&iSegment);
-			}
-			
-			CPathNode* pNextNode = NULL;
-			if (NULL == nodepos)
-				pNextNode = pMovePath->m_PathNodeList.GetHead();
-			else
-				pNextNode = pMovePath->m_PathNodeList.GetAt(nodepos);
-
-			if (NULL == pNextNode)
-				continue;
-			iSegment = NULL;
-			iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
-				pNextNode->m_OffsetPosition[0],pNextNode->m_OffsetPosition[1],pNextNode->m_OffsetPosition[2],&iSegment);
-			if (m_bTwiceCut)
-			{
-				iSegment = NULL;
-				iswSketchManger->CreateLine(pNode->m_OrgCutPosition[0],pNode->m_OrgCutPosition[1],pNode->m_OrgCutPosition[2],
-					pNextNode->m_OrgCutPosition[0],pNextNode->m_OrgCutPosition[1],pNextNode->m_OrgCutPosition[2],&iSegment);
-			}
-		}
-	}	
-
- 	iSwModel->SetAddToDB(VARIANT_FALSE);
- 	iSwModel->Insert3DSketch2(VARIANT_FALSE);
-	VARIANT_BOOL bret;
-	long color = 100;
-	CComPtr<IModelDocExtension> swExt;
-	iSwModel->get_Extension(&swExt);
-	iSwModel->SelectedFeatureProperties(color,0,0,0,0,0,0,VARIANT_FALSE,VARIANT_FALSE,L"3D草图1",&bret);
-	swExt->SelectByID2(L"3D草图1",L"SKETCH",0,0,0,VARIANT_FALSE,0,NULL,swSelectOptionDefault,&bret);
-
-	//		swDocExt->SelectByID2(_T("上视基准面"), L"PLANE", 0, 0, 0, True, 0, NULL, swSelectOptionDefault,&retval);
-
-	//////////////////////////////////////////////////////////////////////////
-
 	iSwModel = NULL;
 	return;
 }

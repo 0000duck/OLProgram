@@ -260,7 +260,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 // REGISTRY
 //
 
-IDR_EliteSoftWare           REGISTRY                "EliteSoftWare.rgs"
+IDR_ELITESOFTWARE           REGISTRY                "EliteSoftWare.rgs"
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////

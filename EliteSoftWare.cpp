@@ -12,8 +12,6 @@
 #include "BuildTubeDlg.h"
 using namespace std;
 
-
-
 extern void TrimZeroForCSring(CString& str)
 {
 	int pos = str.Find('.');
@@ -53,6 +51,7 @@ double mathDis3D(PNT3D pt1, PNT3D pt2)
 {
 	return sqrt((pt1[0]-pt2[0])*(pt1[0]-pt2[0])+(pt1[1]-pt2[1])*(pt1[1]-pt2[1])+(pt1[2]-pt2[2])*(pt1[2]-pt2[2]));
 };
+
 void mathRotPnt(VEC3D axis,	PNT3D pivot, double angle, PNT3D p, PNT3D rot_p);
 void mathVProduct(VEC3D v1, VEC3D v2, VEC3D rtvec);
 
@@ -382,20 +381,12 @@ void CEliteSoftWare::AddCommandManager()
 	CComBSTR callback;
 	CComBSTR enable;
 	VARIANT_BOOL cmdActivated;
-// 	callback.LoadString(IDS_TOOLBAR_CALLBACK0);
-// 	enable.LoadString(IDS_TOOLBAR_ENABLE0);
-	//tip.LoadString(IDS_TOOLBAR_TIP_PATHEXPORT);
-	//hint.LoadString(IDS_TOOLBAR_HINT_PATHEXPORT);
 	hret = icmdGroup->AddCommandItem2(L"创建管件", -1, L"通过输入参数，自动创建管件模型。", L"创建管件", 0, L"ToolbarBuildTube", L"ToolbarEnableBuildTube", MAIN_ITEM_ID1, menuToolbarOption, &cmdIndex0);
 
-// 	callback.LoadString(IDS_TOOLBAR_PMPCALLBACK);
-// 	enable.LoadString(IDS_TOOLBAR_PMPENABLE);
 	tip.LoadString(IDS_TOOLBAR_PMPTIP_CALPATH);
 	hint.LoadString(IDS_TOOLBAR_PMPHINT_CALPATH);
 	hret = icmdGroup->AddCommandItem2(tip, -1, hint, tip, 0, L"GeneratePath", L"EnableGeneratePath", MAIN_ITEM_ID2, menuToolbarOption, &cmdIndex1);
 
-	//callback.LoadString(IDS_TOOLBAR_CALLBACK0);
-	//enable.LoadString(IDS_TOOLBAR_ENABLE0);
 	tip.LoadString(IDS_TOOLBAR_TIP_PATHEXPORT);
 	hint.LoadString(IDS_TOOLBAR_HINT_PATHEXPORT);
 	hret = icmdGroup->AddCommandItem2(tip, -1, hint, tip, 0, L"ToolbarCallbackPathExport", L"ToolbarEnablePathExport", MAIN_ITEM_ID3, menuToolbarOption, &cmdIndex2);
@@ -404,107 +395,6 @@ void CEliteSoftWare::AddCommandManager()
 	icmdGroup->put_HasMenu(true);
 	icmdGroup->Activate(&cmdActivated);
 
-/*	bool bresult = false;
-
-	CComPtr<IFlyoutGroup> flyGroup; 
-	CComBSTR smallIcon;
-	CComBSTR largeIcon;
-	CComBSTR smallImageList;
-	CComBSTR largeImageList;
-
-	icmdGroup->get_SmallMainIcon(&smallIcon);
-	icmdGroup->get_LargeMainIcon(&largeIcon);
-	icmdGroup->get_SmallIconList(&smallImageList);
-	icmdGroup->get_LargeIconList(&largeImageList);
-
-	callback.LoadString(IDS_FLYOUT_CALLBACK);
-	enable.LoadString(IDS_FLYOUT_ENABLE0);
-	tip.LoadString(IDS_FLYOUT_TIP0);
-	hint.LoadString(IDS_FLYOUT_HINT0);
-	iCmdMgr->CreateFlyoutGroup(FLYOUT_GROUP_ID, L"Dynamic Flyout", L"Clicking this opens the Flyout menu", L"Click this to open the Flyout menu",
-		smallIcon, largeIcon, smallImageList, largeImageList, callback, enable, &flyGroup);
-
-	flyGroup->RemoveAllCommandItems();
-	//这里可能是测试tab的
-	long flyoutType = (long)swCommandFlyoutStyle_Simple;
-	flyGroup->put_FlyoutType(flyoutType);
-
-	for(int i=0; i < numDocumentTypes; i++)
-	{
-		CComPtr<ICommandTab> cmdTab = NULL;
-		long tabCount, docType = docTypes[i];
-
-		iCmdMgr->GetCommandTabCount(docType, &tabCount);
-
-		// check if tab exists
-		iCmdMgr->GetCommandTab(docType, title, &cmdTab);
-
-		//If tab exists, but we have ignored the registry info, re-create the tab. Otherwise the ids won't matchup and the tab will be blank 
-		if((cmdTab != NULL) && !getDataResult || ignorePrevious)
-		{
-			VARIANT_BOOL res;
-			iCmdMgr->RemoveCommandTab(cmdTab, &res);
-			cmdTab = NULL;
-		}
-
-		//If cmdTab is null, must be first load (possibly after reset), add the commands to the tabs
-		if(cmdTab == NULL)
-		{
-
-			// if not, add one
-			iCmdMgr->AddCommandTab(docType, title, &cmdTab);
-
-			//			CComPtr<ICommandTabBox> cmdBox;
-
-			//			cmdTab->AddCommandTabBox(&cmdBox);
-
-			// create 3 commands on this tab
-			//		long CommandIDCount = 2;
-
-
-			//		long CommandIDs[2];
-			//		long TextDisplayStyles[2];
-
-			//		long cmdID = 0;
-
-			// the 3 command buttons have different text styles
-			//		icmdGroup->get_CommandID(cmdIndex0, &cmdID);      
-			//		CommandIDs[0] = cmdID;
-			//		TextDisplayStyles[0] = swCommandTabButton_TextHorizontal;
-
-			//		icmdGroup->get_CommandID(cmdIndex1, &cmdID);
-			//		CommandIDs[1] = cmdID;
-			//		TextDisplayStyles[1] = swCommandTabButton_TextHorizontal;
-
-			//		icmdGroup->get_ToolbarId(&cmdID);
-			//		CommandIDs[2] = cmdID;
-			//		TextDisplayStyles[2] = swCommandTabButton_TextHorizontal;
-
-			//		VARIANT_BOOL vbResult = VARIANT_FALSE;
-
-			//		cmdBox->IAddCommands(CommandIDCount, CommandIDs, TextDisplayStyles, &vbResult);
-
-			//		long CommandIDs1[1];
-			//		long TextDisplayStyles1[1];
-
-			//		CommandIDCount = 1;
-
-			//flyGroup->get_CmdID(&cmdID);
-			//		CommandIDs1[0] = cmdID;
-			//		TextDisplayStyles1[0] = swCommandTabButton_TextBelow | swCommandTabButton_ActionFlyout;
-
-
-			//		CComPtr<ICommandTabBox> cmdBox1;
-
-			//	cmdTab->AddCommandTabBox(&cmdBox1);
-
-			//	cmdBox1->IAddCommands(CommandIDCount, CommandIDs1, TextDisplayStyles1, &vbResult);
-
-			//	CComPtr<ICommandTabBox> cmdBoxNew1; 
-
-			//	cmdTab->AddSeparator(cmdBox1, cmdID, &cmdBoxNew1);
-		}
-	}*/
 	//Clean up
 	delete [] registryIDs;
 }
@@ -814,7 +704,6 @@ void CEliteSoftWare::BuildTubeAndHole()
 {
 	long docType = -1;
 	CComPtr<IModelDoc2> iSwModel;
-	//iSwModel->SelectedFeatureProperties()
 	iSwApp->get_IActiveDoc2(&iSwModel);
 
 	if(iSwModel != NULL)
@@ -838,10 +727,6 @@ void CEliteSoftWare::BuildTubeAndHole()
 		pHCombParams = new CHCombParam(sFileName);
 		m_LHoleParamList.AddTail(pHCombParams);
 	}
-// 
-// 	pHCombParams->m_dTubeDia = pHCombParams->m_dTubeDia/1000.;
-// 	pHCombParams->m_dTubeLength = pHCombParams->m_dTubeLength/1000.;
-// 	pHCombParams->m_dTubeThick = pHCombParams->m_dTubeThick/1000.;
 
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	CBuildTubeDlg BuildTubeDlg;
@@ -855,7 +740,6 @@ void CEliteSoftWare::BuildTubeAndHole()
 	pHCombParams->m_dTubeDia    = BuildTubeDlg.m_dTubeDia/1000.;
 	pHCombParams->m_dTubeLength = BuildTubeDlg.m_dTubeLength/1000.;
 	pHCombParams->m_dTubeThick  = BuildTubeDlg.m_dTubeThick/1000.;
-//	m_dCutWidth = BuildTubeDlg.m_dTubeThick;
 	double dRWCircle = pHCombParams->m_dTubeDia*0.5;                  // 外圆直径
 	double dRNCircle = pHCombParams->m_dTubeDia*0.5 - pHCombParams->m_dTubeThick; // 内圆直径
 
@@ -922,7 +806,6 @@ void CEliteSoftWare::BuildTubeAndHole()
 	iSwModel->SetAddToDB(VARIANT_TRUE);
 	iSwModel->SetDisplayWhenAdded(VARIANT_FALSE);
 	//////////////////////////////////////////////////////////////////////////
-	// 测试贯穿角度
 	// 增加基准面ID变化和草图ID变化，这样可以用来画斜着贯穿的孔
 	int nHoleID = 0;
 	POSITION paraPos = pHCombParams->m_LHParamList.GetHeadPosition();
@@ -1034,68 +917,6 @@ void CEliteSoftWare::BuildTubeAndHole()
 		//////////////////////////////////////////////////////////////////////////
 	}
 	//////////////////////////////////////////////////////////////////////////
-
-	// 以下代码可以正常创建贯穿角度为90度的孔，暂时先保留
-	//////////////////////////////////////////////////////////////////////////
-	// 	int nHoleID = 0;
-	// 	POSITION paraPos = pHCombParamList->m_LHParamList.GetHeadPosition();
-	// 	while(paraPos)
-	// 	{
-	// 		CHoleParam* pPathParam = pHCombParamList->m_LHParamList.GetNext(paraPos);
-	// 		if(NULL == pPathParam)
-	// 			continue;
-	// 		if (nHoleID < pHCombParamList->m_nHoleID)
-	// 		{// 防止重复添加已添加的孔
-	// 			nHoleID++;
-	// 			continue;
-	// 		}
-	// 
-	// 		nHoleID++;
-	// 		// step1：创建基准面		
-	// 		swDocExt->SelectByID2(_T("上视基准面"), L"PLANE", 0, 0, 0, True, 0, NULL, swSelectOptionDefault,&retval);
-	// 		if (VARIANT_FALSE == retval)
-	// 		{
-	// 			AfxMessageBox(_T("无法选择到上视基准面，无法生成基准面"));
-	// 			iSwModel = NULL;
-	// 			return;
-	// 		}
-	// 
-	// 		swDocExt->SelectByID2(L"Line1@草图2", L"EXTSKETCHSEGMENT", 0, 0, 0, True, 1, NULL, 0, &retval);
-	// 		if (VARIANT_FALSE == retval)
-	// 		{
-	// 			AfxMessageBox(_T("无法选择到中心线，无法生成基准面"));
-	// 			iSwModel = NULL;
-	// 			return;
-	// 		}
-	// 
-	// 		CComQIPtr<IDispatch> pRefPlane;
-	// 		swFeatmgr->InsertRefPlane(swRefPlaneReferenceConstraint_Angle, pPathParam->m_dRotAng, 
-	// 			swRefPlaneReferenceConstraint_Coincident, 0, 0, 0,&pRefPlane);
-	// 		pHCombParamList->m_nHoleID++;
-	// 
-	// 		// step2：绘制待切割孔
-	// 		CString sID;
-	// 		sID.Format(_T("基准面%d"),pHCombParamList->m_nHoleID);
-	// 		//BSTR bstrText = _bstr_t(s); 
-	// 		BSTR bstrText = sID.AllocSysString();
-	// 		iSwModel->SelectByID(bstrText,_T("PLANE"),0.,0.,0.,&retval);
-	// 		swSketMgr->InsertSketch(VARIANT_TRUE);
-	// 
-	// 		CComPtr<ISketchSegment> swSketchHole;
-	// 		swSketMgr->CreateCircleByRadius(pPathParam->m_dOffsetX/*输入X向偏移*/,pPathParam->m_dCenterDis/*输入轴心距*/,
-	// 			                            0., pPathParam->m_dHoleR/*输入孔半径*/,&swSketchHole); 
-	// 		if (NULL == swSketchHole)
-	// 		{
-	// 			AfxMessageBox(_T("第%d个孔创建失败。"),pHCombParamList->m_nHoleID);
-	// 		}
-	// 		swSketMgr->InsertSketch(VARIANT_TRUE);
-	// 
-	// 		iSwModel->FeatureCut(1,0,VARIANT_TRUE,0,0,m_dTubeDia/1000.,m_dTubeDia/1000.,0,0,0,0,2,2,0,0);
-	// 		
-	// 	}
-	//////////////////////////////////////////////////////////////////////////
-
-	// end:
 	iSwModel->SetAddToDB(VARIANT_FALSE);
 	iSwModel->SetDisplayWhenAdded(VARIANT_TRUE);
 	//////////////////////////////////////////////////////////////////////////
@@ -1228,84 +1049,6 @@ void CEliteSoftWare::TransLocalPath(RFRAME& local_frame, CMovePath* pMovePath)
 	}
 }
 
-void CEliteSoftWare::SetPathCombListParam(LPathCombList &PathCombList)
-{
-	CHCombParam* pHParamComb = GetCurHoleParam();
-	if (NULL == pHParamComb)
-		return;
-
-	POSITION combpos = PathCombList.GetHeadPosition();
-	while(combpos)
-	{
-		CPathComb* pPathComb = PathCombList.GetNext(combpos);
-		if(NULL == pPathComb)
-			continue;
-		POSITION pathpos = pPathComb->m_PathList.GetHeadPosition();
-		while (pathpos)
-		{
-			CMovePath* pMovePath = pPathComb->m_PathList.GetNext(pathpos);
-			if (NULL == pMovePath)
-				continue;
-			SetMovePathParam(pMovePath, pHParamComb);
-		}
-	}
-}
-
-void CEliteSoftWare::SetMovePathParam(CMovePath* pMovePath, CHCombParam* pPathParamComb)
-{
-	if(NULL==pMovePath || pPathParamComb==NULL)
-		return;
-	// 理论上传入此处的参数组，应该没有X偏移或Y偏移值相等的情况，因为这个情况已经在从list里读取孔参数
-	// 创建参数组的时候，就已经进行改变并添加标记了。
-	//  先通过y平均值寻找对应参数组，如果找不到，再通过y平均值寻找
-	//  （如果通过y平均值找到的参数组有修改标记，不需变回来，因为y不影响输出了）
-	// 求平均值，使用所有点，x或y的最大值和x或y的最小值的和除以2。
-	BOOL bFindPara = FALSE;
-	double dXMax = -10.e8;
-	double dXMin = 10.e8;
-	POSITION pos = pMovePath->m_PathNodeList.GetHeadPosition();
-	while (pos)
-	{
-		CPathNode* pNode = pMovePath->m_PathNodeList.GetNext(pos);
-		if (NULL == pNode)
-			continue;
-		if (pNode->m_OrgPosition[0]>dXMax)
-		{
-			dXMax = pNode->m_OrgPosition[0];
-		}
-		if (pNode->m_OrgPosition[0]<dXMin)
-		{
-			dXMin = pNode->m_OrgPosition[0];
-		}
-	}
-	// step1：通过x平均值，找对应参数
-	double dPathAvgX = (dXMax+dXMin)*0.5;
-	POSITION paramPos = pPathParamComb->m_LHParamList.GetHeadPosition();
-	while(paramPos)
-	{
-		CHoleParam* pPathParam = pPathParamComb->m_LHParamList.GetNext(paramPos);
-		if (NULL == pPathParam)
-			continue;
-		if (fabs(pPathParam->m_dOffsetX-dPathAvgX)>0.003)
-			continue;
-		pMovePath->SetHParam(pPathParam);
-// 		if (pPathParam->m_bChanged) // 如果是修改过的，将X偏移减去pPathParam->m_dChangedVal
-// 			pMovePath->m_dOffsetX = pPathParam->m_dOffsetX - pPathParam->m_dChangedVal;
-// 		else
-// 			pMovePath->m_dOffsetX = pPathParam->m_dOffsetX;
-// 		pMovePath->m_dRTube  = pPathParamComb->m_dTubeDia*0.5;
-// 		pMovePath->m_dExRotAng = pPathParam->m_dExRotAng;
-// 		pMovePath->m_dOrgRotAng = pPathParam->m_dOrgRotAng;
-// 		pMovePath->m_nAddOrder = pPathParam->m_nAddOrder;
-		bFindPara = TRUE;
-		break;
-	}
-	if (!bFindPara)
-	{
-		AfxMessageBox(_T("路径未找到匹配参数"));
-	}
-}
-
 CHCombParam* CEliteSoftWare::GetCurHoleParam()
 {
 	BSTR sCurrentFileName = GetCurrentFile();
@@ -1350,6 +1093,7 @@ CPathCombList* CEliteSoftWare::GetCurPComb()
 	return pPCombList;
 }
 
+// 设置输出坐标系
 void CEliteSoftWare::SetExportRFrame(RFRAME& _export_rframe)
 {
 	CHCombParam* pHCombParam = GetCurHoleParam();
@@ -1359,134 +1103,122 @@ void CEliteSoftWare::SetExportRFrame(RFRAME& _export_rframe)
 	_export_rframe.O[2] = -pHCombParam->m_dTubeDia*0.5;
 }
 
-void CEliteSoftWare::DrawPathComb(CPathCombList* pPathCombs)
+// 绘制整个文档所有路径
+void CEliteSoftWare::DrawPathCombs(CPathCombList* pPathCombs)
 {
-	CComPtr<IModelDoc2> iSwModel;
-	iSwApp->get_IActiveDoc2(&iSwModel);
-	CComPtr<ISketchManager> iswSketchManger;
-	iSwModel->get_SketchManager(&iswSketchManger);
-	CComPtr<ISketchSegment> iSegment; 	
+	if (NULL == pPathCombs)
+		return;
 	POSITION testPos = pPathCombs->m_LPathCombList.GetHeadPosition();
 	while(testPos)
 	{
 		CPathComb* pPathComb = pPathCombs->m_LPathCombList.GetNext(testPos);
 		if (NULL == pPathComb)
 			continue;
-		iSwModel->Insert3DSketch2(VARIANT_TRUE);
-		iSwModel->SetAddToDB(VARIANT_TRUE);
-		POSITION pos = pPathComb->m_PathList.GetHeadPosition();
-		while(pos)
+		DrawPathComb(pPathComb);
+    }
+	return;
+}
+
+// 绘制一个3D草图的路径
+void CEliteSoftWare::DrawPathComb(CPathComb* pPathComb)
+{
+	if (NULL == pPathComb)
+		return;
+	CComPtr<IModelDoc2> iSwModel;
+	iSwApp->get_IActiveDoc2(&iSwModel);
+	CComPtr<ISketchManager> iswSketchManger;
+	iSwModel->get_SketchManager(&iswSketchManger);
+	CComPtr<ISketchSegment> iSegment; 	
+
+	iSwModel->Insert3DSketch2(VARIANT_TRUE);
+	iSwModel->SetAddToDB(VARIANT_TRUE);
+	POSITION pos = pPathComb->m_PathList.GetHeadPosition();
+	while(pos)
+	{
+		CMovePath* pMovePath = (CMovePath*)pPathComb->m_PathList.GetNext(pos);
+		if (NULL == pMovePath)
+			continue;
+		POSITION nodepos = pMovePath->m_PathNodeList.GetHeadPosition();
+		while(nodepos)
 		{
-			CMovePath* pMovePath = (CMovePath*)pPathComb->m_PathList.GetNext(pos);
-			if (NULL == pMovePath)
+			CPathNode* pNode = pMovePath->m_PathNodeList.GetNext(nodepos);
+			if (pNode == NULL)
 				continue;
 
-			////根据水平的X偏移和转动角度，求出对应的坐标
-			//double dOffsetX = pMovePath->m_dOffsetX; //输入：X轴向偏移距离
-			//double dOffsetZ = pMovePath->m_dRTube;     // Z向偏移为大管的半径
-			//double dRotAng = PI-pMovePath->m_dRotAng;        //输入：管旋转的角度
-			//VEC3D RFrameOffset;
-			//RFrameOffset[0] = dOffsetX;
-			//RFrameOffset[1] = 0.;
-			//RFrameOffset[2] = dOffsetZ;
-
-			////double dRotAng = PI/180.*dRotAng1;
-			////double dRotAng = 0.;
-			////创建新的坐标系，用于平移旋转。
-			//RFRAME ChangeFrame;
-			//mathInitRFrame(ChangeFrame);
-			////step0:沿X轴平移新的坐标系
-			//mathMoveRFrame(RFrameOffset,ChangeFrame);
-			////step1:将路径点坐标从基线坐标系转换到沿X轴平移后的坐标系。
-			//TransWorldPath(ChangeFrame, pMovePath);
-			////step2:将平移后的坐标系旋转dRotAng，路径点跟着旋转，所以旋转后点坐标不发生改变。
-			//mathRotateRFrame(ChangeFrame.O,ChangeFrame.X,dRotAng,ChangeFrame);
-
-			//// 绘制输出坐标系
-			//PNT3D stX,endX, stY,endY, stZ,endZ;
-			//for (int i=0; i<3; i++)
-			//{
-			//	endX[i] = ChangeFrame.O[i]+0.5*ChangeFrame.X[i];
-			//	endY[i] = ChangeFrame.O[i]+0.5*ChangeFrame.Y[i];
-			//	endZ[i] = ChangeFrame.O[i]+0.5*ChangeFrame.Z[i];
-			//	stX[i] = stY[i] = stZ[i] = ChangeFrame.O[i];
-			//}
-			//VARIANT_BOOL bRet;
-			//iSwModel->InsertCurveFileBegin();
-			//iSwModel->InsertCurveFilePoint(stX[0],stX[1],stX[2],&bRet);
-			//iSwModel->InsertCurveFilePoint(endX[0],endX[1],endX[2],&bRet);
-			//iSwModel->InsertCurveFileEnd(&bRet);
-			//iSwModel->InsertCurveFileBegin();
-			//iSwModel->InsertCurveFilePoint(stY[0],stY[1],stY[2],&bRet);
-			//iSwModel->InsertCurveFilePoint(endY[0],endY[1],endY[2],&bRet);
-			//iSwModel->InsertCurveFileEnd(&bRet);
-			//iSwModel->InsertCurveFileBegin();
-			//iSwModel->InsertCurveFilePoint(stZ[0],stZ[1],stZ[2],&bRet);
-			//iSwModel->InsertCurveFilePoint(endZ[0],endZ[1],endZ[2],&bRet);
-			//iSwModel->InsertCurveFileEnd(&bRet);
-
-			////return;
-
-			////step3:将旋转后的坐标系中的路径点坐标转换到基线坐标系中。
-			//TransLocalPath(ChangeFrame,pMovePath);
-			////step4:将基线坐标系中的坐标转换到平移X后的坐标系中。
-			//VEC3D offsetX= {dOffsetX,0.,0.};
-			//mathInitRFrame(ChangeFrame);
-			//mathMoveRFrame(offsetX,ChangeFrame);
-			//TransWorldPath(ChangeFrame, pMovePath);
-
-			POSITION nodepos = pMovePath->m_PathNodeList.GetHeadPosition();
-			while(nodepos)
-			{
-				CPathNode* pNode = pMovePath->m_PathNodeList.GetNext(nodepos);
-				if (pNode == NULL)
-					continue;
-//				iSegment = NULL;
-				//iswSketchManger->CreateLine(pNode->m_OrgPosition[0],pNode->m_OrgPosition[1],pNode->m_OrgPosition[2],
-				//	pNode->m_OrgCutDrawEndPnt[0],pNode->m_OrgCutDrawEndPnt[1],pNode->m_OrgCutDrawEndPnt[2],&iSegment);
-// 				CPathNode* pNextNode = NULL;
-// 				if (NULL == nodepos)
-// 					pNextNode = pMovePath->m_PathNodeList.GetHead();
-// 				else
-// 					pNextNode = pMovePath->m_PathNodeList.GetAt(nodepos);
-// 
-// 				if (NULL == pNextNode)
-// 					continue;
-				iSegment = NULL;
-				//iswSketchManger->CreateLine(pNode->m_OrgPosition[0],pNode->m_OrgPosition[1],pNode->m_OrgPosition[2],
-				//	pNextNode->m_OrgPosition[0],pNextNode->m_OrgPosition[1],pNextNode->m_OrgPosition[2],&iSegment);
-				iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
+			iSegment = NULL;
+			iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
 				pNode->m_OffsetDrawEndPnt[0],pNode->m_OffsetDrawEndPnt[1],pNode->m_OffsetDrawEndPnt[2],&iSegment);
-				if (pPathComb->m_bTwiceCut)
-				{
-					iSegment = NULL;
-					iswSketchManger->CreateLine(pNode->m_OrgCutPosition[0],pNode->m_OrgCutPosition[1],pNode->m_OrgCutPosition[2],
-						pNode->m_OrgCutDrawEndPnt[0],pNode->m_OrgCutDrawEndPnt[1],pNode->m_OrgCutDrawEndPnt[2],&iSegment);
-				}
-
-				CPathNode* pNextNode = NULL;
-				if (NULL == nodepos)
-					pNextNode = pMovePath->m_PathNodeList.GetHead();
-				else
-					pNextNode = pMovePath->m_PathNodeList.GetAt(nodepos);
-
-				if (NULL == pNextNode)
-					continue;
+			if (pPathComb->m_bTwiceCut)
+			{
 				iSegment = NULL;
-				iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
-					pNextNode->m_OffsetPosition[0],pNextNode->m_OffsetPosition[1],pNextNode->m_OffsetPosition[2],&iSegment);
-				if (pPathComb->m_bTwiceCut)
-				{
-					iSegment = NULL;
-					iswSketchManger->CreateLine(pNode->m_OrgCutPosition[0],pNode->m_OrgCutPosition[1],pNode->m_OrgCutPosition[2],
-						pNextNode->m_OrgCutPosition[0],pNextNode->m_OrgCutPosition[1],pNextNode->m_OrgCutPosition[2],&iSegment);
-				}
+				iswSketchManger->CreateLine(pNode->m_OrgCutPosition[0],pNode->m_OrgCutPosition[1],pNode->m_OrgCutPosition[2],
+					pNode->m_OrgCutDrawEndPnt[0],pNode->m_OrgCutDrawEndPnt[1],pNode->m_OrgCutDrawEndPnt[2],&iSegment);
 			}
-		}	
-		iSwModel->SetAddToDB(VARIANT_FALSE);
-		iSwModel->Insert3DSketch2(VARIANT_FALSE);
-    }
+
+			CPathNode* pNextNode = NULL;
+			if (NULL == nodepos)
+				pNextNode = pMovePath->m_PathNodeList.GetHead();
+			else
+				pNextNode = pMovePath->m_PathNodeList.GetAt(nodepos);
+
+			if (NULL == pNextNode)
+				continue;
+			iSegment = NULL;
+			iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
+				pNextNode->m_OffsetPosition[0],pNextNode->m_OffsetPosition[1],pNextNode->m_OffsetPosition[2],&iSegment);
+			if (pPathComb->m_bTwiceCut)
+			{
+				iSegment = NULL;
+				iswSketchManger->CreateLine(pNode->m_OrgCutPosition[0],pNode->m_OrgCutPosition[1],pNode->m_OrgCutPosition[2],
+					pNextNode->m_OrgCutPosition[0],pNextNode->m_OrgCutPosition[1],pNextNode->m_OrgCutPosition[2],&iSegment);
+			}
+		}
+	}	
+	iSwModel->SetAddToDB(VARIANT_FALSE);
+	iSwModel->Insert3DSketch2(VARIANT_FALSE);
+
+	// 测试修改路径颜色
+	// 	VARIANT_BOOL bret;
+	// 	long color = 100;
+	// 	CComPtr<IModelDocExtension> swExt;
+	// 	iSwModel->get_Extension(&swExt);
+	// 	iSwModel->SelectedFeatureProperties(color,0,0,0,0,0,0,VARIANT_FALSE,VARIANT_FALSE,L"3D草图1",&bret);
+	// 	swExt->SelectByID2(L"3D草图1",L"SKETCH",0,0,0,VARIANT_FALSE,0,NULL,swSelectOptionDefault,&bret);
+
+	//		swDocExt->SelectByID2(_T("上视基准面"), L"PLANE", 0, 0, 0, True, 0, NULL, swSelectOptionDefault,&retval);
+
+	//////////////////////////////////////////////////////////////////////////
 }
+
+// 绘制坐标系
+void CEliteSoftWare::DrawRFrame(RFRAME& rframe, double dAixLength)
+{
+	CComPtr<IModelDoc2> iSwModel;
+	iSwApp->get_IActiveDoc2(&iSwModel);
+	// 绘制输出坐标系
+	PNT3D stX,endX, stY,endY, stZ,endZ;
+	for (int i=0; i<3; i++)
+	{
+		endX[i] = rframe.O[i]+dAixLength*rframe.X[i];
+		endY[i] = rframe.O[i]+dAixLength*rframe.Y[i];
+		endZ[i] = rframe.O[i]+dAixLength*rframe.Z[i];
+		stX[i] = stY[i] = stZ[i] = rframe.O[i];
+	}
+	VARIANT_BOOL bRet;
+	iSwModel->InsertCurveFileBegin();
+	iSwModel->InsertCurveFilePoint(stX[0],stX[1],stX[2],&bRet);
+	iSwModel->InsertCurveFilePoint(endX[0],endX[1],endX[2],&bRet);
+	iSwModel->InsertCurveFileEnd(&bRet);
+	iSwModel->InsertCurveFileBegin();
+	iSwModel->InsertCurveFilePoint(stY[0],stY[1],stY[2],&bRet);
+	iSwModel->InsertCurveFilePoint(endY[0],endY[1],endY[2],&bRet);
+	iSwModel->InsertCurveFileEnd(&bRet);
+	iSwModel->InsertCurveFileBegin();
+	iSwModel->InsertCurveFilePoint(stZ[0],stZ[1],stZ[2],&bRet);
+	iSwModel->InsertCurveFilePoint(endZ[0],endZ[1],endZ[2],&bRet);
+	iSwModel->InsertCurveFileEnd(&bRet);
+}
+
 
 void CEliteSoftWare::SetPCombExOrder(CPathCombList* pPathCombs, int nOrder)
 {
@@ -1594,10 +1326,6 @@ void CEliteSoftWare::ExportPathToTXT()
 		return ;
 	}
 
-	// 设置输出坐标系
-	RFRAME exportFrame;
-	SetExportRFrame(exportFrame);
-
 	// 获取当前文档路径数据
 	CPathCombList* pPathCombList = GetCurPComb();
 	if(NULL == pPathCombList)
@@ -1605,50 +1333,27 @@ void CEliteSoftWare::ExportPathToTXT()
 		AfxMessageBox(_T("请先计算切割路径。"));
 		return;
 	}
+
+	// 设置路径输出顺序
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	CExportDlg dlg;
 	dlg.m_nExportOrder = m_nExportOrder;
 	if (IDOK != dlg.DoModal())
 		return;
 	m_nExportOrder = dlg.m_nExportOrder ;
-	// 新的查找参数算法
-	//////////////////////////////////////////////////////////////////////////
-//	CPathCombList* pTmpPCombs = pPathCombList->CopySelf();
-// 	RFRAME rf;
-// 	mathInitRFrame(rf);
-	
 
-//	TransWorldPathComb(exportFrame, pTmpPCombs->m_LPathCombList);
-	// 路径坐标系变换
-	//POSITION pos11 = pTmpPCombs->m_LPathCombList.GetHeadPosition();
-	//while(pos11)
-	//{
-	//	CPathComb* pPathComb = pTmpPCombs->m_LPathCombList.GetNext(pos11);
-	//	if (NULL == pPathComb)
-	//		continue;
-	//	POSITION pos22 = pPathComb->m_PathList.GetHeadPosition();
-	//	while(pos22)
-	//	{
-	//		CMovePath* pMovePath = pPathComb->m_PathList.GetNext(pos22);
-	//		if(NULL == pMovePath)
-	//			continue;
-	//		mathRotateRFrame(exportFrame.O,exportFrame.X,pMovePath->m_dRotAng,rf);
-	//		TransWorldPath(rf,pMovePath);
-	//	}
-	//}
-//	DrawPathComb(pTmpPCombs);
-
-//	return;
-	//////////////////////////////////////////////////////////////////////////
+	// 拷贝路径，防止输出路径时，改变当前文档中的原始路径数据。
 	CPathCombList* pCpyPCombs = pPathCombList->CopySelf();
+
+	// 设置输出坐标系
+	RFRAME exportFrame;
+	SetExportRFrame(exportFrame);
+
 	//将当前路径坐标变换到输出坐标系中。
 	TransWorldPathComb(exportFrame, pCpyPCombs->m_LPathCombList);
-	
-//	SetPathCombListParam(pCpyPCombs->m_LPathCombList);
-	//设置孔路径相关参数
-//	SetPathCombListParam(pCpyPCombs->m_LPathCombList);
+
+	//设置路径输出顺序
 	SetPCombExOrder(pCpyPCombs, m_nExportOrder);
-	//////////////////////////////////////////////////////////////////////////
 
 	// 路径坐标系变换
 	POSITION pcPos = pCpyPCombs->m_LPathCombList.GetHeadPosition();
@@ -1692,43 +1397,13 @@ void CEliteSoftWare::ExportPathToTXT()
 			TransWorldPath(ChangeFrame, pMovePath);
 		}
 	}
-	// 绘制路径(测试用)
+
+	// 绘制路径和输出坐标系(测试用)
 	//////////////////////////////////////////////////////////////////////////
-	// DrawPathComb(pCpyPCombs);
+	// DrawPathCombs(pCpyPCombs);
+	// DrawRFrame(exportFrame);
 	//////////////////////////////////////////////////////////////////////////
 
-	 	
-//	iSwModel->SetAddToDB(VARIANT_FALSE);
-//	iSwModel->Insert3DSketch2(VARIANT_FALSE);
-		
-	//			
-	//// 绘制输出坐标系
-	//PNT3D stX,endX, stY,endY, stZ,endZ;
-	//for (int i=0; i<3; i++)
-	//{
-	//	endX[i] = exportFrame.O[i]+0.5*exportFrame.X[i];
-	//	endY[i] = exportFrame.O[i]+0.5*exportFrame.Y[i];
-	//	endZ[i] = exportFrame.O[i]+0.5*exportFrame.Z[i];
-	//	stX[i] = stY[i] = stZ[i] = exportFrame.O[i];
-	//}
-	//VARIANT_BOOL bRet;
-	//iSwModel->InsertCurveFileBegin();
-	//iSwModel->InsertCurveFilePoint(stX[0],stX[1],stX[2],&bRet);
-	//iSwModel->InsertCurveFilePoint(endX[0],endX[1],endX[2],&bRet);
-	//iSwModel->InsertCurveFileEnd(&bRet);
-	//iSwModel->InsertCurveFileBegin();
-	//iSwModel->InsertCurveFilePoint(stY[0],stY[1],stY[2],&bRet);
-	//iSwModel->InsertCurveFilePoint(endY[0],endY[1],endY[2],&bRet);
-	//iSwModel->InsertCurveFileEnd(&bRet);
-	//iSwModel->InsertCurveFileBegin();
-	//iSwModel->InsertCurveFilePoint(stZ[0],stZ[1],stZ[2],&bRet);
-	//iSwModel->InsertCurveFilePoint(endZ[0],endZ[1],endZ[2],&bRet);
-	//iSwModel->InsertCurveFileEnd(&bRet);
-//	return;
-	
-	//////////////////////////////////////////////////////////////////////////
-
-//	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	BOOL isOpen = FALSE;                                 //是否打开(否则为保存)  
 	CString defaultDir = L"C:\\Users\\QQS\\Desktop\\";   //默认打开的文件路径  
 	CString sCurrentFileName = GetCurrentFile();
@@ -1759,7 +1434,7 @@ void CEliteSoftWare::ExportPathToTXT()
 		}
 		return;
 	}
-//	CString sCurrentFileName = GetCurrentFile();
+
 	ofstream fout(filePath);
 	int nPathCombId = 1;
 	int nPathCombCount = (int)pCpyPCombs->m_LPathCombList.GetCount();
@@ -1816,62 +1491,6 @@ void CEliteSoftWare::ExportPathToTXT()
 				continue;
 			}
 
-			/*/该部分用于将路径根据机器人X方向平移的距离和管道旋转的角度进行坐标变换
-		    //////////////////////////////////////////////////////////////////////////
-			//根据水平的X偏移和转动角度，求出对应的坐标
-			double dOffsetX = pMovePath->m_dOffsetX; //输入：X轴向偏移距离
-			double dOffsetZ = pMovePath->m_dRTube;     // Z向偏移为大管的半径
-			double dRotAng = PI-pMovePath->m_dRotAng;        //输入：管旋转的角度
-			VEC3D RFrameOffset;
-			RFrameOffset[0] = dOffsetX;
-			RFrameOffset[1] = 0.;
-			RFrameOffset[2] = dOffsetZ;
-
-			//double dRotAng = PI/180.*dRotAng1;
-			//double dRotAng = 0.;
-			//创建新的坐标系，用于平移旋转。
-			RFRAME ChangeFrame;
-			mathInitRFrame(ChangeFrame);
-			//step0:沿X轴平移新的坐标系
-			mathMoveRFrame(RFrameOffset,ChangeFrame);
-			//step1:将路径点坐标从基线坐标系转换到沿X轴平移后的坐标系。
-			TransWorldPath(ChangeFrame, pMovePath);
-			//step2:将平移后的坐标系旋转dRotAng，路径点跟着旋转，所以旋转后点坐标不发生改变。
-			mathRotateRFrame(ChangeFrame.O,ChangeFrame.X,dRotAng,ChangeFrame);
-			//step3:将旋转后的坐标系中的路径点坐标转换到基线坐标系中。
-			TransLocalPath(ChangeFrame,pMovePath);
-			//step4:将基线坐标系中的坐标转换到平移X后的坐标系中。
-			VEC3D offsetX= {dOffsetX,0.,0.};
-			mathInitRFrame(ChangeFrame);
-			mathMoveRFrame(offsetX,ChangeFrame);
-			TransWorldPath(ChangeFrame, pMovePath);
-
-// 			//根据水平的X偏移和转动角度，求出对应的坐标
-// 			double dOffsetX = pMovePath->m_dOffsetX; //输入：X轴向偏移距离
-// 			double dOffsetZ = pMovePath->m_dRTube;     // Z向偏移为大管的半径
-// 			double dRotAng = pMovePath->m_dRotAng;        //输入：管旋转的角度
-// 			VEC3D RFrameOffset;
-// 			RFrameOffset[0] = dOffsetX;
-// 			RFrameOffset[1] = 0.;
-// 			RFrameOffset[2] = dOffsetZ;
-// 
-// 			//创建新的坐标系，用于平移旋转。
-// 			RFRAME ChangeFrame;
-// 			mathInitRFrame(ChangeFrame);
-// 			//step0:沿X和Z轴平移新的坐标系
-// 			mathMoveRFrame(RFrameOffset,ChangeFrame);
-// 			//step1:将路径点坐标从基线坐标系转换到沿X轴平移后的坐标系。
-// 			TransWorldPath(ChangeFrame, pMovePath);
-// 			//step2:将平移后的坐标系旋转dRotAng，路径点跟着旋转，所以旋转后点坐标不发生改变。
-// 			mathRotateRFrame(ChangeFrame.O,ChangeFrame.X,-dRotAng,ChangeFrame);
-// 			//step3:将旋转后的坐标系中的路径点坐标转换到基线坐标系中。
-// 			TransLocalPath(ChangeFrame,pMovePath);
-// 			//step4:将基线坐标系中的坐标转换到平移X后的坐标系中。
-// 			VEC3D offsetX= {dOffsetX,0.,0.};
-// 			mathInitRFrame(ChangeFrame);
-// 			mathMoveRFrame(offsetX,ChangeFrame);
-// 			TransWorldPath(ChangeFrame, pMovePath);
-			*//////////////////////////////////////////////////////////////////////////
 			fout<<"第"<<nPathId<<"个孔的X向距离为："<<pMovePath->GetOffsetX()*1000.<<";"
 				<<"管旋转角度为："<<pMovePath->GetOrgRotAng()<<";"<<"\t\n";
 			fout<<"孔切割路径点及法向："<<"\t\n";
@@ -1905,30 +1524,7 @@ void CEliteSoftWare::ExportPathToTXT()
 			}
 		}
 	}
-	/*
-	// 绘制输出坐标系
-	PNT3D stX,endX, stY,endY, stZ,endZ;
-	for (int i=0; i<3; i++)
-	{
-		endX[i] = exportFrame.O[i]+0.005*exportFrame.X[i];
-		endY[i] = exportFrame.O[i]+0.005*exportFrame.Y[i];
-		endZ[i] = exportFrame.O[i]+0.005*exportFrame.Z[i];
-		stX[i] = stY[i] = stZ[i] = exportFrame.O[i];
-	}
-	VARIANT_BOOL bRet;
-	iSwModel->InsertCurveFileBegin();
-	iSwModel->InsertCurveFilePoint(stX[0],stX[1],stX[2],&bRet);
-	iSwModel->InsertCurveFilePoint(endX[0],endX[1],endX[2],&bRet);
-	iSwModel->InsertCurveFileEnd(&bRet);
-	iSwModel->InsertCurveFileBegin();
-	iSwModel->InsertCurveFilePoint(stY[0],stY[1],stY[2],&bRet);
-	iSwModel->InsertCurveFilePoint(endY[0],endY[1],endY[2],&bRet);
-	iSwModel->InsertCurveFileEnd(&bRet);
-	iSwModel->InsertCurveFileBegin();
-	iSwModel->InsertCurveFilePoint(stZ[0],stZ[1],stZ[2],&bRet);
-	iSwModel->InsertCurveFilePoint(endZ[0],endZ[1],endZ[2],&bRet);
-	iSwModel->InsertCurveFileEnd(&bRet);
-*/
+	
 	if (NULL != pCpyPCombs)
 	{
 		delete pCpyPCombs;
@@ -2018,7 +1614,6 @@ BSTR CEliteSoftWare::GetCurrentFile()
 
 	return ret;
 }
-
 
 STDMETHODIMP CEliteSoftWare::GeneratePath(void)
 {

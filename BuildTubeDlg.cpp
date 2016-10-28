@@ -6,9 +6,9 @@
 #include "BuildTubeDlg.h"
 #include "afxdialogex.h"
 
+extern void TrimZeroForCSring(CString& str);
 
 // CBuildTubeDlg 对话框
-extern void TrimZeroForCSring(CString& str);
 IMPLEMENT_DYNAMIC(CBuildTubeDlg, CDialogEx)
 
 CBuildTubeDlg::CBuildTubeDlg(CWnd* pParent /*=NULL*/)
@@ -108,25 +108,25 @@ BOOL CBuildTubeDlg::CheckParam()
 	// 3.X向偏移不能大于或等于管长度+孔半径判断
 	if (m_dHoleXOffset>((m_dTubeLength+m_dTubeDia*0.5)-0.0000001))
 	{
-		AfxMessageBox(_T("X向偏移不能大于或等于管长度与孔半径之和"));
+		AfxMessageBox(_T("X向偏移不能大于或等于管长度与孔半径之和。"));
 		return FALSE;
 	}
 	// 4.Z向偏移绝对值不能大于或等于管半径加孔半径判断
 	if (abs(m_dHoleZOffset)>((m_dTubeDia*0.5+m_dTubeDia*0.5)-0.0000001))
 	{
-		AfxMessageBox(_T("轴心距离不能大于或等于管半径与孔半径之和"));
+		AfxMessageBox(_T("轴心距离不能大于或等于管半径与孔半径之和。"));
 		return FALSE;
 	}
 	// 5.孔直径必须小于管直径判断
 	if (m_dTubeDia<(m_dHoleDia+0.0000001))
 	{
-		AfxMessageBox(_T("孔直径必须小于管直径"));
+		AfxMessageBox(_T("孔直径必须小于管直径。"));
 		return FALSE;
 	}
 	// 6.X向偏移值不能等于孔半径
 	if (abs(m_dHoleXOffset-(m_dHoleDia*0.5))<0.0000001)
 	{
-		AfxMessageBox(_T("X向偏移值不能等于孔半径"));
+		AfxMessageBox(_T("X向偏移值不能等于孔半径。"));
 		return FALSE;
 	}
 	return TRUE;

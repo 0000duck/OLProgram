@@ -3,12 +3,9 @@
 #pragma once
 
 #include "EliteSoftWare_i.h"
-
 #include "resource.h"       // main symbols
 #include <comsvcs.h>
 #include <map>
-
-
 
 const double PI = 3.1415926536;
 const double CVALUE = 0.01;
@@ -67,15 +64,6 @@ public:
 	double m_dChangedVal; //用于标记修正值
 
 public:
-// 	double GetRTube()
-// 	{
-// 		if (NULL == m_pParentComb)
-// 		{
-// 			AfxMessageBox(_T("孔参数所在参数组获取失败，当前文档存在问题，请重建文档。"));
-// 			return 0.;
-// 		}
-// 		return (m_pParentComb->m_dTubeDia*0.5);
-// 	}
 	CHCombParam* GetParentComb()
 	{
 		return m_pParentComb;
@@ -211,10 +199,6 @@ public:
 	CMovePath()
 	{
 		m_PathNodeList.RemoveAll();
-//		m_dOffsetX = 0.;
-//		m_dRTube   = 0.;
-//		m_dExRotAng  = 0.;
-//		m_nAddOrder = 0;
 		m_nRefId   = 0;
 		m_pHoleParam = NULL;
 	}
@@ -226,11 +210,6 @@ protected:
 	CHoleParam* m_pHoleParam;
 public:
 	LNodeList m_PathNodeList;
-//	double m_dOffsetX;
-//	double m_dRTube;
-//	double m_dExRotAng; // 象限变换后的输出角度
-//	double m_dOrgRotAng;// 未进行象限变换的输出角度
-//	int    m_nAddOrder; // 路径对应孔的添加顺序
 	int    m_nRefId;
 public:
 	void SetHParam(CHoleParam* pHoleParam)
@@ -318,11 +297,6 @@ public:
 	{
 		CMovePath* pMovePath = new CMovePath;
 		pMovePath->m_pHoleParam = m_pHoleParam;
-		//pMovePath->m_dOffsetX = m_dOffsetX;
-		//pMovePath->m_dRTube = m_dRTube;
-		//pMovePath->m_dExRotAng = m_dExRotAng;
-		//pMovePath->m_dOrgRotAng = m_dOrgRotAng;
-		//pMovePath->m_nAddOrder = m_nAddOrder;
 		pMovePath->m_nRefId = m_nRefId;
 		POSITION pos = m_PathNodeList.GetHeadPosition();
 		while(pos)
@@ -460,7 +434,6 @@ public:
 	LPathEntityList m_LPathEntityList;
 	LHCombParamList  m_LHoleParamList;
 	int m_nExportOrder; // 标记路径输出排序方式
-	//LPathCombList m_LPathCombList;
 
 //This mapping will contain references to all open Documents, and ensure 
 //that we do not attempt to attach event handlers to an already opened doc. 
@@ -483,7 +456,7 @@ public:
 	{
 	}
 
-	DECLARE_REGISTRY_RESOURCEID(IDR_EliteSoftWare)
+	DECLARE_REGISTRY_RESOURCEID(IDR_ELITESOFTWARE)
 
 	DECLARE_NOT_AGGREGATABLE(CEliteSoftWare)
 
@@ -500,8 +473,7 @@ public:
 	// ISwAddin Methods
 public:
 	CComPtr<ISldWorks> GetSldWorksPtr() { return iSwApp != NULL ? iSwApp : NULL; }
-//	void GetSldWorksPMP(CUserPropertyManagerPage** userPMP) { userPMP = userPropertyPage; return;}
-		//These methods will connect and disconnect this addin to the SolidWorks events
+	//These methods will connect and disconnect this addin to the SolidWorks events
 	VARIANT_BOOL AttachEventHandlers();
 	VARIANT_BOOL DetachEventHandlers();
 	//These methods will connect and disconnect this addin to the SolidWorks Model events
@@ -519,21 +491,28 @@ TMapIUnknownToDocument OpenDocumentsTable() { return openDocs; }
 	void AddPMP();
 	void RemovePMP();
 	BSTR GetCurrentFile();
-	void SetPathCombListParam(LPathCombList &PathCombList);
-	void SetMovePathParam(CMovePath* pMovePath, CHCombParam* pPathParamComb);
 	void TransWorldPathComb(RFRAME& local_frame, LPathCombList &PathCombList);
 	void TransLocalPathComb(RFRAME& local_frame, LPathCombList &PathCombList);
 	void TransWorldPath(RFRAME& local_frame, CMovePath* pMovePath);
 	void TransLocalPath(RFRAME& local_frame, CMovePath* pMovePath);
 	BOOL CheckTransFrame(RFRAME& local_frame, LPathCombList &PathCombList);
 	void ExportPathToTXT(); // 输出路径
-	void DrawPathComb(CPathCombList* pPathCombs); // 绘制路径
 	void SetExportRFrame(RFRAME& _export_rframe); // 设置输出坐标系
 	CHCombParam*   GetCurHoleParam(); // 获取当前激活文档的管参数
-	CPathCombList* GetCurPComb(); // 获取当前激活文档的路径集合
+	CPathCombList* GetCurPComb();      // 获取当前激活文档的路径集合
 	void SetPCombExOrder(CPathCombList* pPathCombs, int nOrder); // 设置输出顺序
 	void BuildTubeAndHole();
-		//Event Handlers
+
+	// 绘制路径和坐标系
+	//////////////////////////////////////////////////////////////////////////
+	// 通过3D草图绘制路径
+	void DrawPathCombs(CPathCombList* pPathCombs); // 绘制整个文档所有路径
+	void DrawPathComb(CPathComb* pPathComb); // 绘制一条路径（即一个3D草图）
+	// 通过曲线绘制坐标系
+	void DrawRFrame(RFRAME& rframe, double dAixLength = 0.5);
+	//////////////////////////////////////////////////////////////////////////
+	
+	//Event Handlers
 	//These are the methods that are called when certain SolidWorks events are fired
 	STDMETHOD(OnDocChange)(void);
 	STDMETHOD(OnModelDocChange)(void);

@@ -14,7 +14,6 @@ class CEliteSoftWare;
 #define BUTTON_CALCULPATH      14
 #define BUTTON_SETPARAM        15
 #define BUTTON_CLEARPATH       16
-//#define BUTTON_BUILDTUBE       17
 
 class ATL_NO_VTABLE CPMPageHandler :
 	public CComObjectRootEx<CComSingleThreadModel>,
@@ -30,7 +29,6 @@ public:
 	{
 	}
 
-// 
 public:
 	CEliteSoftWare *userAddin;
 	CComPtr<ISldWorks> iSwApp;
@@ -44,12 +42,6 @@ public:
 	BOOL m_bTwiceCut;   // 是否坡口与孔分开切割
 	//////////////////////////////////////////////////////////////////////////
 
-	// 管件自动创建参数
-	//////////////////////////////////////////////////////////////////////////
-// 	double m_dTubeDia;   // 管件直径
-// 	double m_dTubeThick; // 管件厚度
-// 	double m_dTubeLength;// 管件长度
-	//////////////////////////////////////////////////////////////////////////
 public:
 	void Init(CEliteSoftWare *app);
 	DECLARE_PROTECT_FINAL_CONSTRUCT()
@@ -78,13 +70,14 @@ public:
 
 	// IPMPageHandler
 public:
-//	void BuildTubeAndHole();    // 参数化创建管件
 	void CalMovePath();  // 计算路径
 	void ClearAllPath(); // 删除当前激活文档中的所有路径
 	void SetCutParam();  // 设置加工参数
 	void CalPathNode(int ptNum, double* ptArray, ISurface* swSurface, CMovePath* movePath, BOOL bRevOffVec = FALSE);
 	CHoleParam* GetHParam(int ptNum, double* ptArray);
 	CHCombParam* GetCurHoleParams();
+
+
 	// IPropertyManagerPage2Handler2 Methods
 public:
 	STDMETHOD(OnClose)(long Reason);

@@ -52,17 +52,6 @@ void CUserPropertyManagerPage::AddControls()
 	CComBSTR caption;
 	long options = -1;
 	CComBSTR tip;
-	//// 创建 group0
-	////////////////////////////////////////////////////////////////////////////
-	//options = swGroupBoxOptions_Visible | swGroupBoxOptions_Expanded;
-	//swPropertyPage->IAddGroupBox(GROUP0, L"创建管件", options, &group0);
-	//options = swControlOptions_Visible | swControlOptions_Enabled;
-
-	//// 创建管件按钮
-	//group0->IAddControl(BUTTON_BUILDTUBE, swControlType_Button, L"创建管件", swControlAlign_LeftEdge, options, L"通过参数自动创建管件", &control);
-	//control->QueryInterface(__uuidof(IPropertyManagerPageButton), (void**)&button_BuildTube);
-
-	////////////////////////////////////////////////////////////////////////////
 
 	// 创建 group1
 	//////////////////////////////////////////////////////////////////////////
@@ -70,7 +59,6 @@ void CUserPropertyManagerPage::AddControls()
 	options = swGroupBoxOptions_Visible | swGroupBoxOptions_Expanded;
 	swPropertyPage->IAddGroupBox(GROUP1, caption, options, &group1);
 	options = swControlOptions_Visible | swControlOptions_Enabled;
-	// 选择管外表面
 	caption.LoadString(IDS_PMP_SELECT_FACE_BASETUBE);
 	tip.LoadString(IDS_PMP_SELECTTIP_BASETUBEFACE);
 	group1->IAddControl(SELECTION_BASETUBEFACE, swControlType_Selectionbox, caption, swControlAlign_LeftEdge, options, tip, &control);
@@ -89,7 +77,6 @@ void CUserPropertyManagerPage::AddControls()
 	options = swGroupBoxOptions_Visible | swGroupBoxOptions_Expanded;
 	swPropertyPage->IAddGroupBox(GROUP2, L"选择孔边线", options, &group2);
 	options = swControlOptions_Visible | swControlOptions_Enabled;
- 	// 选择孔边线
  	caption.LoadString(IDS_PMP_SELECT_EDGE_HOLE);
  	tip.LoadString(IDS_PMP_SELECTTIP_HOLEEDGE);
  	group2->IAddControl(SELECTION_HOLEEDGE, swControlType_Selectionbox, caption, swControlAlign_LeftEdge, options, tip, &control);
@@ -108,7 +95,6 @@ void CUserPropertyManagerPage::AddControls()
 	options = swGroupBoxOptions_Visible | swGroupBoxOptions_Expanded;
 	swPropertyPage->IAddGroupBox(GROUP3, L"参数设置", options, &group3);
 	options = swControlOptions_Visible | swControlOptions_Enabled;
-	// 参数设置按钮
 	caption.LoadString(IDS_PMP_BUTTON_SETPARAM);
 	tip.LoadString(IDS_PMP_BUTTONTIP_SETPARAM);
 	group3->IAddControl(BUTTON_SETPARAM, swControlType_Button, caption, swControlAlign_LeftEdge, options, tip, &control);
@@ -120,12 +106,11 @@ void CUserPropertyManagerPage::AddControls()
 	options = swGroupBoxOptions_Visible | swGroupBoxOptions_Expanded;
 	swPropertyPage->IAddGroupBox(GROUP3, L"路径设置", options, &group4);
 	options = swControlOptions_Visible | swControlOptions_Enabled;
-	// 清空路径按钮
 	caption.LoadString(IDS_PMP_BUTTON_CLEARPATH);
 	tip.LoadString(IDS_PMP_BUTTONTIP_CLEARPATH);
 	group4->IAddControl(BUTTON_CLEARPATH, swControlType_Button, caption, swControlAlign_LeftEdge, options, tip, &control);
 	control->QueryInterface(__uuidof(IPropertyManagerPageButton), (void**)&button_ClearPath);
-	// 计算按钮
+
 	caption.LoadString(IDS_PMP_BUTTON_CALCUL);
 	tip.LoadString(IDS_PMP_BUTTONTIP_CALCUL);
 	group4->IAddControl(BUTTON_CALCULPATH, swControlType_Button, caption, swControlAlign_LeftEdge, options, tip, &control);
