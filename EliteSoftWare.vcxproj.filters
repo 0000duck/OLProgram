@@ -107,6 +107,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\BitmapHandler.rgs">
@@ -145,6 +146,7 @@
     <None Include="Resource\bmp\toolbar_small.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Resource\bmp\buildtube.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Resource\EliteSoftWare.idl">

@@ -66,6 +66,8 @@
 #define IDC_RADIO_CUSTOM                223
 #define IDC_STATIC_PIC                  223
 #define IDC_RADIO_ROTANGDIR             224
+#define IDC_STATIC_PIC2                 224
+#define IDB_DIALOG_BUILDTUBE            225
 
 // Next default values for new objects
 // 

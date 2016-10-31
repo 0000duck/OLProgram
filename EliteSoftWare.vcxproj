@@ -48,10 +48,12 @@
     <ClInclude Include="Header Files\SwDocument.h" />
     <ClInclude Include="Header Files\UserPropertyManagerPage.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\BitmapHandler.rgs" />
+    <None Include="Resource\bmp\buildtube.bmp" />
     <None Include="Resource\bmp\EliteSoftWare.bmp" />
     <None Include="Resource\bmp\MainIconLarge.bmp" />
     <None Include="Resource\bmp\MainIconSmall.bmp" />
@@ -205,7 +207,7 @@
       </PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>stdafx.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>C:\Program Files\SOLIDWORKS Corp\SOLIDWORKS;Header Files;Generated Files;Base;Dialog;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\SOLIDWORKS Corp\SOLIDWORKS;Header Files;Generated Files;Base;Dialog;.\;Resource;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>comsvcs.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -333,7 +335,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="EliteSoftWare.rc" />
+      <UserProperties RESOURCE_FILE="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
