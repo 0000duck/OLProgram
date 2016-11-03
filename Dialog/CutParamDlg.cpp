@@ -1,6 +1,13 @@
+//////////////////////////////////////////////////////////////////////////
+//
+//  设置切割参数对话框
+//
+//  2016.10.28 by qqs
+//
+//////////////////////////////////////////////////////////////////////////
+
 // CutParamDlg.cpp : 实现文件
 //
-
 #include "stdafx.h"
 #include "EliteSoftWare.h"
 #include "CutParamDlg.h"
@@ -12,8 +19,8 @@ IMPLEMENT_DYNAMIC(CCutParamDlg, CDialogEx)
 
 CCutParamDlg::CCutParamDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CCutParamDlg::IDD, pParent)
-	, m_dCutAng(45.)
-	, m_dCutWidth(10.)
+	, m_dCutAng(30.)
+	, m_dCutDepth(10.)
 	, m_bTwiceCut(TRUE)
 	, m_dChodTol(0.01)
 	, m_dStepTol(0.01)
@@ -30,8 +37,8 @@ void CCutParamDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT_CUTANGLE, m_dCutAng);
 	DDV_MinMaxDouble(pDX, m_dCutAng, 1, 90);
-	DDX_Text(pDX, IDC_EDIT_CUTWIDTH, m_dCutWidth);
-	DDV_MinMaxDouble(pDX, m_dCutWidth, 0, 9999999);
+	DDX_Text(pDX, IDC_EDIT_CUTDEPTH, m_dCutDepth);
+	DDV_MinMaxDouble(pDX, m_dCutDepth, 0, 9999999);
 	DDX_Check(pDX, IDC_CHECK_TWICECUT, m_bTwiceCut);
 	DDX_Text(pDX, IDC_EDIT_CHODTOL, m_dChodTol);
 	DDV_MinMaxDouble(pDX, m_dChodTol, 0.001, 1000);

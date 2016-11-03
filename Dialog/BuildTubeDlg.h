@@ -1,3 +1,11 @@
+//////////////////////////////////////////////////////////////////////////
+//
+// 创建管件和贯穿孔的对话框
+//
+// 2016.10.28 by qqs
+//
+//////////////////////////////////////////////////////////////////////////
+
 #pragma once
 #include "afxcmn.h"
 
@@ -42,7 +50,9 @@ public:
 	CHCombParam* m_pHCombParam; // 当前文档孔参数集合
 	int  m_nHoleID;             // 孔ID
 	BOOL m_bBulidTube;          // 标记管件是否已经创建
-	CImage  image;  
+	CBrush m_CtrBrush;  
+	CFont  m_CtrFont;//字体
+	int m_nCurCtrID;
 	//////////////////////////////////////////////////////////////////////////
 public:
 	// 接口函数
@@ -59,4 +69,7 @@ public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCancel();
 	//////////////////////////////////////////////////////////////////////////
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg void OnEnSetfocusEditTubedia();
+	afx_msg void OnEnKillfocusEditTubedia();
 };

@@ -40,7 +40,7 @@
 #define IDD_DIALOG_BUILDTUBE            209
 #define IDC_EDIT_CUTANGLE               209
 #define IDC_STATIC_CDIS                 209
-#define IDC_EDIT_CUTWIDTH               210
+#define IDC_EDIT_CUTDEPTH               210
 #define IDC_STATIC_TANG                 210
 #define IDC_CHECK_TWICECUT              211
 #define IDC_STATIC_RANG                 211
@@ -58,24 +58,32 @@
 #define IDC_EDIT_HOLEXOFFSET            216
 #define IDC_EDIT_TOOLDIS                217
 #define IDC_LIST_HPARAM                 217
+#define IDB_BITMAP_HOLE_BUILD           217
 #define IDC_EDIT_HOLEZOFFSET            218
+#define IDB_BITMAP_HOLE_GROOVE          218
 #define IDC_EDIT_HOLETHROUGHANG         219
+#define IDB_BITMAP_HOLE_TANG            219
 #define IDC_EDIT_HOLEROTANG             220
 #define IDC_BUTTON_HOLEADD              221
 #define IDC_RADIO_XDIR                  222
 #define IDC_RADIO_CUSTOM                223
-#define IDC_STATIC_PIC                  223
 #define IDC_RADIO_ROTANGDIR             224
-#define IDC_STATIC_PIC2                 224
-#define IDB_DIALOG_BUILDTUBE            225
+#define IDC_STATIC_PIC_CDIS             224
+#define IDC_STATIC_PIC_XOFF             225
+#define IDC_STATIC_PIC_RANG             226
+#define IDC_STATIC_PIC_HDIA             227
+#define IDC_STATIC_PIC_TANG             228
+#define IDC_STATIC_PIC_TLEN             229
+#define IDC_STATIC_PIC_TTHK             230
+#define IDC_STATIC_PIC_TDIA             231
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        217
+#define _APS_NEXT_RESOURCE_VALUE        220
 #define _APS_NEXT_COMMAND_VALUE         32768
-#define _APS_NEXT_CONTROL_VALUE         224
+#define _APS_NEXT_CONTROL_VALUE         232
 #define _APS_NEXT_SYMED_VALUE           114
 #endif
 #endif

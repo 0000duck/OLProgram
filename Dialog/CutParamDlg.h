@@ -1,3 +1,11 @@
+//////////////////////////////////////////////////////////////////////////
+//
+//  设置切割参数对话框
+//
+//  2016.10.28 by qqs
+//
+//////////////////////////////////////////////////////////////////////////
+
 #pragma once
 #include "afxwin.h"
 
@@ -21,7 +29,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	double m_dCutAng;   // 坡口角度
-	double m_dCutWidth; // 坡口宽度(暂时设置为管件壁厚)
+	double m_dCutDepth; // 坡口深度
 	double m_dChodTol;  // 弓高精度
 	double m_dStepTol;  // 步长精度
 	double m_dToolDis;  // 刀具悬空距离

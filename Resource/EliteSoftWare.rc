@@ -70,27 +70,27 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 // Dialog
 //
 
-IDD_DIALOG_BUILDTUBE DIALOGEX 0, 0, 421, 298
+IDD_DIALOG_BUILDTUBE DIALOGEX 0, 0, 598, 239
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "管件建模"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "确定",IDOK,64,277,50,14
-    PUSHBUTTON      "取消",IDCANCEL,127,277,50,14
+    DEFPUSHBUTTON   "确定",IDOK,60,218,50,14
+    PUSHBUTTON      "取消",IDCANCEL,123,218,50,14
     CTEXT           "直径",IDC_STATIC_TUBEDIA,14,22,21,12
     CTEXT           "壁厚",IDC_STATIC_TUBETHICK,87,22,21,12
     EDITTEXT        IDC_EDIT_TUBEDIA,35,20,40,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_TUBETHICK,109,20,40,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_LIST_HPARAM,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,189,407,83
-    GROUPBOX        "管道参数（毫米）",IDC_STATIC,7,7,407,35
+    CONTROL         "",IDC_LIST_HPARAM,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,106,225,105
+    GROUPBOX        "管道参数（毫米）",IDC_STATIC,7,7,225,35
     GROUPBOX        "",IDC_STATIC,161,14,67,21
     CTEXT           "长度",IDC_STATIC_TUBELENGTH,163,22,21,10
     GROUPBOX        "",IDC_STATIC,11,14,67,21
     GROUPBOX        "",IDC_STATIC,86,14,67,21
     EDITTEXT        IDC_EDIT_TUBELENGTH,185,20,40,12,ES_AUTOHSCROLL
-    GROUPBOX        "割孔参数（毫米&&度）",IDC_STATIC,7,47,407,54
+    GROUPBOX        "割孔参数（毫米&&度）",IDC_STATIC,7,47,225,54
     CTEXT           "割孔直径",IDC_STATIC_HDIA,14,63,33,12
-    CTEXT           "X向距离",IDC_STATIC_XOFFSET,87,63,34,12
+    CTEXT           "X向偏移",IDC_STATIC_XOFFSET,87,63,34,12
     EDITTEXT        IDC_EDIT_HOLEDIA,50,61,25,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_HOLEXOFFSET,124,61,25,12,ES_AUTOHSCROLL
     GROUPBOX        "",IDC_STATIC,161,55,67,21
@@ -105,20 +105,30 @@ BEGIN
     CTEXT           "旋转角度",IDC_STATIC_RANG,87,84,35,10
     EDITTEXT        IDC_EDIT_HOLEROTANG,124,83,25,12,ES_AUTOHSCROLL
     PUSHBUTTON      "添加孔",IDC_BUTTON_HOLEADD,166,80,58,16
-    CONTROL         "",IDC_STATIC_PIC,"Static",SS_ETCHEDFRAME,63,131,20,20
+    CONTROL         219,IDC_STATIC,"Static",SS_BITMAP,252,126,335,103
+    CTEXT           "贯穿角度",IDC_STATIC_PIC_TANG,294,163,43,17,SS_CENTERIMAGE | SS_SUNKEN,WS_EX_STATICEDGE
+    CTEXT           "管件长度",IDC_STATIC_PIC_TLEN,380,126,43,17,SS_CENTERIMAGE | SS_SUNKEN,WS_EX_STATICEDGE
+    CTEXT           "管件直径",IDC_STATIC_PIC_TDIA,570,164,15,36,SS_SUNKEN,WS_EX_STATICEDGE
+    CTEXT           "管件壁厚",IDC_STATIC_PIC_TTHK,466,181,43,17,SS_CENTERIMAGE | SS_SUNKEN,WS_EX_STATICEDGE
+    GROUPBOX        "示意图",IDC_STATIC,243,7,348,225
+    CONTROL         217,IDC_STATIC,"Static",SS_BITMAP,252,19,335,103
+    CTEXT           "X向偏移",IDC_STATIC_PIC_XOFF,288,20,38,17,SS_CENTERIMAGE | SS_SUNKEN | SS_ENDELLIPSIS
+    CTEXT           "轴心距离",IDC_STATIC_PIC_CDIS,270,62,40,17,SS_CENTERIMAGE | SS_SUNKEN | SS_ENDELLIPSIS
+    CTEXT           "割孔直径",IDC_STATIC_PIC_HDIA,370,78,38,17,SS_CENTERIMAGE | SS_SUNKEN | SS_ENDELLIPSIS
+    CTEXT           "旋转角度",IDC_STATIC_PIC_RANG,452,53,43,17,SS_CENTERIMAGE | SS_SUNKEN | SS_ENDELLIPSIS
 END
 
-IDD_DIALOG_PARAM DIALOGEX 0, 0, 181, 136
+IDD_DIALOG_PARAM DIALOGEX 0, 0, 390, 162
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "工艺参数设置"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "确定",IDOK,32,115,50,14
-    PUSHBUTTON      "取消",IDCANCEL,100,115,50,14
+    DEFPUSHBUTTON   "确定",IDOK,32,141,50,14
+    PUSHBUTTON      "取消",IDCANCEL,100,141,50,14
     CTEXT           "坡口角度",IDC_STATIC_CUTANGLE,34,10,40,14,SS_CENTERIMAGE
     CTEXT           "坡口深度",IDC_STATIC_CUTWIDTH,34,26,40,14,SS_CENTERIMAGE
     EDITTEXT        IDC_EDIT_CUTANGLE,78,10,40,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT_CUTWIDTH,78,26,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CUTDEPTH,78,26,40,14,ES_AUTOHSCROLL
     CTEXT           "度",IDC_STATIC,126,12,17,8
     LTEXT           "毫米",IDC_STATIC,126,28,17,8
     CONTROL         "坡口单独切割",IDC_CHECK_TWICECUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,37,96,64,10
@@ -131,6 +141,7 @@ BEGIN
     CTEXT           "刀头悬空距离",IDC_STATIC_TOOLDIS,29,42,46,14,SS_CENTERIMAGE
     EDITTEXT        IDC_EDIT_TOOLDIS,78,42,40,14,ES_AUTOHSCROLL
     LTEXT           "毫米",IDC_STATIC,126,44,17,8
+    CONTROL         218,IDC_STATIC,"Static",SS_BITMAP,186,17,141,124
 END
 
 IDD_DIALOG_EXPORT DIALOGEX 0, 0, 133, 127
@@ -158,17 +169,18 @@ BEGIN
     IDD_DIALOG_BUILDTUBE, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 414
+        RIGHTMARGIN, 591
+        VERTGUIDE, 419
         TOPMARGIN, 7
-        BOTTOMMARGIN, 291
+        BOTTOMMARGIN, 232
     END
 
     IDD_DIALOG_PARAM, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 174
+        RIGHTMARGIN, 383
         TOPMARGIN, 7
-        BOTTOMMARGIN, 129
+        BOTTOMMARGIN, 155
     END
 
     IDD_DIALOG_EXPORT, DIALOG
@@ -181,6 +193,15 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP_HOLE_BUILD   BITMAP                  "bmp\\ui_hole_build.bmp"
+IDB_BITMAP_HOLE_GROOVE  BITMAP                  "bmp\\ui_hole_groove.bmp"
+IDB_BITMAP_HOLE_TANG    BITMAP                  "bmp\\ui_hole_throughang.bmp"
 #endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -194,6 +215,16 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Bitmap
+//
+
+IDB_ICON_LARGE          BITMAP                  "bmp\\MainIconLarge.bmp"
+IDB_ICON_SMALL          BITMAP                  "bmp\\MainIconSmall.bmp"
+IDB_TOOLBAR_LARGE       BITMAP                  "bmp\\toolbar_large.bmp"
+IDB_TOOLBAR_SMALL       BITMAP                  "bmp\\toolbar_small.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // REGISTRY
 //
 
@@ -202,16 +233,6 @@ IDR_DOCVIEW             REGISTRY                "DocView.rgs"
 IDR_BITMAPHANDLER       REGISTRY                "BitmapHandler.rgs"
 IDR_PMPAGEHANDLER       REGISTRY                "PMPageHandler.rgs"
 IDR_USERPROPERTYMANAGERPAGE REGISTRY                "UserPropertyManagerPage.rgs"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Bitmap
-//
-
-IDB_ICON_LARGE          BITMAP                  "Resource\\bmp\\MainIconLarge.bmp"
-IDB_ICON_SMALL          BITMAP                  "Resource\\bmp\\MainIconSmall.bmp"
-IDB_TOOLBAR_LARGE       BITMAP                  "Resource\\bmp\\toolbar_large.bmp"
-IDB_TOOLBAR_SMALL       BITMAP                  "Resource\\bmp\\toolbar_small.bmp"
 #endif    // 英语(美国) resources
 /////////////////////////////////////////////////////////////////////////////
 

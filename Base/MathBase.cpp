@@ -234,6 +234,50 @@ void mathRotVecXY(VEC3D e1,     // [IN] 待旋转向量
 		rot_v[k] = cosRotateAngle*e1[k]+sinRotateAngle*e2[k] ;
 }
 
+
+// 已知向量在世界坐标系下的值，求其在局部坐标系下的值
+void mathTransWorldVec3D(RFRAME& local_frame, // [IN] 局部坐标系
+						 VEC3D world_vector,  // [IN] 世界坐标系下的向量
+						 VEC3D local_vector)  // [OUT]局部坐标系下的向量
+{
+	int k ;
+	VEC3D v ;
+	double local_invse[9] ;
+
+	for( k = 0 ; k < 3 ; k++ )
+	{
+		local_invse[3*k]   = local_frame.X[k] ;
+		local_invse[3*k+1] = local_frame.Y[k] ;
+		local_invse[3*k+2] = local_frame.Z[k] ;
+	}
+	for( k = 0 ; k < 3 ; k++ )
+		v[k] = world_vector[0]*local_invse[k]   +
+		world_vector[1]*local_invse[k+3] +
+		world_vector[2]*local_invse[k+6] ;
+	local_vector[0] = v[0] ;
+	local_vector[1] = v[1] ;
+	local_vector[2] = v[2] ;
+}
+
+
+// 已知向量在局部坐标系下的值，求其在世界坐标系下的值
+void mathTransLocalVec3D(RFRAME& local_frame, // [IN] 局部坐标系
+					     VEC3D local_vector,  // [IN] 局部坐标系下的向量
+					     VEC3D world_vector)  // [OUT]世界坐标系下的向量
+{
+    int k ;
+    VEC3D v ;
+
+    for( k = 0 ; k < 3 ; k++ )
+        v[k] = local_vector[0]*local_frame.X[k] +
+               local_vector[1]*local_frame.Y[k] +
+               local_vector[2]*local_frame.Z[k] ;
+    world_vector[0] = v[0] ;
+    world_vector[1] = v[1] ;
+    world_vector[2] = v[2] ;
+}
+
+
 // 计算反余弦
 double mathACos(double cosAlfa)
 {
@@ -246,6 +290,20 @@ double mathACos(double cosAlfa)
 			return acos(cosAlfa) ;
 }
  
+
+// 计算反正弦
+double mathASin(double sinAlfa)
+{
+	if( sinAlfa > 0.999999999999 )
+		return PI/2. ;
+	else
+		if( sinAlfa < -0.999999999999 )
+			return -PI/2. ;
+		else
+			return asin(sinAlfa) ;
+}
+
+
 // 计算两个3D向量的夹角: 0.0 <= angle <= PI1
 double mathGetAngle(VEC3D v1, VEC3D v2, double min_len)
 {

@@ -3,12 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EliteSoftWare", "EliteSoftWare.vcxproj", "{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dlgtest", "..\Dlgtest\Dlgtest.vcxproj", "{18F6F421-F39A-4476-85A1-958B5181618A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math3D", "..\..\Math3D\Math3D.vcxproj", "{5D15E185-435D-4578-BD2D-8471ADB5B10E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
 		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
+		ShoeEduDebug|Win32 = ShoeEduDebug|Win32
+		ShoeEduDebug|x64 = ShoeEduDebug|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Debug|Win32.ActiveCfg = Debug|Win32
@@ -19,6 +25,31 @@ Global
 		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release|Win32.Build.0 = Release|Win32
 		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release|x64.ActiveCfg = Release|x64
 		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.Release|x64.Build.0 = Release|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.ShoeEduDebug|Win32.ActiveCfg = Debug|Win32
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.ShoeEduDebug|Win32.Build.0 = Debug|Win32
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.ShoeEduDebug|x64.ActiveCfg = Debug|x64
+		{B9B76AD2-96DE-43C2-B963-5D1F1173B9FF}.ShoeEduDebug|x64.Build.0 = Debug|x64
+		{18F6F421-F39A-4476-85A1-958B5181618A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18F6F421-F39A-4476-85A1-958B5181618A}.Debug|Win32.Build.0 = Debug|Win32
+		{18F6F421-F39A-4476-85A1-958B5181618A}.Debug|x64.ActiveCfg = Debug|Win32
+		{18F6F421-F39A-4476-85A1-958B5181618A}.Release|Win32.ActiveCfg = Release|Win32
+		{18F6F421-F39A-4476-85A1-958B5181618A}.Release|Win32.Build.0 = Release|Win32
+		{18F6F421-F39A-4476-85A1-958B5181618A}.Release|x64.ActiveCfg = Release|Win32
+		{18F6F421-F39A-4476-85A1-958B5181618A}.ShoeEduDebug|Win32.ActiveCfg = Debug|Win32
+		{18F6F421-F39A-4476-85A1-958B5181618A}.ShoeEduDebug|Win32.Build.0 = Debug|Win32
+		{18F6F421-F39A-4476-85A1-958B5181618A}.ShoeEduDebug|x64.ActiveCfg = Debug|Win32
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.Debug|Win32.Build.0 = Debug|Win32
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.Debug|x64.ActiveCfg = Debug|x64
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.Debug|x64.Build.0 = Debug|x64
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.Release|Win32.ActiveCfg = Release|Win32
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.Release|Win32.Build.0 = Release|Win32
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.Release|x64.ActiveCfg = Release|x64
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.Release|x64.Build.0 = Release|x64
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.ShoeEduDebug|Win32.ActiveCfg = ShoeEduDebug|Win32
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.ShoeEduDebug|Win32.Build.0 = ShoeEduDebug|Win32
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.ShoeEduDebug|x64.ActiveCfg = ShoeEduDebug|x64
+		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.ShoeEduDebug|x64.Build.0 = ShoeEduDebug|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

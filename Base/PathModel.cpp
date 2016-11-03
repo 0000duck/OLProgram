@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
 //
-//  路径及路径类型参数
+//  基础路径类以及不同类型路径参数类
 //
 //  2016.10.28 by qqs
 //
@@ -41,6 +41,7 @@ void CHoleParam::SetParentComb(CHCombParam* pParentComb)
 {
 	m_pParentComb = pParentComb;
 }
+
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -50,9 +51,9 @@ void CHoleParam::SetParentComb(CHCombParam* pParentComb)
 //////////////////////////////////////////////////////////////////////////
 CHCombParam::CHCombParam(BSTR sParamName)
 {
-	m_dTubeDia    = 1;
-	m_dTubeThick  = 0.03  ;
-	m_dTubeLength = 4;
+	m_dTubeDia    = 0.3;
+	m_dTubeThick  = 0.01  ;
+	m_dTubeLength = 1;
 
 	m_sParamName = sParamName;
 	m_bBulidTube = TRUE;
@@ -103,12 +104,8 @@ void CPathNode::Init()
 		m_OrgPosition[i]     = 0.;
 		m_OrgDirection[i]    = 0.;
 		m_OffsetDirection[i] = 0.; 
-
 		m_OffsetPosition[i]   = 0.;
-		m_OffsetDrawEndPnt[i] = 0.; 
-
 		m_OrgCutPosition[i]   = 0.; 
-		m_OrgCutDrawEndPnt[i] = 0.; 
 	}
 }
 
@@ -117,17 +114,30 @@ CPathNode* CPathNode::CopySelf()
 	CPathNode* pNode = new CPathNode;
 	for (int i=0; i<3; i++)
 	{
-		pNode->m_OrgPosition[i] = m_OrgPosition[i];      // 孔边缘原始坐标
-		pNode->m_OrgDirection[i] = m_OrgDirection[i];     // 孔边缘原始路径点法向
-		pNode->m_OffsetDirection[i] = m_OffsetDirection[i];  // 路径点偏移后的法向.
-
-		pNode->m_OffsetPosition[i] = m_OffsetPosition[i];   // 根据坡口宽度偏移后的路径点坐标
-		pNode->m_OffsetDrawEndPnt[i] = m_OffsetDrawEndPnt[i]; // 绘制标识段末点
-
-		pNode->m_OrgCutPosition[i] = m_OrgCutPosition[i];   // 增加刀头悬空距离后的孔边缘点
-		pNode->m_OrgCutDrawEndPnt[i] = m_OrgCutDrawEndPnt[i]; // 增加刀头悬空距离后的孔边缘标识段末点
+		pNode->m_OrgPosition[i] = m_OrgPosition[i];          // 孔边缘原始坐标
+		pNode->m_OrgDirection[i] = m_OrgDirection[i];        // 孔边缘原始路径点法向
+		pNode->m_OffsetDirection[i] = m_OffsetDirection[i];  // 路径点偏移后的法向
+		pNode->m_OffsetPosition[i] = m_OffsetPosition[i];    // 根据坡口宽度偏移后的路径点坐标
+		pNode->m_OrgCutPosition[i] = m_OrgCutPosition[i];    // 增加刀头悬空距离后的孔边缘点
 	}
 	return pNode;
+}
+void CPathNode::GetDrawEnd(int nFlag, PNT3D dDrawPt, double dLength)
+{
+	if (0==nFlag)
+	{
+		for (int i=0; i<3; i++)
+		{
+			dDrawPt[i] = m_OrgCutPosition[i]+dLength*m_OrgDirection[i];
+		}
+	}
+	if (1==nFlag)
+	{
+		for (int i=0; i<3; i++)
+		{
+			dDrawPt[i] = m_OffsetPosition[i]+dLength*m_OffsetDirection[i];
+		}
+	}
 }
 //////////////////////////////////////////////////////////////////////////
 

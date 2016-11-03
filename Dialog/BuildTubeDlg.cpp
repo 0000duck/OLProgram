@@ -1,5 +1,12 @@
-// BuildTubeDlg.cpp : 实现文件
+//////////////////////////////////////////////////////////////////////////
 //
+// 创建管件和贯穿孔的对话框
+//
+// 2016.10.28 by qqs
+//
+//////////////////////////////////////////////////////////////////////////
+// BuildTubeDlg.cpp : 实现文件
+
 
 #include "stdafx.h"
 #include "EliteSoftWare.h"
@@ -11,11 +18,11 @@ IMPLEMENT_DYNAMIC(CBuildTubeDlg, CDialogEx)
 
 CBuildTubeDlg::CBuildTubeDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CBuildTubeDlg::IDD, pParent)
-	, m_dTubeDia(1000)
-	, m_dTubeThick(30)
-	, m_dTubeLength(4000)
-	, m_dHoleDia(400)
-	, m_dHoleXOffset(500)
+	, m_dTubeDia(300)
+	, m_dTubeThick(10)
+	, m_dTubeLength(1000)
+	, m_dHoleDia(100)
+	, m_dHoleXOffset(100)
 	, m_dHoleZOffset(0)
 	, m_dHoleThroughAng(90)
 	, m_dHoleRotAng(0)
@@ -23,6 +30,7 @@ CBuildTubeDlg::CBuildTubeDlg(CWnd* pParent /*=NULL*/)
 {
 	m_pHCombParam = NULL;
 	m_bBulidTube = TRUE;
+	m_nCurCtrID = -100;
 }
 
 CBuildTubeDlg::~CBuildTubeDlg()
@@ -72,30 +80,6 @@ BOOL CBuildTubeDlg::OnInitDialog()
 		GetDlgItem(IDC_EDIT_TUBELENGTH)->EnableWindow(FALSE);
 	}
 
-
-
-	CBitmap hbmp; 
-	HBITMAP hbitmap; 
-	//将pStatic指向要显示的地方 
-	CStatic *pStaic; 
-	pStaic=(CStatic*)GetDlgItem(IDC_STATIC_PIC); 
-	//装载资源 0.bmp 
-	hbitmap=(HBITMAP)::LoadImage (::AfxGetInstanceHandle(),L"D:\\Git\\Elite\\Elite\\Elite\\Debug\\Resource\\tube.jpg",IMAGE_BITMAP,0,0,LR_LOADFROMFILE|LR_CREATEDIBSECTION); 
-	hbmp.Attach(hbitmap); 
-	//获取图片格式 
-	BITMAP bm; 
-	hbmp.GetBitmap(&bm); 
-	CDC dcMem; 
-	dcMem.CreateCompatibleDC(GetDC()); 
-	CBitmap *poldBitmap=(CBitmap*)dcMem.SelectObject(hbmp); 
-	CRect lRect; 
-	pStaic->GetClientRect(&lRect); 
-	//显示位图 
-	pStaic->GetDC()->StretchBlt(lRect.left ,lRect.top ,lRect.Width(),lRect.Height(),&dcMem,0 ,0,bm.bmWidth,bm.bmHeight,SRCCOPY); 
-	dcMem.SelectObject(&poldBitmap); 
-
-
-
 	UpdateData(FALSE);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -104,6 +88,10 @@ BEGIN_MESSAGE_MAP(CBuildTubeDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_HOLEADD, &CBuildTubeDlg::OnBnClickedButtonHoleadd)
 	ON_BN_CLICKED(IDOK, &CBuildTubeDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDCANCEL, &CBuildTubeDlg::OnBnClickedCancel)
+//	ON_WM_CTLCOLOR()
+ON_WM_CTLCOLOR()
+ON_EN_SETFOCUS(IDC_EDIT_TUBEDIA, &CBuildTubeDlg::OnEnSetfocusEditTubedia)
+ON_EN_KILLFOCUS(IDC_EDIT_TUBEDIA, &CBuildTubeDlg::OnEnKillfocusEditTubedia)
 END_MESSAGE_MAP()
 
 // 检查输入的孔参数的合理性
@@ -285,4 +273,34 @@ void CBuildTubeDlg::OnBnClickedCancel()
 	}
 	CHParamListCtrl.RemoveAllGroups();
 	CDialogEx::OnCancel();
+}
+
+HBRUSH CBuildTubeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+	int n = pWnd->GetDlgCtrlID();
+	if (pWnd->GetDlgCtrlID()==m_nCurCtrID)
+	{
+	//	pDC-> SetTextColor(RGB(255,0,0));     //设置字体颜色
+		pDC->SetBkColor(RGB(255,0,0)); //设置字体背景为透明
+		// TODO: Return a different brush if the default is not desired
+	//	return (HBRUSH)::GetStockObject(GRAY_BRUSH);     // 设置背景色
+	}
+	//return (HBRUSH)::GetStockObject(NULL_BRUSH);     // 设置背景色
+
+	return hbr;
+}
+
+
+void CBuildTubeDlg::OnEnSetfocusEditTubedia()
+{
+	m_nCurCtrID = IDC_STATIC_PIC_TDIA;
+	UpdateWindow();
+}
+
+
+
+void CBuildTubeDlg::OnEnKillfocusEditTubedia()
+{
+	//m_nCurCtrID = -100;
 }

@@ -20,8 +20,8 @@ void CPMPageHandler::Init(CEliteSoftWare *app)
 		AfxMessageBox(_T("当前文档App类为空，请关闭当前文档，并重建文档。"));
 	}
 
-	m_dCutAng   = 45.;
-	m_dCutWidth = 10.;
+	m_dCutAng   = 30.;
+	m_dCutDepth = 10.;
 	m_dChodTol  = 0.01;
 	m_dStepTol  = 0.01;
 	m_dToolDis  = 3. ;
@@ -57,7 +57,7 @@ void CPMPageHandler::SetCutParam()
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	CCutParamDlg dlg;
 	dlg.m_dCutAng = m_dCutAng;
-	dlg.m_dCutWidth = m_dCutWidth;
+	dlg.m_dCutDepth = m_dCutDepth;
 	dlg.m_dChodTol = m_dChodTol;
 	dlg.m_dStepTol = m_dStepTol;
 	dlg.m_dToolDis = m_dToolDis;
@@ -65,7 +65,7 @@ void CPMPageHandler::SetCutParam()
 	if (IDOK == dlg.DoModal())
 	{
 		m_dCutAng = dlg.m_dCutAng;
-		m_dCutWidth = dlg.m_dCutWidth;
+		m_dCutDepth = dlg.m_dCutDepth;
 		m_dChodTol = dlg.m_dChodTol;
 		m_dStepTol = dlg.m_dStepTol;
 		m_dToolDis = dlg.m_dToolDis;
@@ -243,7 +243,7 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		}
 		mathUniVec(pNode->m_OrgDirection);
 
-		PNT3D vecStart,vecEnd;
+		PNT3D vecStart;
 		for (int i=0; i<3; i++)
 		{
 			vecStart[i] = retFacePt[i];
@@ -268,10 +268,10 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		double dZThick = sqrt(dRWTube*dRWTube - ptCDis*ptCDis) - sqrt(dRNTube*dRNTube - ptCDis*ptCDis);
 		double dHThick = dZThick/sin(pHParam->m_dThroughAng); // 孔在管上的总深度
 
-		double dDunDeep = m_dCutWidth/1000;////坡口深度，用户设置，超过dHThick，则提醒或者自动设为dHThick
-		if (dDunDeep>dHThick)
+		double dCutDepth = m_dCutDepth/1000;//坡口深度，用户设置，超过dHThick，则提醒或者自动设为dHThick
+		if (dCutDepth>dHThick)
 		{
-			dDunDeep = dHThick;
+			dCutDepth = dHThick;
 		}
 		//////////////////////////////////////////////////////////////////////////
 
@@ -336,13 +336,13 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 			tmpVec[i] = retFacePt[i]-pNode->m_OrgPosition[i];
 		}
 		mathUniVec(tmpVec);
-		// 3.求出主管向量与贯穿向量的夹角
-		double tmpAng = mathGetAngle(tmpVec,pHParam->m_dThroughVec,MIN_DBL);
-		// 4.判断夹角，如果小于45度，则使用夹角的二分之一
-		if (tmpAng<(90.*PI/180.-0.001))
-		{
-			pokouAng = tmpAng*0.5;
-		}
+		//// 3.求出主管向量与贯穿向量的夹角
+		//double tmpAng = mathGetAngle(tmpVec,pHParam->m_dThroughVec,MIN_DBL);
+		//// 4.判断夹角，如果小于45度，则使用夹角的二分之一
+		//if (tmpAng<(90.*PI/180.-0.001))
+		//{
+		//	pokouAng = tmpAng*0.5;
+		//}
 		//////////////////////////////////////////////////////////////////////////
 
 
@@ -356,7 +356,7 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		PNT3D ptBaseDun;// 孔基线钝边点坐标
 		for (int i=0; i<3; i++)
 		{
-			ptDun[i] = pNode->m_OrgPosition[i]-dDunDeep*pHParam->m_dThroughVec[i];
+			ptDun[i] = pNode->m_OrgPosition[i]-dCutDepth*pHParam->m_dThroughVec[i];
 		}
 		for (int i=0; i<3; i++)
 		{
@@ -377,7 +377,7 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		// 4.计算基线坡口在YZ平面上的投影长度
 		double dPkL = sqrt(dRWTube*dRWTube - d*d) - sqrt(dRNTube*dRNTube - d*d);
 		// 5.实际坡口的长度
-		double dRealPkL = dPkL*(dDunDeep)/dHThick;
+		double dRealPkL = dPkL*(dCutDepth)/dHThick;
 		// 6.通过投影长度和夹角，求出原始长度
 		double dOffsetVecLength = dRealPkL/cos(vecAng);
 		for(int i=0; i<3; i++)
@@ -389,23 +389,15 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		// 法向量标线
 		for (int i=0; i<3; i++)
 		{
-			vecEnd[i] = vecStart[i]+0.005*pokouVec[i];
-		}
-		for (int i=0; i<3; i++)
-		{
 			pNode->m_OffsetPosition[i]   = vecStart[i];
 			pNode->m_OffsetDirection[i]  = pokouVec[i];
-			pNode->m_OffsetDrawEndPnt[i] = vecEnd[i];
 		}
 
 		//刀头悬空距离
 		for (int i=0; i<3; i++)
 		{
 			pNode->m_OrgCutPosition[i] = pNode->m_OrgPosition[i]+0.001*pNode->m_OrgDirection[i]*m_dToolDis;
-			pNode->m_OrgCutDrawEndPnt[i] = pNode->m_OrgCutPosition[i]+0.005*pNode->m_OrgDirection[i];
-
 			pNode->m_OffsetPosition[i] = pNode->m_OffsetPosition[i]+0.001*pNode->m_OffsetDirection[i]*m_dToolDis;
-			pNode->m_OffsetDrawEndPnt[i] = pNode->m_OffsetDrawEndPnt[i]+0.005*pNode->m_OffsetDirection[i];
 		}
 
 		movePath->m_PathNodeList.AddTail(pNode);

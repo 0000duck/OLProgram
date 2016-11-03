@@ -744,12 +744,10 @@ void CEliteSoftWare::TransWorldPath(RFRAME& local_frame, CMovePath* pMovePath)
 		if (NULL == pPathNode)
 			continue;
 		mathTransWorldPnt3D(local_frame,pPathNode->m_OrgCutPosition,pPathNode->m_OrgCutPosition);
-		mathTransWorldPnt3D(local_frame,pPathNode->m_OrgDirection,pPathNode->m_OrgDirection);
-		mathTransWorldPnt3D(local_frame,pPathNode->m_OrgCutDrawEndPnt,pPathNode->m_OrgCutDrawEndPnt);
+		mathTransWorldVec3D(local_frame,pPathNode->m_OrgDirection,pPathNode->m_OrgDirection);
 
 		mathTransWorldPnt3D(local_frame,pPathNode->m_OffsetPosition,pPathNode->m_OffsetPosition);
-		mathTransWorldPnt3D(local_frame,pPathNode->m_OffsetDirection,pPathNode->m_OffsetDirection);
-		mathTransWorldPnt3D(local_frame,pPathNode->m_OffsetDrawEndPnt,pPathNode->m_OffsetDrawEndPnt);
+		mathTransWorldVec3D(local_frame,pPathNode->m_OffsetDirection,pPathNode->m_OffsetDirection);
 		mathUniVec(pPathNode->m_OffsetDirection);
 		mathUniVec(pPathNode->m_OrgDirection);
 	}
@@ -768,11 +766,10 @@ void CEliteSoftWare::TransLocalPath(RFRAME& local_frame, CMovePath* pMovePath)
 		if (NULL == pPathNode)
 			continue;
 		mathTransLocalPnt3D(local_frame,pPathNode->m_OrgCutPosition,pPathNode->m_OrgCutPosition);
-		mathTransLocalPnt3D(local_frame,pPathNode->m_OrgDirection,pPathNode->m_OrgDirection);
-		mathTransLocalPnt3D(local_frame,pPathNode->m_OrgCutDrawEndPnt,pPathNode->m_OrgCutDrawEndPnt);
+		mathTransLocalVec3D(local_frame,pPathNode->m_OrgDirection,pPathNode->m_OrgDirection);
+
 		mathTransLocalPnt3D(local_frame,pPathNode->m_OffsetPosition,pPathNode->m_OffsetPosition);
-		mathTransLocalPnt3D(local_frame,pPathNode->m_OffsetDirection,pPathNode->m_OffsetDirection);
-		mathTransLocalPnt3D(local_frame,pPathNode->m_OffsetDrawEndPnt,pPathNode->m_OffsetDrawEndPnt);
+		mathTransLocalVec3D(local_frame,pPathNode->m_OffsetDirection,pPathNode->m_OffsetDirection);
 		mathUniVec(pPathNode->m_OffsetDirection);
 		mathUniVec(pPathNode->m_OrgDirection);
 	}
@@ -875,13 +872,16 @@ void CEliteSoftWare::DrawPathComb(CPathComb* pPathComb)
 				continue;
 
 			iSegment = NULL;
+			PNT3D dDrawEnd;
+			pNode->GetDrawEnd(1,dDrawEnd);
 			iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
-				pNode->m_OffsetDrawEndPnt[0],pNode->m_OffsetDrawEndPnt[1],pNode->m_OffsetDrawEndPnt[2],&iSegment);
+										dDrawEnd[0],dDrawEnd[1],dDrawEnd[2],&iSegment);
 			if (pPathComb->m_bTwiceCut)
 			{
 				iSegment = NULL;
+				pNode->GetDrawEnd(0,dDrawEnd);
 				iswSketchManger->CreateLine(pNode->m_OrgCutPosition[0],pNode->m_OrgCutPosition[1],pNode->m_OrgCutPosition[2],
-					pNode->m_OrgCutDrawEndPnt[0],pNode->m_OrgCutDrawEndPnt[1],pNode->m_OrgCutDrawEndPnt[2],&iSegment);
+					dDrawEnd[0],dDrawEnd[1],dDrawEnd[2],&iSegment);
 			}
 
 			CPathNode* pNextNode = NULL;
@@ -1083,7 +1083,7 @@ void CEliteSoftWare::ExportPathToTXT()
 
 	//设置路径输出顺序
 	SetPCombExOrder(pCpyPCombs, m_nExportOrder);
-
+	double dFixRotAng = PI/2.; //最终孔定位角度
 	// 路径坐标系变换
 	POSITION pcPos = pCpyPCombs->m_LPathCombList.GetHeadPosition();
 	while(pcPos)
@@ -1116,7 +1116,9 @@ void CEliteSoftWare::ExportPathToTXT()
 			//step1:将路径点坐标从基线坐标系转换到沿X轴平移后的坐标系。
 			TransWorldPath(ChangeFrame, pMovePath);
 			//step2:将平移后的坐标系旋转dRotAng，路径点跟着旋转，所以旋转后点坐标不发生改变。
-			mathRotateRFrame(ChangeFrame.O,ChangeFrame.X,dRotAng,ChangeFrame);
+			double tmpAng = mathASin(pMovePath->GetHParam()->m_dCenterDis/dOffsetZ);
+			double dRealRotAng = tmpAng-dFixRotAng+dRotAng;
+			mathRotateRFrame(ChangeFrame.O,ChangeFrame.X,dRealRotAng,ChangeFrame);
 			//step3:将旋转后的坐标系中的路径点坐标转换到基线坐标系中。
 			TransLocalPath(ChangeFrame,pMovePath);
 			//step4:将基线坐标系中的坐标转换到平移X后的坐标系中。
@@ -1129,8 +1131,9 @@ void CEliteSoftWare::ExportPathToTXT()
 
 	// 绘制路径和输出坐标系(测试用)
 	//////////////////////////////////////////////////////////////////////////
-	// DrawPathCombs(pCpyPCombs);
+	 DrawPathCombs(pCpyPCombs);
 	// DrawRFrame(exportFrame);
+	// return;
 	//////////////////////////////////////////////////////////////////////////
 
 	BOOL isOpen = FALSE;                                 //是否打开(否则为保存)  
@@ -1201,7 +1204,6 @@ void CEliteSoftWare::ExportPathToTXT()
 		int nPathId = 1;
 		int nPathCount = (int)pPathComb->m_PathList.GetCount();
 		fout<<"此路径包含"<<nPathCount<<"个孔的切割路径"<<"\t\n";
-		double dRotAng  = 10;        //输入：管旋转的角度
 		while(pathPos)
 		{
 			CMovePath* pMovePath = pPathComb->m_PathList.GetNext(pathPos);
@@ -1221,7 +1223,7 @@ void CEliteSoftWare::ExportPathToTXT()
 			}
 
 			fout<<"第"<<nPathId<<"个孔的X向距离为："<<pMovePath->GetOffsetX()*1000.<<";"
-				<<"管旋转角度为："<<pMovePath->GetOrgRotAng()<<";"<<"\t\n";
+				<<"管旋转角度为："<<pMovePath->GetOrgRotAng()-dFixRotAng<<";"<<"\t\n";
 			fout<<"孔切割路径点及法向："<<"\t\n";
 			nPathId++;
 			if (pPathComb->m_bTwiceCut)

@@ -101,13 +101,12 @@
     <ClInclude Include="EliteSoftWare_i.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Headers Files</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resource\resource.h" />
+    <ClInclude Include="Resource\resource.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\BitmapHandler.rgs">
@@ -146,7 +145,15 @@
     <None Include="Resource\bmp\toolbar_small.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resource\bmp\buildtube.bmp" />
+    <None Include="Resource\bmp\ui_hole_build.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\bmp\ui_hole_throughang.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\bmp\ui_hole_groove.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Resource\EliteSoftWare.idl">
