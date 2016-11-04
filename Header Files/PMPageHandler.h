@@ -33,12 +33,12 @@ public:
 	CComPtr<ISldWorks> iSwApp;
 	// 切割工艺参数
 	//////////////////////////////////////////////////////////////////////////
-	double m_dCutAng;   // 坡口角度
-	double m_dCutDepth; // 坡口深度
-	double m_dChodTol;  // 弓高精度
-	double m_dStepTol;  // 步长精度
-	double m_dToolDis;  // 刀具悬空距离
-	BOOL m_bTwiceCut;   // 是否坡口与孔分开切割
+	double m_dCutAng;     // 坡口角度
+	double m_dCutDepth;   // 坡口深度
+	double m_dChodTol;    // 弓高精度
+	double m_dStepTol;    // 步长精度
+	double m_dToolDis;    // 刀具悬空距离
+	BOOL   m_bHolePrecut; // 是否预先割孔
 	//////////////////////////////////////////////////////////////////////////
 
 public:

@@ -265,7 +265,7 @@ CMovePath* CMovePath::CopySelf()
 //////////////////////////////////////////////////////////////////////////
 CPathComb::CPathComb()
 {
-	m_bTwiceCut = TRUE;
+	m_bHolePrecut = TRUE;
 	m_PathList.RemoveAll();
 	m_nRefID = 0;
 }
@@ -292,7 +292,7 @@ void CPathComb::Release()
 CPathComb* CPathComb::CopySelf()
 {
 	CPathComb* pPComb = new CPathComb;
-	pPComb->m_bTwiceCut = m_bTwiceCut;
+	pPComb->m_bHolePrecut = m_bHolePrecut;
 	pPComb->m_nRefID = m_nRefID;
 	POSITION pos = this->m_PathList.GetHeadPosition();
 	while(pos)

@@ -30,7 +30,7 @@ CBuildTubeDlg::CBuildTubeDlg(CWnd* pParent /*=NULL*/)
 {
 	m_pHCombParam = NULL;
 	m_bBulidTube = TRUE;
-	m_nCurCtrID = -100;
+	m_nCurCtrID = ID_CURCTL_NULL;
 }
 
 CBuildTubeDlg::~CBuildTubeDlg()
@@ -57,6 +57,7 @@ void CBuildTubeDlg::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxDouble(pDX, m_dHoleThroughAng, 0.0000001, 179.9999999);
 	DDX_Text(pDX, IDC_EDIT_HOLEROTANG, m_dHoleRotAng);
 	DDV_MinMaxDouble(pDX, m_dHoleRotAng, 0, 360);
+	DDX_Control(pDX, IDC_STATIC_PIC_TDIA, m_cTDia);
 }
 
 BOOL CBuildTubeDlg::OnInitDialog()
@@ -69,7 +70,7 @@ BOOL CBuildTubeDlg::OnInitDialog()
 	CHParamListCtrl.InsertColumn(0, _T("序号"),LVCFMT_LEFT,38,-1);
 	CHParamListCtrl.InsertColumn(1, _T("割孔直径"),LVCFMT_LEFT,60,-1);
 	CHParamListCtrl.InsertColumn(2, _T("X向距离"),LVCFMT_LEFT,55,-1);
-	CHParamListCtrl.InsertColumn(3, _T("轴心距离"),LVCFMT_LEFT,60,-1);
+	CHParamListCtrl.InsertColumn(3, _T("轴心偏移"),LVCFMT_LEFT,60,-1);
 	CHParamListCtrl.InsertColumn(4, _T("贯穿角度"),LVCFMT_LEFT,60,-1);
 	CHParamListCtrl.InsertColumn(5, _T("旋转角度"),LVCFMT_LEFT,60,-1);
 	CHParamListCtrl.DeleteAllItems();
@@ -88,10 +89,23 @@ BEGIN_MESSAGE_MAP(CBuildTubeDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_HOLEADD, &CBuildTubeDlg::OnBnClickedButtonHoleadd)
 	ON_BN_CLICKED(IDOK, &CBuildTubeDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDCANCEL, &CBuildTubeDlg::OnBnClickedCancel)
-//	ON_WM_CTLCOLOR()
-ON_WM_CTLCOLOR()
-ON_EN_SETFOCUS(IDC_EDIT_TUBEDIA, &CBuildTubeDlg::OnEnSetfocusEditTubedia)
-ON_EN_KILLFOCUS(IDC_EDIT_TUBEDIA, &CBuildTubeDlg::OnEnKillfocusEditTubedia)
+	ON_WM_CTLCOLOR()
+	ON_EN_SETFOCUS(IDC_EDIT_TUBEDIA, &CBuildTubeDlg::OnEnSetfocusEditTubedia)
+	ON_EN_KILLFOCUS(IDC_EDIT_TUBEDIA, &CBuildTubeDlg::OnEnKillfocusEditTubedia)
+	ON_EN_SETFOCUS(IDC_EDIT_TUBETHICK, &CBuildTubeDlg::OnEnSetfocusEditTubethick)
+	ON_EN_KILLFOCUS(IDC_EDIT_TUBETHICK, &CBuildTubeDlg::OnEnKillfocusEditTubethick)
+	ON_EN_SETFOCUS(IDC_EDIT_TUBELENGTH, &CBuildTubeDlg::OnEnSetfocusEditTubelength)
+	ON_EN_KILLFOCUS(IDC_EDIT_TUBELENGTH, &CBuildTubeDlg::OnEnKillfocusEditTubelength)
+	ON_EN_SETFOCUS(IDC_EDIT_HOLEDIA, &CBuildTubeDlg::OnEnSetfocusEditHoledia)
+	ON_EN_KILLFOCUS(IDC_EDIT_HOLEDIA, &CBuildTubeDlg::OnEnKillfocusEditHoledia)
+	ON_EN_SETFOCUS(IDC_EDIT_HOLEXOFFSET, &CBuildTubeDlg::OnEnSetfocusEditHolexoffset)
+	ON_EN_KILLFOCUS(IDC_EDIT_HOLEXOFFSET, &CBuildTubeDlg::OnEnKillfocusEditHolexoffset)
+	ON_EN_SETFOCUS(IDC_EDIT_HOLEZOFFSET, &CBuildTubeDlg::OnEnSetfocusEditHolezoffset)
+	ON_EN_KILLFOCUS(IDC_EDIT_HOLEZOFFSET, &CBuildTubeDlg::OnEnKillfocusEditHolezoffset)
+	ON_EN_SETFOCUS(IDC_EDIT_HOLETHROUGHANG, &CBuildTubeDlg::OnEnSetfocusEditHolethroughang)
+	ON_EN_KILLFOCUS(IDC_EDIT_HOLETHROUGHANG, &CBuildTubeDlg::OnEnKillfocusEditHolethroughang)
+	ON_EN_SETFOCUS(IDC_EDIT_HOLEROTANG, &CBuildTubeDlg::OnEnSetfocusEditHolerotang)
+	ON_EN_KILLFOCUS(IDC_EDIT_HOLEROTANG, &CBuildTubeDlg::OnEnKillfocusEditHolerotang)
 END_MESSAGE_MAP()
 
 // 检查输入的孔参数的合理性
@@ -125,7 +139,7 @@ BOOL CBuildTubeDlg::CheckParam()
 	// 4.Z向偏移绝对值不能大于或等于管半径加孔半径判断
 	if (abs(m_dHoleZOffset)>((m_dTubeDia*0.5+m_dTubeDia*0.5)-0.0000001))
 	{
-		AfxMessageBox(_T("轴心距离不能大于或等于管半径与孔半径之和。"));
+		AfxMessageBox(_T("轴心偏移的绝对值不能大于或等于管半径与孔半径之和。"));
 		return FALSE;
 	}
 	// 5.孔直径必须小于管直径判断
@@ -258,7 +272,6 @@ void CBuildTubeDlg::OnBnClickedOk()
 	CDialogEx::OnOK();
 }
 
-
 void CBuildTubeDlg::OnBnClickedCancel()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -278,29 +291,107 @@ void CBuildTubeDlg::OnBnClickedCancel()
 HBRUSH CBuildTubeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
-	int n = pWnd->GetDlgCtrlID();
-	if (pWnd->GetDlgCtrlID()==m_nCurCtrID)
+	if( pWnd->GetDlgCtrlID() == m_nCurCtrID) // m_nCurCtrID为用户需要改变颜色的Static Text控件ID
 	{
-	//	pDC-> SetTextColor(RGB(255,0,0));     //设置字体颜色
-		pDC->SetBkColor(RGB(255,0,0)); //设置字体背景为透明
-		// TODO: Return a different brush if the default is not desired
-	//	return (HBRUSH)::GetStockObject(GRAY_BRUSH);     // 设置背景色
+		pDC->SetBkMode(TRANSPARENT);         // 设置字体背景色为透明，防止字体背景色覆盖控件背景色
+		HBRUSH brush = CreateSolidBrush(RGB(255,240,119)); // 设置控件背景色
+		return (HBRUSH) brush;
 	}
-	//return (HBRUSH)::GetStockObject(NULL_BRUSH);     // 设置背景色
-
 	return hbr;
 }
-
 
 void CBuildTubeDlg::OnEnSetfocusEditTubedia()
 {
 	m_nCurCtrID = IDC_STATIC_PIC_TDIA;
-	UpdateWindow();
+	GetDlgItem(IDC_STATIC_PIC_TDIA)-> InvalidateRect(NULL); 
 }
-
-
 
 void CBuildTubeDlg::OnEnKillfocusEditTubedia()
 {
-	//m_nCurCtrID = -100;
+	m_nCurCtrID = ID_CURCTL_NULL;
+	GetDlgItem(IDC_STATIC_PIC_TDIA)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnSetfocusEditTubethick()
+{
+	m_nCurCtrID = IDC_STATIC_PIC_TTHK;
+	GetDlgItem(IDC_STATIC_PIC_TTHK)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnKillfocusEditTubethick()
+{
+	m_nCurCtrID = ID_CURCTL_NULL;
+	GetDlgItem(IDC_STATIC_PIC_TTHK)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnSetfocusEditTubelength()
+{
+	m_nCurCtrID = IDC_STATIC_PIC_TLEN;
+	GetDlgItem(IDC_STATIC_PIC_TLEN)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnKillfocusEditTubelength()
+{
+	m_nCurCtrID = ID_CURCTL_NULL;
+	GetDlgItem(IDC_STATIC_PIC_TLEN)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnSetfocusEditHoledia()
+{
+	m_nCurCtrID = IDC_STATIC_PIC_HDIA;
+	GetDlgItem(IDC_STATIC_PIC_HDIA)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnKillfocusEditHoledia()
+{
+	m_nCurCtrID = ID_CURCTL_NULL;
+	GetDlgItem(IDC_STATIC_PIC_HDIA)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnSetfocusEditHolexoffset()
+{
+	m_nCurCtrID = IDC_STATIC_PIC_XOFF;
+	GetDlgItem(IDC_STATIC_PIC_XOFF)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnKillfocusEditHolexoffset()
+{
+	m_nCurCtrID = ID_CURCTL_NULL;
+	GetDlgItem(IDC_STATIC_PIC_XOFF)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnSetfocusEditHolezoffset()
+{
+	m_nCurCtrID = IDC_STATIC_PIC_CDIS;
+	GetDlgItem(IDC_STATIC_PIC_CDIS)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnKillfocusEditHolezoffset()
+{
+	m_nCurCtrID = ID_CURCTL_NULL;
+	GetDlgItem(IDC_STATIC_PIC_CDIS)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnSetfocusEditHolethroughang()
+{
+	m_nCurCtrID = IDC_STATIC_PIC_TANG;
+	GetDlgItem(IDC_STATIC_PIC_TANG)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnKillfocusEditHolethroughang()
+{
+	m_nCurCtrID = ID_CURCTL_NULL;
+	GetDlgItem(IDC_STATIC_PIC_TANG)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnSetfocusEditHolerotang()
+{
+	m_nCurCtrID = IDC_STATIC_PIC_RANG;
+	GetDlgItem(IDC_STATIC_PIC_RANG)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnEnKillfocusEditHolerotang()
+{
+	m_nCurCtrID = ID_CURCTL_NULL;
+	GetDlgItem(IDC_STATIC_PIC_RANG)-> InvalidateRect(NULL); 
 }

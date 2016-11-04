@@ -25,7 +25,7 @@ void CPMPageHandler::Init(CEliteSoftWare *app)
 	m_dChodTol  = 0.01;
 	m_dStepTol  = 0.01;
 	m_dToolDis  = 3. ;
-	m_bTwiceCut = TRUE;
+	m_bHolePrecut = TRUE;
 }
 
 HRESULT __stdcall CPMPageHandler::OnClose(long Reason)
@@ -61,7 +61,7 @@ void CPMPageHandler::SetCutParam()
 	dlg.m_dChodTol = m_dChodTol;
 	dlg.m_dStepTol = m_dStepTol;
 	dlg.m_dToolDis = m_dToolDis;
-	dlg.m_bTwiceCut = m_bTwiceCut;
+	dlg.m_bHolePrecut = m_bHolePrecut;
 	if (IDOK == dlg.DoModal())
 	{
 		m_dCutAng = dlg.m_dCutAng;
@@ -69,7 +69,7 @@ void CPMPageHandler::SetCutParam()
 		m_dChodTol = dlg.m_dChodTol;
 		m_dStepTol = dlg.m_dStepTol;
 		m_dToolDis = dlg.m_dToolDis;
-		m_bTwiceCut = dlg.m_bTwiceCut;
+		m_bHolePrecut = dlg.m_bHolePrecut;
 	}
 }
 
@@ -201,10 +201,6 @@ CHoleParam* CPMPageHandler::GetHParam(int ptNum, double* ptArray)
 	return pPathParam;
 }
 
-#define MIN_DBL 1.0e-10
-extern double mathDistPntLin(PNT3D p, PNT3D begin, VEC3D dir);
-extern double mathGetAngle(VEC3D v1, VEC3D v2, double min_len);
-
 // 用于计算路径偏移后的节点
 void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface, CMovePath* movePath, BOOL bRevOffVec)
 {
@@ -268,8 +264,8 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		double dZThick = sqrt(dRWTube*dRWTube - ptCDis*ptCDis) - sqrt(dRNTube*dRNTube - ptCDis*ptCDis);
 		double dHThick = dZThick/sin(pHParam->m_dThroughAng); // 孔在管上的总深度
 
-		double dCutDepth = m_dCutDepth/1000;//坡口深度，用户设置，超过dHThick，则提醒或者自动设为dHThick
-		if (dCutDepth>dHThick)
+		double dCutDepth = m_dCutDepth/1000;//坡口深度，用户设置，弱超过dHThick自动设为dHThick
+		if (dCutDepth>dHThick || !m_bHolePrecut) // 如果用户没有预先切孔，则直接切坡口，切割深度默认到底
 		{
 			dCutDepth = dHThick;
 		}
@@ -345,7 +341,6 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		//}
 		//////////////////////////////////////////////////////////////////////////
 
-
 		VEC3D pokouVec;
 		mathRotVecXY(dThroughVec,offsetVec,pokouAng,pokouVec);
 		mathUniVec(pokouVec);
@@ -370,7 +365,7 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		mathUniVec(YZVec);
 		// 2.求坡口向量与YZ分量的夹角
 		double vecAng = mathGetAngle(pokouVec,YZVec,MIN_DBL);
-		// 3.求YZ平面上，基线坡口向量的轴心距离
+		// 3.求YZ平面上，基线坡口向量的轴心偏移
 		PNT3D p={0,0,0};
 		PNT3D p1= {0,ptBaseDun[1],ptBaseDun[2]};
 		double d = mathDistPntLin(p,p1,YZVec);
@@ -509,7 +504,7 @@ void CPMPageHandler::CalMovePath()
 	CComQIPtr<ISurface> swSurface;
 	swBaseTubeFace->IGetSurface(&swSurface);
 	CPathComb* pPathComb = new CPathComb();
-	pPathComb->m_bTwiceCut = m_bTwiceCut;
+	pPathComb->m_bHolePrecut = m_bHolePrecut;
 	for (int i=0; i<count; i++)
 	{
 		type = -1;

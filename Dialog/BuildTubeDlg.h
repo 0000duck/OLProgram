@@ -8,8 +8,9 @@
 
 #pragma once
 #include "afxcmn.h"
+#include "afxwin.h"
 
-
+#define ID_CURCTL_NULL -100;
 // CBuildTubeDlg 对话框
 
 class CBuildTubeDlg : public CDialogEx
@@ -52,7 +53,7 @@ public:
 	BOOL m_bBulidTube;          // 标记管件是否已经创建
 	CBrush m_CtrBrush;  
 	CFont  m_CtrFont;//字体
-	int m_nCurCtrID;
+	int m_nCurCtrID; // 当前激活的控件ID
 	//////////////////////////////////////////////////////////////////////////
 public:
 	// 接口函数
@@ -72,4 +73,19 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnEnSetfocusEditTubedia();
 	afx_msg void OnEnKillfocusEditTubedia();
+	CStatic m_cTDia;
+	afx_msg void OnEnSetfocusEditTubethick();
+	afx_msg void OnEnKillfocusEditTubethick();
+	afx_msg void OnEnSetfocusEditTubelength();
+	afx_msg void OnEnKillfocusEditTubelength();
+	afx_msg void OnEnSetfocusEditHoledia();
+	afx_msg void OnEnKillfocusEditHoledia();
+	afx_msg void OnEnSetfocusEditHolexoffset();
+	afx_msg void OnEnKillfocusEditHolexoffset();
+	afx_msg void OnEnSetfocusEditHolezoffset();
+	afx_msg void OnEnKillfocusEditHolezoffset();
+	afx_msg void OnEnSetfocusEditHolethroughang();
+	afx_msg void OnEnKillfocusEditHolethroughang();
+	afx_msg void OnEnSetfocusEditHolerotang();
+	afx_msg void OnEnKillfocusEditHolerotang();
 };

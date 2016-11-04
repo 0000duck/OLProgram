@@ -166,7 +166,7 @@ public:
 	~CPathComb();
 public:
 	LPathList m_PathList;
-	BOOL m_bTwiceCut;
+	BOOL m_bHolePrecut;
 	// 参考ID，当添加路径时，将当前参考ID赋值给当前加入的路径，用于给路径组里的路径添加序号 
 	int m_nRefID;
 

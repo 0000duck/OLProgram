@@ -9,6 +9,8 @@
 #pragma once
 #include "afxwin.h"
 
+#define ID_CURCTL_NULL -100;
+
 
 // 切割参数设置对话框
 
@@ -33,9 +35,14 @@ public:
 	double m_dChodTol;  // 弓高精度
 	double m_dStepTol;  // 步长精度
 	double m_dToolDis;  // 刀具悬空距离
-	BOOL m_bTwiceCut;   // 是否坡口与孔分开切割
-
+	BOOL m_bHolePrecut; // 是否预先割孔
+	int  m_nCurCtrID ;  // 当前激活的控件ID
 	afx_msg void OnBnClickedOk();
-	afx_msg void OnBnClickedCheckTwicecut();
+	afx_msg void OnBnClickedCheckPreCut();
 	virtual BOOL OnInitDialog();
+	afx_msg void OnEnSetfocusEditCutangle();
+	afx_msg void OnEnKillfocusEditCutangle();
+	afx_msg void OnEnSetfocusEditCutdepth();
+	afx_msg void OnEnKillfocusEditCutdepth();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };
