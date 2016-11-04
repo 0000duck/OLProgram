@@ -77,7 +77,7 @@ void CCutParamDlg::OnBnClickedCheckPreCut()
 		GetDlgItem(IDC_STATIC_PIC_DET)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_EDIT_CUTDEPTH)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_DET_UNIT)->ShowWindow(SW_SHOW);	
-		GetDlgItem(IDC_STATIC_GROOVE2)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_GROOVE_ANG)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_STATIC_GROOVE)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_AUTO)->ShowWindow(SW_HIDE);		
 	}
@@ -87,7 +87,7 @@ void CCutParamDlg::OnBnClickedCheckPreCut()
 		GetDlgItem(IDC_EDIT_CUTDEPTH)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_STATIC_DET_UNIT)->ShowWindow(SW_HIDE);	
 		GetDlgItem(IDC_STATIC_GROOVE)->ShowWindow(SW_HIDE);
-		GetDlgItem(IDC_STATIC_GROOVE2)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_GROOVE_ANG)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_AUTO)->ShowWindow(SW_SHOW);		
 	}
 }
@@ -100,7 +100,7 @@ BOOL CCutParamDlg::OnInitDialog()
 		GetDlgItem(IDC_STATIC_PIC_DET)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_EDIT_CUTDEPTH)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_DET_UNIT)->ShowWindow(SW_SHOW);	
-		GetDlgItem(IDC_STATIC_GROOVE2)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_GROOVE_ANG)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_STATIC_GROOVE)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_AUTO)->ShowWindow(SW_HIDE);		
 	}
@@ -110,7 +110,7 @@ BOOL CCutParamDlg::OnInitDialog()
 		GetDlgItem(IDC_EDIT_CUTDEPTH)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_STATIC_DET_UNIT)->ShowWindow(SW_HIDE);		
 		GetDlgItem(IDC_STATIC_GROOVE)->ShowWindow(SW_HIDE);
-		GetDlgItem(IDC_STATIC_GROOVE2)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_GROOVE_ANG)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_AUTO)->ShowWindow(SW_SHOW);		
 	}
 	UpdateData(FALSE);

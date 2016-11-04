@@ -51,20 +51,17 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bmp\ui_hole_groove2.bmp" />
     <None Include="Resource\BitmapHandler.rgs" />
     <None Include="Resource\bmp\EliteSoftWare.bmp" />
     <None Include="Resource\bmp\MainIconLarge.bmp" />
     <None Include="Resource\bmp\MainIconSmall.bmp" />
     <None Include="Resource\bmp\toolbar_large.bmp" />
     <None Include="Resource\bmp\toolbar_small.bmp" />
-    <None Include="Resource\bmp\ui_background_white.bmp" />
     <None Include="Resource\bmp\ui_hole_build.bmp" />
-    <None Include="Resource\bmp\ui_hole_build_g.bmp" />
     <None Include="Resource\bmp\ui_hole_groove.bmp" />
     <None Include="Resource\bmp\ui_hole_groove2.bmp" />
+    <None Include="Resource\bmp\ui_hole_groove_ang.bmp" />
     <None Include="Resource\bmp\ui_hole_throughang.bmp" />
-    <None Include="Resource\bmp\ui_hole_throughang_g.bmp" />
     <None Include="Resource\DocView.rgs" />
     <None Include="Resource\EliteSoftWare.def" />
     <None Include="Resource\EliteSoftWare.rgs" />

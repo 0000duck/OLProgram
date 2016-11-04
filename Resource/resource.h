@@ -66,7 +66,6 @@
 #define IDC_EDIT_HOLEROTANG             220
 #define IDB_BITMAP_BK_WHITE             220
 #define IDC_BUTTON_HOLEADD              221
-#define IDB_BITMAP_HOLE_GROOVE2         221
 #define IDC_RADIO_XDIR                  222
 #define IDC_RADIO_CUSTOM                223
 #define IDC_RADIO_ROTANGDIR             224
@@ -78,23 +77,22 @@
 #define IDC_STATIC_PIC_TLEN             229
 #define IDC_STATIC_PIC_TTHK             230
 #define IDC_STATIC_PIC_TDIA             231
-#define IDC_STATIC_PIC_TTHK2            231
 #define IDC_STATIC_PIC_ANG              231
 #define IDC_STATIC_GBOX                 232
 #define IDC_STATIC_PIC_DET              233
-#define IDC_STATIC_GROOVE2              234
+#define IDC_STATIC_GROOVE_ANG           234
+#define IDC_BITMAP_HOLE_GROOVE_ANG      234
 #define IDC_STATIC_GROOVE               235
 #define IDC_STATIC_DET_UNIT             236
-#define IDC_STATIC_PIC_ANG2             237
 #define IDC_STATIC_AUTO                 237
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        222
+#define _APS_NEXT_RESOURCE_VALUE        223
 #define _APS_NEXT_COMMAND_VALUE         32768
-#define _APS_NEXT_CONTROL_VALUE         237
+#define _APS_NEXT_CONTROL_VALUE         239
 #define _APS_NEXT_SYMED_VALUE           114
 #endif
 #endif

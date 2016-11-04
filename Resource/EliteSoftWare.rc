@@ -143,12 +143,12 @@ BEGIN
     CTEXT           "毫米",IDC_STATIC,109,65,17,8
     GROUPBOX        "坡口参数",IDC_STATIC,7,4,125,46
     GROUPBOX        "其他参数",IDC_STATIC,7,55,125,74
-    CONTROL         218,IDC_STATIC_GROOVE,"Static",SS_BITMAP,149,15,141,124
-    CONTROL         221,IDC_STATIC_GROOVE2,"Static",SS_BITMAP,149,15,141,124
-    CTEXT           "坡口深度",IDC_STATIC_PIC_DET,244,27,43,17,SS_CENTERIMAGE | SS_SUNKEN,WS_EX_STATICEDGE
-    CTEXT           "坡口角度",IDC_STATIC_PIC_ANG,260,98,43,17,SS_CENTERIMAGE | SS_SUNKEN,WS_EX_STATICEDGE
     CTEXT           "系统自动计算",IDC_STATIC_AUTO,59,32,60,14,SS_CENTERIMAGE | SS_SUNKEN,WS_EX_STATICEDGE
     GROUPBOX        "示意图",IDC_STATIC_GBOX,140,4,167,135
+    CONTROL         234,IDC_STATIC_GROOVE_ANG,"Static",SS_BITMAP,149,15,141,124
+    CONTROL         218,IDC_STATIC_GROOVE,"Static",SS_BITMAP,149,15,141,124
+    CTEXT           "坡口深度",IDC_STATIC_PIC_DET,244,27,43,17,SS_CENTERIMAGE | SS_SUNKEN,WS_EX_STATICEDGE
+    CTEXT           "坡口角度",IDC_STATIC_PIC_ANG,260,98,43,17,SS_CENTERIMAGE | SS_SUNKEN,WS_EX_STATICEDGE
 END
 
 IDD_DIALOG_EXPORT DIALOGEX 0, 0, 133, 127
@@ -210,8 +210,7 @@ END
 IDB_BITMAP_HOLE_BUILD   BITMAP                  "bmp\\ui_hole_build.bmp"
 IDB_BITMAP_HOLE_GROOVE  BITMAP                  "bmp\\ui_hole_groove.bmp"
 IDB_BITMAP_HOLE_TANG    BITMAP                  "bmp\\ui_hole_throughang.bmp"
-IDB_BITMAP_BK_WHITE     BITMAP                  "bmp\\ui_background_white.bmp"
-IDB_BITMAP_HOLE_GROOVE2 BITMAP                  "bmp\\ui_hole_groove2.bmp"
+IDC_BITMAP_HOLE_GROOVE_ANG BITMAP                  "bmp\\ui_hole_groove_ang.bmp"
 #endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 
