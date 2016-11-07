@@ -845,7 +845,60 @@ void CEliteSoftWare::DrawPathCombs(CPathCombList* pPathCombs)
     }
 	return;
 }
+void CEliteSoftWare::DrawMovePath(CMovePath* pMovePath, BOOL bHolePrecut)
+{
+	if (NULL == pMovePath)
+		return;
+	CComPtr<IModelDoc2> iSwModel;
+	iSwApp->get_IActiveDoc2(&iSwModel);
+	CComPtr<ISketchManager> iswSketchManger;
+	iSwModel->get_SketchManager(&iswSketchManger);
+	CComPtr<ISketchSegment> iSegment; 	
 
+	iSwModel->Insert3DSketch2(VARIANT_TRUE);
+	iSwModel->SetAddToDB(VARIANT_TRUE);
+	POSITION nodepos = pMovePath->m_PathNodeList.GetHeadPosition();
+	while(nodepos)
+	{
+		CPathNode* pNode = pMovePath->m_PathNodeList.GetNext(nodepos);
+		if (pNode == NULL)
+			continue;
+
+		iSegment = NULL;
+		PNT3D dDrawEnd;
+		pNode->GetDrawEnd(1,dDrawEnd);
+		iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
+			dDrawEnd[0],dDrawEnd[1],dDrawEnd[2],&iSegment);
+		if (bHolePrecut)
+		{
+			iSegment = NULL;
+			pNode->GetDrawEnd(0,dDrawEnd);
+			iswSketchManger->CreateLine(pNode->m_OrgCutPosition[0],pNode->m_OrgCutPosition[1],pNode->m_OrgCutPosition[2],
+				dDrawEnd[0],dDrawEnd[1],dDrawEnd[2],&iSegment);
+		}
+
+		CPathNode* pNextNode = NULL;
+		if (NULL == nodepos)
+			pNextNode = pMovePath->m_PathNodeList.GetHead();
+		else
+			pNextNode = pMovePath->m_PathNodeList.GetAt(nodepos);
+
+		if (NULL == pNextNode)
+			continue;
+		iSegment = NULL;
+		iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
+			pNextNode->m_OffsetPosition[0],pNextNode->m_OffsetPosition[1],pNextNode->m_OffsetPosition[2],&iSegment);
+		if (bHolePrecut)
+		{
+			iSegment = NULL;
+			iswSketchManger->CreateLine(pNode->m_OrgCutPosition[0],pNode->m_OrgCutPosition[1],pNode->m_OrgCutPosition[2],
+				pNextNode->m_OrgCutPosition[0],pNextNode->m_OrgCutPosition[1],pNextNode->m_OrgCutPosition[2],&iSegment);
+		}
+	}
+
+	iSwModel->SetAddToDB(VARIANT_FALSE);
+	iSwModel->Insert3DSketch2(VARIANT_FALSE);
+}
 // 绘制一个3D草图的路径
 void CEliteSoftWare::DrawPathComb(CPathComb* pPathComb)
 {

@@ -74,6 +74,14 @@ public:
 	CHCombParam* GetCurHoleParams();
 	BOOL CheckPathComb(CMovePath* pPath);
 
+	// bFlag为0时，路径在YZ平面进行投影；
+	// 为1时，在XY平面进行投影
+	// 为2时，在XZ平面进行投影
+#define PROJPLANE_YZ 0
+#define PROJPLANE_XY 1
+#define PROJPLANE_XZ 2
+	BOOL CheckOffsetVec(CMovePath* pPath, int bFlag);
+
 	// IPropertyManagerPage2Handler2 Methods
 public:
 	STDMETHOD(OnClose)(long Reason);

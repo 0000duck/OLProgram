@@ -190,7 +190,7 @@ double CMovePath::GetExRotAng()
 	return m_pHoleParam->m_dExRotAng;
 }
 
-double CMovePath::GetOrgRotAng()
+double CMovePath::GetOrgRotAng(BOOL bArc)
 {
 	if (NULL == m_pHoleParam)
 	{
@@ -198,7 +198,7 @@ double CMovePath::GetOrgRotAng()
 		return 0.;
 	}
 
-	return m_pHoleParam->m_dOrgRotAng;
+	return bArc?(m_pHoleParam->m_dOrgRotAng*PI/180.):m_pHoleParam->m_dOrgRotAng;
 }
 
 int CMovePath::GetAddOrder()
@@ -238,9 +238,10 @@ BOOL CMovePath::IsClosed()
 	else
 		return FALSE;
 }
+
 void CMovePath::GetLength(double dLength[2]) // dLength为二维数组，[0]为孔边缘原始点的长度，[1]为偏移后路径长度
 {
-	BOOL bClosed = IsClosed();
+//	BOOL bClosed = IsClosed();
 	for (int i=0; i<2; i++)
 	{
 		dLength[i] = 0.;

@@ -117,6 +117,7 @@ TMapIUnknownToDocument OpenDocumentsTable() { return openDocs; }
 	// 通过3D草图绘制路径
 	void DrawPathCombs(CPathCombList* pPathCombs); // 绘制整个文档所有路径
 	void DrawPathComb(CPathComb* pPathComb); // 绘制一条路径（即一个3D草图）
+	void DrawMovePath(CMovePath* pMovePath, BOOL bHolePrecut = TRUE);     // 绘制一条MovePath
 	// 通过曲线绘制坐标系
 	void DrawRFrame(RFRAME& rframe, double dAixLength = 0.5);
 	//////////////////////////////////////////////////////////////////////////

@@ -114,17 +114,108 @@ void CPMPageHandler::SetCutParam()
 //}
 
 // 根据偏移后的路径长度，来判断路径的偏移方向是否正确
+// BOOL CPMPageHandler::CheckPathComb(CMovePath* pPath)
+// {
+// 	if (NULL == pPath)
+// 		return FALSE;
+// 	double dLength[2] = {0., 0.};
+// 	pPath->GetLength(dLength);
+// //	GetPathLength(pPath,dLength);
+// 	// 如果原始的曲线长度大于偏移后的曲线长度，说明偏移方向错了
+// 	if (dLength[0]>dLength[1])
+// 		return FALSE;
+// 	return TRUE;
+// }
+
+BOOL CPMPageHandler::CheckOffsetVec(CMovePath* pPath, int bFlag)
+{
+	if (NULL == pPath)
+		return FALSE;
+	POSITION offptPos = pPath->m_PathNodeList.GetHeadPosition();
+	while(offptPos)
+	{
+		CPathNode* pOffNode = pPath->m_PathNodeList.GetNext(offptPos);
+		if (NULL == pOffNode)
+			continue;
+		double maxDis = 0.;
+		POSITION orgptPos = pPath->m_PathNodeList.GetHeadPosition();
+		while(orgptPos)
+		{
+			CPathNode* pOrgNode = pPath->m_PathNodeList.GetNext(orgptPos);
+			if (NULL == pOrgNode)
+				continue;
+
+			switch(bFlag)
+			{
+			case PROJPLANE_YZ:
+				pOffNode->m_OffsetPosition[0] = 0.;
+				pOffNode->m_OrgCutPosition[0] = 0.;
+				pOrgNode->m_OffsetPosition[0] = 0.;
+				pOrgNode->m_OrgCutPosition[0] = 0.;
+				break;
+			case PROJPLANE_XY:
+				pOffNode->m_OffsetPosition[2] = 0.;
+				pOffNode->m_OrgCutPosition[2] = 0.;
+				pOrgNode->m_OffsetPosition[2] = 0.;
+				pOrgNode->m_OrgCutPosition[2] = 0.;
+				break;
+			case PROJPLANE_XZ:
+				pOffNode->m_OffsetPosition[1] = 0.;
+				pOffNode->m_OrgCutPosition[1] = 0.;
+				pOrgNode->m_OffsetPosition[1] = 0.;
+				pOrgNode->m_OrgCutPosition[1] = 0.;
+				break;
+			}		
+
+			double dis = mathDis3D(pOffNode->m_OffsetPosition, pOrgNode->m_OrgCutPosition);
+			if (dis > maxDis)
+			{
+				maxDis = dis;
+			}
+
+			if (dis>((pPath->GetHParam()->m_dHoleR*2.)+MIN_LEN))
+			{
+				AfxMessageBox(_T("true"));
+				return TRUE;
+			}
+			continue;
+		}
+	}
+	return FALSE;
+}
+
+// 根据路径在基准面上的投影长度来判断
 BOOL CPMPageHandler::CheckPathComb(CMovePath* pPath)
 {
 	if (NULL == pPath)
 		return FALSE;
-	double dLength[2] = {0., 0.};
-	pPath->GetLength(dLength);
-//	GetPathLength(pPath,dLength);
-	// 如果原始的曲线长度大于偏移后的曲线长度，说明偏移方向错了
-	if (dLength[0]>dLength[1])
-		return FALSE;
-	return TRUE;
+
+	// 将路径变换到旋转后的坐标系中
+	//////////////////////////////////////////////////////////////////////////
+	RFRAME pathFrame;
+	mathInitRFrame(pathFrame);
+	PNT3D rotPnt = {0., 0., 0.};
+	VEC3D rotX = {1.,0.,0.};
+	VEC3D rotZ = {0.,0.,1.};
+	mathRotateRFrame(rotPnt,rotX,-pPath->GetOrgRotAng(TRUE),pathFrame);
+	mathRotVec(rotX,rotPnt,-pPath->GetOrgRotAng(TRUE),rotZ,rotZ);
+	mathRotateRFrame(rotPnt,rotZ,pPath->GetHParam()->m_dThroughAng,pathFrame);
+	CMovePath* tmpPath = pPath->CopySelf();
+	userAddin->TransWorldPath(pathFrame,tmpPath);
+	//////////////////////////////////////////////////////////////////////////
+
+	//////////////////////////////////////////////////////////////////////////
+	// 通过判断偏移点和原始点在YZ平面上的投影中，便宜点是否在原始点内部，来判断
+	// 偏移方向是否错误。
+	//////////////////////////////////////////////////////////////////////////
+	BOOL bRet = CheckOffsetVec(tmpPath,PROJPLANE_YZ);
+	if (NULL != tmpPath)
+	{
+		tmpPath->Realse();
+		delete tmpPath;
+		tmpPath = NULL;
+	}
+	return bRet;
 }
 
 CHCombParam* CPMPageHandler::GetCurHoleParams()
@@ -561,7 +652,7 @@ void CPMPageHandler::CalMovePath()
 				return ;
 			}
 			pMovePath->Realse();
-			CalPathNode(ptNum, ptArray, swSurface, pMovePath, TRUE);
+			CalPathNode(ptNum, ptArray, swSurface, pMovePath, bClosed,TRUE);
 		}
 		pPathComb->AddPath(pMovePath);
 		if (ptArray != NULL)
