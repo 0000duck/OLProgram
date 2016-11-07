@@ -11,6 +11,8 @@
 const double CVALUE = 0.01;
 const double PI = 3.1415926536;
 #define MIN_DBL 1.0e-10
+#define MAX_DBL 1.0e+10
+#define MIN_LEN 1.0e-8
 
 
 //////////////////////////////////////////////////////////////////////////

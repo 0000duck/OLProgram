@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Fri Oct 28 17:17:13 2016
+/* at Mon Nov 07 09:32:30 2016
  */
 /* Compiler settings for Resource\EliteSoftWare.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 

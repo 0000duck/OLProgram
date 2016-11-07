@@ -130,8 +130,8 @@
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IntDir>Debug\</IntDir>
-    <OutDir>Debug\</OutDir>
+    <IntDir>Bin64\Debug\</IntDir>
+    <OutDir>Bin64\Debug\</OutDir>
     <LinkIncremental>true</LinkIncremental>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
   </PropertyGroup>
@@ -142,8 +142,8 @@
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IntDir>Release</IntDir>
-    <OutDir>Release</OutDir>
+    <IntDir>Bin64\Release\</IntDir>
+    <OutDir>Bin64\Release\</OutDir>
     <LinkIncremental>true</LinkIncremental>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
   </PropertyGroup>
@@ -210,7 +210,7 @@
       </PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>stdafx.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>C:\Program Files\SOLIDWORKS Corp\SOLIDWORKS;Header Files;Generated Files;Base;Dialog;.\;Resource;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\SOLIDWORKS Corp\SOLIDWORKS;Header Files;Generated Files;Base;Dialog;.\;Resource;D:\Git\Elite\OLProgram\Resource\bmp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>comsvcs.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -220,6 +220,7 @@
       <IgnoreSpecificDefaultLibraries>mfcs100ud.lib;msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>mfcs100ud.lib msvcrtd.lib</AdditionalOptions>
       <RegisterOutput>true</RegisterOutput>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -303,7 +304,7 @@
       </PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>stdafx.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>C:\Program Files\SOLIDWORKS Corp\SOLIDWORKS;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\SOLIDWORKS Corp\SOLIDWORKS;Header Files;Generated Files;Base;Dialog;.\;Resource;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>comsvcs.lib;%(AdditionalDependencies)</AdditionalDependencies>

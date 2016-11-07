@@ -85,6 +85,8 @@
 #define IDC_STATIC_GROOVE               235
 #define IDC_STATIC_DET_UNIT             236
 #define IDC_STATIC_AUTO                 237
+#define IDC_EDIT1                       239
+#define IDC_EDIT_FIXANG                 239
 
 // Next default values for new objects
 // 
@@ -92,7 +94,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        223
 #define _APS_NEXT_COMMAND_VALUE         32768
-#define _APS_NEXT_CONTROL_VALUE         239
+#define _APS_NEXT_CONTROL_VALUE         240
 #define _APS_NEXT_SYMED_VALUE           114
 #endif
 #endif

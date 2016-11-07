@@ -147,6 +147,8 @@ public:
 	double GetTubeR();
 	//////////////////////////////////////////////////////////////////////////
 
+	BOOL IsClosed();
+	void GetLength(double dLength[2]); // dLength为二维数组，[0]为孔边缘原始点的长度，[1]为偏移后路径长度
 	void Realse();
 	CMovePath* CopySelf();
 };

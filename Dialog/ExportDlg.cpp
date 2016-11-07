@@ -21,6 +21,7 @@ IMPLEMENT_DYNAMIC(CExportDlg, CDialogEx)
 CExportDlg::CExportDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CExportDlg::IDD, pParent)
 	, m_nExportOrder(0)
+	, m_dFixAng(90)
 {
 }
 
@@ -31,6 +32,8 @@ CExportDlg::~CExportDlg()
 void CExportDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_EDIT_FIXANG, m_dFixAng);
+	DDV_MinMaxDouble(pDX, m_dFixAng, 0, 360);
 }
 
 

@@ -227,6 +227,44 @@ double CMovePath::GetTubeR()
 	return m_pHoleParam->GetParentComb()->m_dTubeDia*0.5;
 }
 
+BOOL CMovePath::IsClosed()
+{
+	CPathNode* pHead = m_PathNodeList.GetHead();
+	CPathNode* pEnd = m_PathNodeList.GetTail();
+	if (mathDis3D(pHead->m_OrgPosition,pEnd->m_OrgPosition)<MIN_LEN)
+	{
+		return TRUE;
+	}
+	else
+		return FALSE;
+}
+void CMovePath::GetLength(double dLength[2]) // dLength为二维数组，[0]为孔边缘原始点的长度，[1]为偏移后路径长度
+{
+	BOOL bClosed = IsClosed();
+	for (int i=0; i<2; i++)
+	{
+		dLength[i] = 0.;
+	}
+
+	POSITION pos = m_PathNodeList.GetHeadPosition();
+	while(pos)
+	{
+		CPathNode* pFirstNode = m_PathNodeList.GetNext(pos);
+		if (NULL == pFirstNode)
+			continue;
+		CPathNode* pNextNode  = NULL;
+		if (pos)
+		{
+			pNextNode = m_PathNodeList.GetAt(pos);
+		}
+		if (NULL == pNextNode)
+			continue;
+		dLength[0] += mathDis3D(pFirstNode->m_OrgCutPosition,pNextNode->m_OrgCutPosition);
+		dLength[1] += mathDis3D(pFirstNode->m_OffsetPosition,pNextNode->m_OffsetPosition);
+	}
+	return ;
+}
+
 void CMovePath::Realse()
 {		
 	POSITION pos = m_PathNodeList.GetHeadPosition();

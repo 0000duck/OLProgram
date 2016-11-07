@@ -36,4 +36,6 @@ public:
 	afx_msg void OnBnClickedRadioRotangdir();
 	afx_msg void OnBnClickedRadioCustom();
 	virtual BOOL OnInitDialog();
+	// 输出定位角度，用于控制加工时关键摆放角度，减小机器人加工难度
+	double m_dFixAng;
 };

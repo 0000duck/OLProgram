@@ -72,54 +72,55 @@ void CPMPageHandler::SetCutParam()
 		m_bHolePrecut = dlg.m_bHolePrecut;
 	}
 }
-
-// <out>dLength[0]:获取未偏移的路径长度；
-//      dLength[1]:获取偏移后的路径长度；
-// <in> bClosed:TRUE表示路径闭合，FALSE表示路径非闭合；
-void GetPathLength(CMovePath* pPath, double dLength[2], BOOL bFlag = TRUE)
-{
-	if (NULL == pPath)
-		return ;
-	for (int i=0; i<2; i++)
-	{
-		dLength[i] = 0.;
-	}
-
-	POSITION pos = pPath->m_PathNodeList.GetHeadPosition();
-	while(pos)
-	{
-		CPathNode* pFirstNode = pPath->m_PathNodeList.GetNext(pos);
-		if (NULL == pFirstNode)
-			continue;
-		CPathNode* pNextNode  = NULL;
-		if (NULL != pos)
-		{
-			pNextNode = pPath->m_PathNodeList.GetAt(pos);
-		}
-		
-		// 第二点为空时，如果曲线闭合，则取路径首点作为第二点
-		if (NULL == pNextNode || NULL == pos)
-		{
-			if (!bFlag)
-				break;
-			POSITION tmpPos = pPath->m_PathNodeList.GetHeadPosition();
-			pNextNode = pPath->m_PathNodeList.GetAt(tmpPos);
-		}
-		if (NULL == pNextNode)
-			continue;
-		dLength[0] += mathDis3D(pFirstNode->m_OrgCutPosition,pNextNode->m_OrgCutPosition);
-		dLength[1] += mathDis3D(pFirstNode->m_OffsetPosition,pNextNode->m_OffsetPosition);
-	}
-	return;
-}
+//
+//// <out>dLength[0]:获取未偏移的路径长度；
+////      dLength[1]:获取偏移后的路径长度；
+//// <in> bClosed:TRUE表示路径闭合，FALSE表示路径非闭合；
+//void GetPathLength(CMovePath* pPath, double dLength[2], BOOL bFlag = TRUE)
+//{
+//	if (NULL == pPath)
+//		return ;
+//	for (int i=0; i<2; i++)
+//	{
+//		dLength[i] = 0.;
+//	}
+//
+//	POSITION pos = pPath->m_PathNodeList.GetHeadPosition();
+//	while(pos)
+//	{
+//		CPathNode* pFirstNode = pPath->m_PathNodeList.GetNext(pos);
+//		if (NULL == pFirstNode)
+//			continue;
+//		CPathNode* pNextNode  = NULL;
+//		if (NULL != pos)
+//		{
+//			pNextNode = pPath->m_PathNodeList.GetAt(pos);
+//		}
+//		
+//		// 第二点为空时，如果曲线闭合，则取路径首点作为第二点
+//		if (NULL == pNextNode || NULL == pos)
+//		{
+//			if (!bFlag)
+//				break;
+//			POSITION tmpPos = pPath->m_PathNodeList.GetHeadPosition();
+//			pNextNode = pPath->m_PathNodeList.GetAt(tmpPos);
+//		}
+//		if (NULL == pNextNode)
+//			continue;
+//		dLength[0] += mathDis3D(pFirstNode->m_OrgCutPosition,pNextNode->m_OrgCutPosition);
+//		dLength[1] += mathDis3D(pFirstNode->m_OffsetPosition,pNextNode->m_OffsetPosition);
+//	}
+//	return;
+//}
 
 // 根据偏移后的路径长度，来判断路径的偏移方向是否正确
-BOOL CheckPathComb(CMovePath* pPath)
+BOOL CPMPageHandler::CheckPathComb(CMovePath* pPath)
 {
 	if (NULL == pPath)
 		return FALSE;
 	double dLength[2] = {0., 0.};
-	GetPathLength(pPath,dLength);
+	pPath->GetLength(dLength);
+//	GetPathLength(pPath,dLength);
 	// 如果原始的曲线长度大于偏移后的曲线长度，说明偏移方向错了
 	if (dLength[0]>dLength[1])
 		return FALSE;
@@ -161,14 +162,12 @@ CHoleParam* CPMPageHandler::GetHParam(int ptNum, double* ptArray)
 	CHCombParam* pPathParamComb = GetCurHoleParams();
 	if (NULL == pPathParamComb || NULL == ptArray)
 		return NULL;
-	// 理论上传入此处的参数组，应该没有X偏移或Y偏移值相等的情况，因为这个情况已经在从list里读取孔参数
-	// 创建参数组的时候，就已经进行改变并添加标记了。
-	//  先通过y平均值寻找对应参数组，如果找不到，再通过y平均值寻找
-	//  （如果通过y平均值找到的参数组有修改标记，不需变回来，因为y不影响输出了）
-	// 求平均值，使用所有点，x或y的最大值和x或y的最小值的和除以2。
+	// 理论上传入此处的参数组，应该没有X偏移值相等的情况，因为这个情况已经
+	// 在从list里读取孔参数,创建参数组的时候，就已经进行改变并添加标记了。
+	// 求平均值，使用所有点，x的最大值和x的最小值的和除以2。
 	BOOL bFindPara = FALSE;
-	double dXMax = -10.e8;
-	double dXMin = 10.e8;
+	double dXMax = -MAX_DBL;
+	double dXMin = MAX_DBL;
 	for (int num = 0; num<ptNum; num+=3)
 	{
 		if (ptArray[num]>dXMax)
@@ -196,13 +195,13 @@ CHoleParam* CPMPageHandler::GetHParam(int ptNum, double* ptArray)
 	}
 	if (!bFindPara)
 	{
-		AfxMessageBox(_T("路径未找到匹配参数."));
+		AfxMessageBox(_T("路径未找到匹配参数。"));
 	}
 	return pPathParam;
 }
 
 // 用于计算路径偏移后的节点
-void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface, CMovePath* movePath, BOOL bRevOffVec)
+void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface, CMovePath* pMovePath,BOOL bClosed, BOOL bRevOffVec)
 {
 	// 第一步：先计算原始路径，用于参数匹配，求出对应的贯穿方向
 	//////////////////////////////////////////////////////////////////////////
@@ -212,7 +211,7 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		AfxMessageBox(_T("孔参数获取失败，当前文档存在问题，请重建文档。"));
 		return;
 	}
-	movePath->SetHParam(pHParam);
+	pMovePath->SetHParam(pHParam);
 	//////////////////////////////////////////////////////////////////////////
 
 	PNT3D edgePnt, nextEdgePnt;
@@ -395,7 +394,13 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 			pNode->m_OffsetPosition[i] = pNode->m_OffsetPosition[i]+0.001*pNode->m_OffsetDirection[i]*m_dToolDis;
 		}
 
-		movePath->m_PathNodeList.AddTail(pNode);
+		pMovePath->m_PathNodeList.AddTail(pNode);
+	}
+
+	// 如果曲线闭合，则将路径首点，添加到路径末尾，使首末点重合
+	if (bClosed)
+	{
+		pMovePath->m_PathNodeList.AddTail(pMovePath->m_PathNodeList.GetHead()->CopySelf());
 	}
 }
 
@@ -513,7 +518,6 @@ void CPMPageHandler::CalMovePath()
 		swSelectionMgr->IGetSelectedObject4(i+1,&swUnkonwnObject);
 		if(swSelEDGES != type)
 			continue;
-		CMovePath* movePath = new CMovePath;
 
 		CComQIPtr<IEdge>swEdge(swUnkonwnObject);
 		CComPtr<ICurve>swCurve;
@@ -536,12 +540,18 @@ void CPMPageHandler::CalMovePath()
 		swCurve->IGetTessPtsSize(dChordTol,dStepTol,ptStart,ptEnd,&ptNum);
 		double* ptArray = new double[ptNum];
 		swCurve->IGetTessPts(dChordTol,dStepTol,ptStart,ptEnd,ptArray);
-		CalPathNode(ptNum, ptArray, swSurface, movePath);
+
+		PNT3D tmpSt, tmpEnd;
+		VARIANT_BOOL bIsClosed, bIsPeriodic, bRet;
+		swCurve->GetEndParams(tmpSt,tmpEnd,&bIsClosed, &bIsPeriodic,&bRet);
+		CMovePath* pMovePath = new CMovePath;
+		BOOL bClosed = bIsClosed;
+		CalPathNode(ptNum, ptArray, swSurface, pMovePath,bClosed);
 
 		// 判断当前路径偏移方向是否正确
-		if (!CheckPathComb(movePath))
+		if (!CheckPathComb(pMovePath))
 		{
-			if (NULL == movePath)
+			if (NULL == pMovePath)
 			{
 				if (ptArray != NULL)
 				{
@@ -550,10 +560,10 @@ void CPMPageHandler::CalMovePath()
 				}				
 				return ;
 			}
-			movePath->Realse();
-			CalPathNode(ptNum, ptArray, swSurface, movePath, TRUE);
+			pMovePath->Realse();
+			CalPathNode(ptNum, ptArray, swSurface, pMovePath, TRUE);
 		}
-		pPathComb->AddPath(movePath);
+		pPathComb->AddPath(pMovePath);
 		if (ptArray != NULL)
 		{
 			delete[] ptArray;

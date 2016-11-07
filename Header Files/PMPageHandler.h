@@ -69,10 +69,10 @@ public:
 	void CalMovePath();  // 计算路径
 	void ClearAllPath(); // 删除当前激活文档中的所有路径
 	void SetCutParam();  // 设置加工参数
-	void CalPathNode(int ptNum, double* ptArray, ISurface* swSurface, CMovePath* movePath, BOOL bRevOffVec = FALSE);
+	void CalPathNode(int ptNum, double* ptArray, ISurface* swSurface, CMovePath* movePath, BOOL bClosed, BOOL bRevOffVec = FALSE);
 	CHoleParam* GetHParam(int ptNum, double* ptArray);
 	CHCombParam* GetCurHoleParams();
-
+	BOOL CheckPathComb(CMovePath* pPath);
 
 	// IPropertyManagerPage2Handler2 Methods
 public:

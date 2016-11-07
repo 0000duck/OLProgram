@@ -43,7 +43,7 @@ public:
 	LPathEntityList m_LPathEntityList; // 软件所有的路径集合
 	LHCombParamList  m_LHoleParamList; // 软件所有的孔参数集合
 	int m_nExportOrder; // 标记路径输出排序方式
-
+	double m_dFixAng; // 路径输出定位角度
 //This mapping will contain references to all open Documents, and ensure 
 //that we do not attempt to attach event handlers to an already opened doc. 
 	TMapIUnknownToDocument openDocs;

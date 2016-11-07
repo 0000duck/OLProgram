@@ -398,6 +398,7 @@ STDMETHODIMP CEliteSoftWare::ConnectToSW(LPDISPATCH ThisSW, long Cookie, VARIANT
 	*IsConnected = AttachEventHandlers();
 	*IsConnected = VARIANT_TRUE;
 	m_nExportOrder = 0;
+	m_dFixAng = 90.;
 	return S_OK;
 }
 STDMETHODIMP CEliteSoftWare::DisconnectFromSW(VARIANT_BOOL * IsDisconnected)
@@ -1066,10 +1067,12 @@ void CEliteSoftWare::ExportPathToTXT()
 	// 设置路径输出顺序
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	CExportDlg dlg;
+	dlg.m_dFixAng = m_dFixAng;
 	dlg.m_nExportOrder = m_nExportOrder;
 	if (IDOK != dlg.DoModal())
 		return;
 	m_nExportOrder = dlg.m_nExportOrder ;
+	m_dFixAng = dlg.m_dFixAng;
 
 	// 拷贝路径，防止输出路径时，改变当前文档中的原始路径数据。
 	CPathCombList* pCpyPCombs = pPathCombList->CopySelf();
@@ -1083,8 +1086,9 @@ void CEliteSoftWare::ExportPathToTXT()
 
 	//设置路径输出顺序
 	SetPCombExOrder(pCpyPCombs, m_nExportOrder);
-	double dFixRotAng = 90.; //最终孔定位角度（单位为度，用于计算时，需要转为弧度）
+
 	// 路径坐标系变换
+	//////////////////////////////////////////////////////////////////////////
 	POSITION pcPos = pCpyPCombs->m_LPathCombList.GetHeadPosition();
 	while(pcPos)
 	{
@@ -1117,7 +1121,7 @@ void CEliteSoftWare::ExportPathToTXT()
 			TransWorldPath(ChangeFrame, pMovePath);
 			//step2:将平移后的坐标系旋转dRotAng，路径点跟着旋转，所以旋转后点坐标不发生改变。
 			double tmpAng = mathASin(pMovePath->GetHParam()->m_dCenterDis/dOffsetZ);
-			double dRealRotAng = tmpAng-dFixRotAng*PI/180.+dRotAng;
+			double dRealRotAng = tmpAng-m_dFixAng*PI/180.+dRotAng;
 			mathRotateRFrame(ChangeFrame.O,ChangeFrame.X,dRealRotAng,ChangeFrame);
 			//step3:将旋转后的坐标系中的路径点坐标转换到基线坐标系中。
 			TransLocalPath(ChangeFrame,pMovePath);
@@ -1128,6 +1132,7 @@ void CEliteSoftWare::ExportPathToTXT()
 			TransWorldPath(ChangeFrame, pMovePath);
 		}
 	}
+	//////////////////////////////////////////////////////////////////////////
 
 	// 绘制路径和输出坐标系(测试用)
 	//////////////////////////////////////////////////////////////////////////
@@ -1223,7 +1228,7 @@ void CEliteSoftWare::ExportPathToTXT()
 			}
 
 			fout<<"第"<<nPathId<<"个孔的X向距离为："<<pMovePath->GetOffsetX()*1000.<<";"
-				<<"管旋转角度为："<<pMovePath->GetOrgRotAng()-dFixRotAng<<";"<<"\t\n";
+				<<"管旋转角度为："<<pMovePath->GetOrgRotAng()-m_dFixAng<<";"<<"\t\n";
 			fout<<"孔切割路径点及法向："<<"\t\n";
 			nPathId++;
 			if (pPathComb->m_bHolePrecut)
