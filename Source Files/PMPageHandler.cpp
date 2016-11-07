@@ -72,60 +72,6 @@ void CPMPageHandler::SetCutParam()
 		m_bHolePrecut = dlg.m_bHolePrecut;
 	}
 }
-//
-//// <out>dLength[0]:获取未偏移的路径长度；
-////      dLength[1]:获取偏移后的路径长度；
-//// <in> bClosed:TRUE表示路径闭合，FALSE表示路径非闭合；
-//void GetPathLength(CMovePath* pPath, double dLength[2], BOOL bFlag = TRUE)
-//{
-//	if (NULL == pPath)
-//		return ;
-//	for (int i=0; i<2; i++)
-//	{
-//		dLength[i] = 0.;
-//	}
-//
-//	POSITION pos = pPath->m_PathNodeList.GetHeadPosition();
-//	while(pos)
-//	{
-//		CPathNode* pFirstNode = pPath->m_PathNodeList.GetNext(pos);
-//		if (NULL == pFirstNode)
-//			continue;
-//		CPathNode* pNextNode  = NULL;
-//		if (NULL != pos)
-//		{
-//			pNextNode = pPath->m_PathNodeList.GetAt(pos);
-//		}
-//		
-//		// 第二点为空时，如果曲线闭合，则取路径首点作为第二点
-//		if (NULL == pNextNode || NULL == pos)
-//		{
-//			if (!bFlag)
-//				break;
-//			POSITION tmpPos = pPath->m_PathNodeList.GetHeadPosition();
-//			pNextNode = pPath->m_PathNodeList.GetAt(tmpPos);
-//		}
-//		if (NULL == pNextNode)
-//			continue;
-//		dLength[0] += mathDis3D(pFirstNode->m_OrgCutPosition,pNextNode->m_OrgCutPosition);
-//		dLength[1] += mathDis3D(pFirstNode->m_OffsetPosition,pNextNode->m_OffsetPosition);
-//	}
-//	return;
-//}
-
-// 根据偏移后的路径长度，来判断路径的偏移方向是否正确
-// BOOL CPMPageHandler::CheckPathComb(CMovePath* pPath)
-// {
-// 	if (NULL == pPath)
-// 		return FALSE;
-// 	double dLength[2] = {0., 0.};
-// 	pPath->GetLength(dLength);
-// //	GetPathLength(pPath,dLength);
-// 	// 如果原始的曲线长度大于偏移后的曲线长度，说明偏移方向错了
-// 	if (dLength[0]>dLength[1])
-// 		return FALSE;
-// 	return TRUE;
-// }
 
 BOOL CPMPageHandler::CheckOffsetVec(CMovePath* pPath, int bFlag)
 {
@@ -205,7 +151,7 @@ BOOL CPMPageHandler::CheckPathComb(CMovePath* pPath)
 	//////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////////////////////////
-	// 通过判断偏移点和原始点在YZ平面上的投影中，便宜点是否在原始点内部，来判断
+	// 通过判断偏移点和原始点在YZ平面上的投影中，偏移点是否在原始点内部，来判断
 	// 偏移方向是否错误。
 	//////////////////////////////////////////////////////////////////////////
 	BOOL bRet = CheckOffsetVec(tmpPath,PROJPLANE_YZ);
@@ -304,7 +250,7 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 	}
 	pMovePath->SetHParam(pHParam);
 	//////////////////////////////////////////////////////////////////////////
-
+	BOOL bHolePrecut = m_bHolePrecut;
 	PNT3D edgePnt, nextEdgePnt;
 	VEC3D dThroughVec, edgeVec, offsetVec;
 	double retFacePt[5] = {0.,0.,0.,0.,0.};
@@ -351,10 +297,36 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		double ptCDis = mathDistPntLin(pt1,pt2,vec);
 		double dRWTube = pHParam->GetParentComb()->m_dTubeDia*0.5;
 		double dRNTube = pHParam->GetParentComb()->m_dTubeDia*0.5 - pHParam->GetParentComb()->m_dTubeThick;
-		double dZThick = sqrt(dRWTube*dRWTube - ptCDis*ptCDis) - sqrt(dRNTube*dRNTube - ptCDis*ptCDis);
+		double dis1 = dRWTube*dRWTube - ptCDis*ptCDis;
+		if (abs(dis1)<MIN_LEN )
+		{
+			dis1 = 0;
+		}
+		if (dRWTube<ptCDis)
+		{
+			AfxMessageBox(_T("当前孔参数无法生成加工路径，请重建文档。"));
+			return;
+		}
+
+		double dis2 = dRNTube*dRNTube - ptCDis*ptCDis;
+		if (abs(dis2)<MIN_LEN )
+		{
+			dis2 = 0;
+		}
+		BOOL bFlag = FALSE;
+		if (dRNTube<ptCDis)
+		{
+			bFlag = TRUE;
+		}
+
+		double dZThick = sqrt(dis1) - sqrt(dis2);
+		if (bFlag)
+		{
+			dZThick *= 2.;
+		}
 		double dHThick = dZThick/sin(pHParam->m_dThroughAng); // 孔在管上的总深度
 
-		double dCutDepth = m_dCutDepth/1000;//坡口深度，用户设置，弱超过dHThick自动设为dHThick
+		double dCutDepth = m_dCutDepth/1000;//坡口深度，用户设置，若超过dHThick自动设为dHThick
 		if (dCutDepth>dHThick || !m_bHolePrecut) // 如果用户没有预先切孔，则直接切坡口，切割深度默认到底
 		{
 			dCutDepth = dHThick;
@@ -408,20 +380,20 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 
 		//　求主管与支管的坡口处夹角
 		//////////////////////////////////////////////////////////////////////////
-		// 1.将当前点沿切口水平的方向偏移和设置的坡口宽度相同的距离，求偏移后的点。
-		PNT3D tmpPt;
-		for (int i=0; i<3; i++)
-		{
-			tmpPt[i] = vecStart[i]+0.001*offsetVec[i]*0.001;
-		}
-		swSurface->IGetClosestPointOn(tmpPt[0],tmpPt[1],tmpPt[2],retFacePt);
-		// 2.用原始点和偏移后的点构成主管上的向量
-		VEC3D tmpVec;
-		for (int i=0; i<3; i++)
-		{
-			tmpVec[i] = retFacePt[i]-pNode->m_OrgPosition[i];
-		}
-		mathUniVec(tmpVec);
+		//// 1.将当前点沿切口水平的方向偏移和设置的坡口宽度相同的距离，求偏移后的点。
+		//PNT3D tmpPt;
+		//for (int i=0; i<3; i++)
+		//{
+		//	tmpPt[i] = vecStart[i]+0.001*offsetVec[i]*0.001;
+		//}
+		//swSurface->IGetClosestPointOn(tmpPt[0],tmpPt[1],tmpPt[2],retFacePt);
+		//// 2.用原始点和偏移后的点构成主管上的向量
+		//VEC3D tmpVec;
+		//for (int i=0; i<3; i++)
+		//{
+		//	tmpVec[i] = retFacePt[i]-pNode->m_OrgPosition[i];
+		//}
+		//mathUniVec(tmpVec);
 		//// 3.求出主管向量与贯穿向量的夹角
 		//double tmpAng = mathGetAngle(tmpVec,pHParam->m_dThroughVec,MIN_DBL);
 		//// 4.判断夹角，如果小于45度，则使用夹角的二分之一
@@ -455,16 +427,35 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		mathUniVec(YZVec);
 		// 2.求坡口向量与YZ分量的夹角
 		double vecAng = mathGetAngle(pokouVec,YZVec,MIN_DBL);
+
+		// 计算实际坡口的长度
+		//////////////////////////////////////////////////////////////////////////
+		PNT3D pt2DCenter = {0.,0.,0.};
+		PNT3D pt2DDun = {0,ptDun[1],ptDun[2]};
+		double d2DCDis = mathDistPntLin(pt2DCenter,pt2DDun,YZVec);
+		double dDis1 = dRWTube;
+		double dDis2 = mathDis3D(pt2DDun,pt2DCenter);
+		double dLengthPK = sqrt(dDis1*dDis1 - d2DCDis*d2DCDis) - sqrt(dDis2*dDis2 - d2DCDis*d2DCDis);
+		//////////////////////////////////////////////////////////////////////////
+
+		/*/////////////////////////////////////////////////////////////////////////
 		// 3.求YZ平面上，基线坡口向量的轴心偏移
 		PNT3D p={0,0,0};
 		PNT3D p1= {0,ptBaseDun[1],ptBaseDun[2]};
 		double d = mathDistPntLin(p,p1,YZVec);
 		// 4.计算基线坡口在YZ平面上的投影长度
-		double dPkL = sqrt(dRWTube*dRWTube - d*d) - sqrt(dRNTube*dRNTube - d*d);
+		if (d>dRNTube)
+		{
+			AfxMessageBox(_T("error"));
+		}
+		double dLengthPK = sqrt(dRWTube*dRWTube - d*d) - sqrt(dRNTube*dRNTube - d*d);
 		// 5.实际坡口的长度
-		double dRealPkL = dPkL*(dCutDepth)/dHThick;
+		double dRealPkL = dLengthPK*(dCutDepth)/dHThick;
+
+		*//////////////////////////////////////////////////////////////////////////
+
 		// 6.通过投影长度和夹角，求出原始长度
-		double dOffsetVecLength = dRealPkL/cos(vecAng);
+		double dOffsetVecLength = dLengthPK/cos(vecAng);
 		for(int i=0; i<3; i++)
 		{
 			vecStart[i] = ptDun[i]+pokouVec[i]*dOffsetVecLength;
