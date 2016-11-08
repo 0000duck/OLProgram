@@ -130,9 +130,6 @@
     <None Include="Resource\UserPropertyManagerPage.rgs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resource\bmp\EliteSoftWare.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Resource\bmp\MainIconLarge.bmp">
       <Filter>Resource Files</Filter>
     </None>
@@ -152,9 +149,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Resource\bmp\ui_hole_groove.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Resource\bmp\ui_hole_groove2.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Resource\bmp\ui_hole_groove_ang.bmp">

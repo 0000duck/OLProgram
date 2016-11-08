@@ -114,11 +114,11 @@ void CEliteSoftWare::AddCommandManager()
 
 	tip.LoadString(IDS_TOOLBAR_PMPTIP_CALPATH);
 	hint.LoadString(IDS_TOOLBAR_PMPHINT_CALPATH);
-	hret = icmdGroup->AddCommandItem2(tip, -1, hint, tip, 0, L"GeneratePath", L"EnableGeneratePath", MAIN_ITEM_ID2, menuToolbarOption, &cmdIndex1);
+	hret = icmdGroup->AddCommandItem2(tip, -1, hint, tip, 1, L"GeneratePath", L"EnableGeneratePath", MAIN_ITEM_ID2, menuToolbarOption, &cmdIndex1);
 
 	tip.LoadString(IDS_TOOLBAR_TIP_PATHEXPORT);
 	hint.LoadString(IDS_TOOLBAR_HINT_PATHEXPORT);
-	hret = icmdGroup->AddCommandItem2(tip, -1, hint, tip, 0, L"ToolbarCallbackPathExport", L"ToolbarEnablePathExport", MAIN_ITEM_ID3, menuToolbarOption, &cmdIndex2);
+	hret = icmdGroup->AddCommandItem2(tip, -1, hint, tip, 2, L"ToolbarCallbackPathExport", L"ToolbarEnablePathExport", MAIN_ITEM_ID3, menuToolbarOption, &cmdIndex2);
 
 	icmdGroup->put_HasToolbar(true);
 	icmdGroup->put_HasMenu(true);

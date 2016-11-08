@@ -31,7 +31,7 @@ BEGIN
     IDS_TOOLBAR_HINT_PATHEXPORT "输出路径坐标点。"
     IDS_TOOLBAR_PMPHINT_CALPATH "计算管件贯穿孔切割路径。"
     IDS_MENU_HINT           "管件切割插件"
-    IDS_TOOLBAR_PMPTIP_CALPATH "计算路径"
+    IDS_TOOLBAR_PMPTIP_CALPATH "路径计算"
     IDS_PMP_TITLE           "切割路径计算"
 END
 
