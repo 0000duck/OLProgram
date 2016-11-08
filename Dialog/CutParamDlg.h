@@ -36,13 +36,17 @@ public:
 	double m_dStepTol;  // 步长精度
 	double m_dToolDis;  // 刀具悬空距离
 	BOOL m_bHolePrecut; // 是否预先割孔
+	BOOL m_bStrHole;    // 是否切割直孔
 	int  m_nCurCtrID ;  // 当前激活的控件ID
+
+public:
+	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCheckPreCut();
-	virtual BOOL OnInitDialog();
 	afx_msg void OnEnSetfocusEditCutangle();
 	afx_msg void OnEnKillfocusEditCutangle();
 	afx_msg void OnEnSetfocusEditCutdepth();
 	afx_msg void OnEnKillfocusEditCutdepth();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg void OnBnClickedCheckHStra();
 };

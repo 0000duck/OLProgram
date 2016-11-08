@@ -927,10 +927,14 @@ void CEliteSoftWare::DrawPathComb(CPathComb* pPathComb)
 
 			iSegment = NULL;
 			PNT3D dDrawEnd;
-			pNode->GetDrawEnd(1,dDrawEnd);
-			iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
-										dDrawEnd[0],dDrawEnd[1],dDrawEnd[2],&iSegment);
-			if (pMovePath->m_bHolePrecut)
+			if (!pMovePath->m_bStrHole)
+			{
+				pNode->GetDrawEnd(1,dDrawEnd);
+				iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
+					dDrawEnd[0],dDrawEnd[1],dDrawEnd[2],&iSegment);
+			}
+			
+			if (pMovePath->m_bHolePrecut || pMovePath->m_bStrHole)
 			{
 				iSegment = NULL;
 				pNode->GetDrawEnd(0,dDrawEnd);
@@ -947,9 +951,13 @@ void CEliteSoftWare::DrawPathComb(CPathComb* pPathComb)
 			if (NULL == pNextNode)
 				continue;
 			iSegment = NULL;
-			iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
-				pNextNode->m_OffsetPosition[0],pNextNode->m_OffsetPosition[1],pNextNode->m_OffsetPosition[2],&iSegment);
-			if (pMovePath->m_bHolePrecut)
+			if (!pMovePath->m_bStrHole)
+			{
+				iswSketchManger->CreateLine(pNode->m_OffsetPosition[0],pNode->m_OffsetPosition[1],pNode->m_OffsetPosition[2],
+					pNextNode->m_OffsetPosition[0],pNextNode->m_OffsetPosition[1],pNextNode->m_OffsetPosition[2],&iSegment);
+			}
+			
+			if (pMovePath->m_bHolePrecut || pMovePath->m_bStrHole)
 			{
 				iSegment = NULL;
 				iswSketchManger->CreateLine(pNode->m_OrgCutPosition[0],pNode->m_OrgCutPosition[1],pNode->m_OrgCutPosition[2],
@@ -1194,23 +1202,23 @@ void CEliteSoftWare::ExportPathToTXT()
 	// return;
 	//////////////////////////////////////////////////////////////////////////
 
-	BOOL isOpen = FALSE;                                 //是否打开(否则为保存)  
+	BOOL bIsOpen = FALSE;                                 //是否打开(否则为保存)  
 	CString sCurrentFileName = GetCurrentFile();
 
-	CString sExt;// 提取后缀名
-	sExt = sCurrentFileName.Right(7);
-	sExt.MakeUpper();
-	if (sExt == ".SLDPRT")
+	CString sFileExt;// 提取后缀名
+	sFileExt = sCurrentFileName.Right(7);
+	sFileExt.MakeUpper();
+	if (sFileExt == ".SLDPRT")
 	{
 		sCurrentFileName = sCurrentFileName.Left(sCurrentFileName.GetLength()-7); //去除后缀名
 	}
-	CString fileName = sCurrentFileName + "-路径" + ".txt";                   //默认打开的文件名  
-	CString filter = L"文件 (*.txt)|*.txt||";            //文件过虑的类型  
+	CString sFileName = sCurrentFileName + "-路径" + ".txt";                   //默认打开的文件名  
+	CString sFilter = L"文件 (*.txt)|*.txt||";            //文件过虑的类型  
 
-	TCHAR desktopDir[_MAX_PATH]; // 当前电脑桌面路径
-	SHGetSpecialFolderPath(NULL,desktopDir,CSIDL_DESKTOP,0);  
-	CFileDialog openFileDlg(isOpen, desktopDir, fileName, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT, filter, NULL);  
-	openFileDlg.GetOFN().lpstrInitialDir = L"C:\\Users\\QQS\\Desktop\\";  
+	TCHAR sDesktopDir[_MAX_PATH]; // 当前电脑桌面路径
+	SHGetSpecialFolderPath(NULL,sDesktopDir,CSIDL_DESKTOP,0);  
+	CFileDialog openFileDlg(bIsOpen, sDesktopDir, sFileName, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT, sFilter, NULL);  
+	openFileDlg.GetOFN().lpstrInitialDir = sDesktopDir;  
 	INT_PTR result = openFileDlg.DoModal();  
 	CString filePath = L"";  
 	if(result == IDOK) 
@@ -1286,12 +1294,14 @@ void CEliteSoftWare::ExportPathToTXT()
 				<<"管旋转角度为："<<pMovePath->GetOrgRotAng()-m_dFixAng<<";"<<"\t\n";
 			fout<<"孔切割路径点及法向："<<"\t\n";
 			nPathId++;
-			if (pMovePath->m_bHolePrecut)
+			if (pMovePath->m_bHolePrecut && !pMovePath->m_bStrHole)
 			{
 				fout<<"孔切割路径："<<"\t\n";
 			}
-			while(nodePos && pMovePath->m_bHolePrecut)
+			while(nodePos )
 			{
+				if (!pMovePath->m_bHolePrecut && !pMovePath->m_bStrHole)
+					break;
 				CPathNode* pPathNode = pMovePath->m_PathNodeList.GetNext(nodePos);
 				if (NULL == pPathNode)
 					continue;
@@ -1299,8 +1309,11 @@ void CEliteSoftWare::ExportPathToTXT()
 				fout<<pPathNode->m_OrgCutPosition[0]*1000<<" "<<pPathNode->m_OrgCutPosition[1]*1000<<" "<<pPathNode->m_OrgCutPosition[2]*1000<<" "
 					<<pPathNode->m_OrgDirection[0]<<" "<<pPathNode->m_OrgDirection[1]<<" "<<pPathNode->m_OrgDirection[2]<<" "<<"\t\n";
 			}
-
-			if (pMovePath->m_bHolePrecut)
+			if (pMovePath->m_bStrHole)
+			{
+				continue;
+			}
+			if (pMovePath->m_bHolePrecut )
 			{
 				fout<<"坡口切割路径："<<"\t\n";
 			}

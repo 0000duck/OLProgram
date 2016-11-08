@@ -25,6 +25,7 @@ CCutParamDlg::CCutParamDlg(CWnd* pParent /*=NULL*/)
 	, m_dChodTol(0.01)
 	, m_dStepTol(0.01)
 	, m_dToolDis(3.)
+	, m_bStrHole(FALSE)
 {
 }
 
@@ -46,6 +47,7 @@ void CCutParamDlg::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxDouble(pDX, m_dStepTol, 0.001, 1000);
 	DDX_Text(pDX, IDC_EDIT_TOOLDIS, m_dToolDis);
 	DDV_MinMaxDouble(pDX, m_dToolDis, 0, 9999);
+	DDX_Check(pDX, IDC_CHECK_HSTRA, m_bStrHole);
 }
 
 BEGIN_MESSAGE_MAP(CCutParamDlg, CDialogEx)
@@ -56,6 +58,7 @@ BEGIN_MESSAGE_MAP(CCutParamDlg, CDialogEx)
 	ON_EN_SETFOCUS(IDC_EDIT_CUTDEPTH, &CCutParamDlg::OnEnSetfocusEditCutdepth)
 	ON_EN_KILLFOCUS(IDC_EDIT_CUTDEPTH, &CCutParamDlg::OnEnKillfocusEditCutdepth)
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_CHECK_HSTRA, &CCutParamDlg::OnBnClickedCheckHStra)
 END_MESSAGE_MAP()
 
 // CCutParamDlg 消息处理程序
@@ -79,7 +82,7 @@ void CCutParamDlg::OnBnClickedCheckPreCut()
 		GetDlgItem(IDC_STATIC_DET_UNIT)->ShowWindow(SW_SHOW);	
 		GetDlgItem(IDC_STATIC_GROOVE_ANG)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_STATIC_GROOVE)->ShowWindow(SW_SHOW);
-		GetDlgItem(IDC_STATIC_AUTO)->ShowWindow(SW_HIDE);		
+		GetDlgItem(IDC_STATIC_AUTO)->ShowWindow(SW_HIDE);
 	}
 	else
 	{
@@ -92,11 +95,62 @@ void CCutParamDlg::OnBnClickedCheckPreCut()
 	}
 }
 
+void CCutParamDlg::OnBnClickedCheckHStra()
+{
+	UpdateData(TRUE);
+	CButton *pCheckbox = (CButton*)GetDlgItem(IDC_CHECK_HSTRA);
+	pCheckbox->SetCheck(m_bStrHole);
+	if (m_bHolePrecut)
+	{
+		GetDlgItem(IDC_STATIC_PIC_ANG)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_HOLE_STRA)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_PIC_DET)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_EDIT_CUTDEPTH)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_DET_UNIT)->ShowWindow(SW_SHOW);	
+		GetDlgItem(IDC_STATIC_GROOVE_ANG)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_GROOVE)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_AUTO)->ShowWindow(SW_HIDE);
+	}
+	else
+	{
+		GetDlgItem(IDC_STATIC_PIC_ANG)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_HOLE_STRA)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_PIC_DET)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_EDIT_CUTDEPTH)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_DET_UNIT)->ShowWindow(SW_HIDE);		
+		GetDlgItem(IDC_STATIC_GROOVE)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_GROOVE_ANG)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_AUTO)->ShowWindow(SW_SHOW);		
+	}
+	if (m_bStrHole)
+	{
+		GetDlgItem(IDC_STATIC_AUTO)->EnableWindow(FALSE);
+		GetDlgItem(IDC_EDIT_CUTANGLE)->EnableWindow(FALSE);
+		GetDlgItem(IDC_EDIT_CUTDEPTH)->EnableWindow(FALSE);
+		GetDlgItem(IDC_CHECK_HPRECUT)->EnableWindow(FALSE);
+		
+		GetDlgItem(IDC_STATIC_GROOVE)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_PIC_DET)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_PIC_ANG)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_GROOVE_ANG)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_HOLE_STRA)->ShowWindow(SW_SHOW);
+	}
+	else
+	{
+		GetDlgItem(IDC_STATIC_AUTO)->EnableWindow(TRUE);
+		GetDlgItem(IDC_EDIT_CUTANGLE)->EnableWindow(TRUE);
+		GetDlgItem(IDC_EDIT_CUTDEPTH)->EnableWindow(TRUE);
+		GetDlgItem(IDC_CHECK_HPRECUT)->EnableWindow(TRUE);
+	}
+}
+
+
 BOOL CCutParamDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 	if (m_bHolePrecut)
 	{
+		GetDlgItem(IDC_STATIC_HOLE_STRA)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_STATIC_PIC_DET)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_EDIT_CUTDEPTH)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_DET_UNIT)->ShowWindow(SW_SHOW);	
@@ -106,12 +160,26 @@ BOOL CCutParamDlg::OnInitDialog()
 	}
 	else
 	{
+		GetDlgItem(IDC_STATIC_HOLE_STRA)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_STATIC_PIC_DET)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_EDIT_CUTDEPTH)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_STATIC_DET_UNIT)->ShowWindow(SW_HIDE);		
 		GetDlgItem(IDC_STATIC_GROOVE)->ShowWindow(SW_HIDE);
 		GetDlgItem(IDC_STATIC_GROOVE_ANG)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_AUTO)->ShowWindow(SW_SHOW);		
+	}
+	if (m_bStrHole)
+	{
+		GetDlgItem(IDC_STATIC_AUTO)->EnableWindow(FALSE);
+		GetDlgItem(IDC_EDIT_CUTANGLE)->EnableWindow(FALSE);
+		GetDlgItem(IDC_EDIT_CUTDEPTH)->EnableWindow(FALSE);
+		GetDlgItem(IDC_CHECK_HPRECUT)->EnableWindow(FALSE);
+
+		GetDlgItem(IDC_STATIC_GROOVE)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_PIC_DET)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_PIC_ANG)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_GROOVE_ANG)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_STATIC_HOLE_STRA)->ShowWindow(SW_SHOW);
 	}
 	UpdateData(FALSE);
 
@@ -154,3 +222,5 @@ HBRUSH CCutParamDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	return hbr;
 }
+
+

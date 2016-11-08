@@ -26,6 +26,7 @@ void CPMPageHandler::Init(CEliteSoftWare *app)
 	m_dStepTol  = 0.01;
 	m_dToolDis  = 3. ;
 	m_bHolePrecut = TRUE;
+	m_bStrHole = FALSE;
 }
 
 HRESULT __stdcall CPMPageHandler::OnClose(long Reason)
@@ -62,6 +63,7 @@ void CPMPageHandler::SetCutParam()
 	dlg.m_dStepTol = m_dStepTol;
 	dlg.m_dToolDis = m_dToolDis;
 	dlg.m_bHolePrecut = m_bHolePrecut;
+	dlg.m_bStrHole = m_bStrHole;
 	if (IDOK == dlg.DoModal())
 	{
 		m_dCutAng = dlg.m_dCutAng;
@@ -70,6 +72,7 @@ void CPMPageHandler::SetCutParam()
 		m_dStepTol = dlg.m_dStepTol;
 		m_dToolDis = dlg.m_dToolDis;
 		m_bHolePrecut = dlg.m_bHolePrecut;
+		m_bStrHole = dlg.m_bStrHole;
 	}
 }
 
@@ -280,6 +283,22 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 			vecStart[i] = retFacePt[i];
 			pNode->m_OrgPosition[i] = retFacePt[i];
 		}
+
+		//////////////////////////////////////////////////////////////////////////
+		// 如果切直孔时，只需将原始孔边缘点进行悬空即可
+		//////////////////////////////////////////////////////////////////////////
+		if (pMovePath->m_bStrHole)
+		{
+			for (int i=0; i<3; i++)
+			{//刀头悬空距离
+				pNode->m_OrgCutPosition[i] = pNode->m_OrgPosition[i]+0.001*pNode->m_OrgDirection[i]*m_dToolDis;
+			}
+
+			pMovePath->m_PathNodeList.AddTail(pNode);
+			continue;
+		}
+		//////////////////////////////////////////////////////////////////////////
+
 		//////////////////////////////////////////////////////////////////////////
 		// 求切孔边缘深度
 		//////////////////////////////////////////////////////////////////////////
@@ -312,18 +331,12 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		{
 			dis2 = 0;
 		}
-		BOOL bFlag = FALSE;
 		if (dRNTube<(ptCDis-MIN_LEN))
 		{
 			dis2 = 0.;
-			bFlag = TRUE;
 		}
 
 		double dZThick = sqrt(dis1) - sqrt(dis2);
-		if (bFlag)
-		{
-			//dZThick *= 2.;
-		}
 		double dHThick = dZThick/sin(pHParam->m_dThroughAng); // 孔在管上的总深度
 
 		double dCutDepth = m_dCutDepth/1000;//坡口深度，用户设置，若超过dHThick自动设为dHThick
@@ -597,7 +610,6 @@ void CPMPageHandler::CalMovePath()
 	CComQIPtr<ISurface> swSurface;
 	swBaseTubeFace->IGetSurface(&swSurface);
 	CPathComb* pPathComb = new CPathComb();
-	//pPathComb->m_bHolePrecut = m_bHolePrecut;
 	for (int i=0; i<count; i++)
 	{
 		type = -1;
@@ -634,11 +646,12 @@ void CPMPageHandler::CalMovePath()
 		swCurve->GetEndParams(tmpSt,tmpEnd,&bIsClosed, &bIsPeriodic,&bRet);
 		CMovePath* pMovePath = new CMovePath;
 		pMovePath->m_bHolePrecut = m_bHolePrecut;
+		pMovePath->m_bStrHole = m_bStrHole;
 		BOOL bClosed = bIsClosed;
 		CalPathNode(ptNum, ptArray, swSurface, pMovePath,bClosed);
 
-		// 判断当前路径偏移方向是否正确
-		if (!CheckPathComb(pMovePath))
+		// 判断当前路径偏移方向是否正确(切割直孔时不需判断)
+		if ((!m_bStrHole)&&!CheckPathComb(pMovePath))
 		{
 			if (NULL == pMovePath)
 			{

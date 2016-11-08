@@ -134,6 +134,7 @@ public:
 	LNodeList m_PathNodeList;
 	int       m_nRefId;
 	BOOL m_bHolePrecut;
+	BOOL m_bStrHole;
 public:
 	// µ±Â·¾¶¿×ÖáÏòÆ«ÒÆÂú×ã
 	void FixHPreCutState();

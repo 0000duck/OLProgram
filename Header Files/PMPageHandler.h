@@ -39,6 +39,7 @@ public:
 	double m_dStepTol;    // 步长精度
 	double m_dToolDis;    // 刀具悬空距离
 	BOOL   m_bHolePrecut; // 是否预先割孔
+	BOOL   m_bStrHole;    // 是否切割直孔
 	//////////////////////////////////////////////////////////////////////////
 
 public:

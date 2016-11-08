@@ -154,6 +154,9 @@
     <None Include="Resource\bmp\ui_hole_groove_ang.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Resource\bmp\bitmap1.bmp" />
+    <None Include="bmp\ui_hole_straight.bmp" />
+    <None Include="Resource\bmp\ui_hole_straight.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Resource\EliteSoftWare.idl">
