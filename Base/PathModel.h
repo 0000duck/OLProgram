@@ -26,7 +26,7 @@ public:
 	double m_dExRotAng;       // 孔在管上的旋转位置（路径输出使用）象限变换后的角度
 	double m_dOrgRotAng;      // 孔在管上的旋转位置，未做象限变换的角度
 	double m_dOffsetX;        // 孔在管的X向偏移（路径输出使用）
-	double m_dCenterDis;      // 孔与管的轴心距
+	double m_dOffsetZ;        // 孔与管的轴心距
 	double m_dThroughAng;     // 孔与管的轴心夹角
 	int    m_nAddOrder;       // 孔添加顺序
 	double m_nExOrder;        // 孔输出顺序
@@ -133,7 +133,10 @@ protected:
 public:
 	LNodeList m_PathNodeList;
 	int       m_nRefId;
+	BOOL m_bHolePrecut;
 public:
+	// 当路径孔轴向偏移满足
+	void FixHPreCutState();
 	// 设置和获取路径对应的孔参数
 	void        SetHParam(CHoleParam* pHoleParam);
 	CHoleParam* GetHParam();
@@ -168,7 +171,6 @@ public:
 	~CPathComb();
 public:
 	LPathList m_PathList;
-	BOOL m_bHolePrecut;
 	// 参考ID，当添加路径时，将当前参考ID赋值给当前加入的路径，用于给路径组里的路径添加序号 
 	int m_nRefID;
 

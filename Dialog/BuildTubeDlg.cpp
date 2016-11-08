@@ -165,7 +165,7 @@ void CBuildTubeDlg::OnBnClickedButtonHoleadd()
 		return;
 	// TODO: 在此添加控件通知处理程序代码
 	CHoleParam* pHParam = new CHoleParam();
-	pHParam->m_dCenterDis = m_dHoleZOffset;
+	pHParam->m_dOffsetZ = m_dHoleZOffset;
 	pHParam->m_dThroughAng = m_dHoleThroughAng;
 	pHParam->m_dHoleR = m_dHoleDia*0.5;
 	pHParam->m_dOffsetX = m_dHoleXOffset;
@@ -254,7 +254,7 @@ void CBuildTubeDlg::OnBnClickedOk()
 			nAddOrder++;
 			tmp->m_dHoleR /= 1000.;
 			tmp->m_dOffsetX /= 1000.;
-			tmp->m_dCenterDis /= 1000.;
+			tmp->m_dOffsetZ /= 1000.;
 			tmp->m_dThroughAng = tmp->m_dThroughAng*PI/180.;
 			tmp->m_dOrgRotAng = tmp->m_dExRotAng;
 			double ang = tmp->m_dExRotAng;

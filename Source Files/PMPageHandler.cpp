@@ -121,7 +121,6 @@ BOOL CPMPageHandler::CheckOffsetVec(CMovePath* pPath, int bFlag)
 
 			if (dis>((pPath->GetHParam()->m_dHoleR*2.)+MIN_LEN))
 			{
-				AfxMessageBox(_T("true"));
 				return TRUE;
 			}
 			continue;
@@ -250,7 +249,7 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 	}
 	pMovePath->SetHParam(pHParam);
 	//////////////////////////////////////////////////////////////////////////
-	BOOL bHolePrecut = m_bHolePrecut;
+	BOOL bHolePrecut = pMovePath->m_bHolePrecut;
 	PNT3D edgePnt, nextEdgePnt;
 	VEC3D dThroughVec, edgeVec, offsetVec;
 	double retFacePt[5] = {0.,0.,0.,0.,0.};
@@ -314,22 +313,29 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 			dis2 = 0;
 		}
 		BOOL bFlag = FALSE;
-		if (dRNTube<ptCDis)
+		if (dRNTube<(ptCDis-MIN_LEN))
 		{
+			dis2 = 0.;
 			bFlag = TRUE;
 		}
 
 		double dZThick = sqrt(dis1) - sqrt(dis2);
 		if (bFlag)
 		{
-			dZThick *= 2.;
+			//dZThick *= 2.;
 		}
 		double dHThick = dZThick/sin(pHParam->m_dThroughAng); // 孔在管上的总深度
 
 		double dCutDepth = m_dCutDepth/1000;//坡口深度，用户设置，若超过dHThick自动设为dHThick
-		if (dCutDepth>dHThick || !m_bHolePrecut) // 如果用户没有预先切孔，则直接切坡口，切割深度默认到底
+		if (dCutDepth>dHThick || !bHolePrecut) // 如果用户没有预先切孔，则直接切坡口，切割深度默认到底
 		{
 			dCutDepth = dHThick;
+		}
+
+		// 此时说明孔切割到管壁，孔参数自动进行了修正，必须进行预切割孔操作，此时切割深度默认为壁厚
+		if (m_bHolePrecut != bHolePrecut)
+		{
+			dCutDepth = pMovePath->GetHParam()->GetParentComb()->m_dTubeThick;
 		}
 		//////////////////////////////////////////////////////////////////////////
 
@@ -410,15 +416,15 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		//////////////////////////////////////////////////////////////////////////
 		// 求钝边点
 		PNT3D ptDun; // 实际钝边点坐标
-		PNT3D ptBaseDun;// 孔基线钝边点坐标
+	//	PNT3D ptBaseDun;// 孔基线钝边点坐标
 		for (int i=0; i<3; i++)
 		{
 			ptDun[i] = pNode->m_OrgPosition[i]-dCutDepth*pHParam->m_dThroughVec[i];
 		}
-		for (int i=0; i<3; i++)
-		{
-			ptBaseDun[i] = pNode->m_OrgPosition[i]-dHThick*pHParam->m_dThroughVec[i];
-		}
+// 		for (int i=0; i<3; i++)
+// 		{
+// 			ptBaseDun[i] = pNode->m_OrgPosition[i]-dHThick*pHParam->m_dThroughVec[i];
+// 		}
 		//////////////////////////////////////////////////////////////////////////
 		// 求坡口与管的交点
 		//////////////////////////////////////////////////////////////////////////
@@ -591,7 +597,7 @@ void CPMPageHandler::CalMovePath()
 	CComQIPtr<ISurface> swSurface;
 	swBaseTubeFace->IGetSurface(&swSurface);
 	CPathComb* pPathComb = new CPathComb();
-	pPathComb->m_bHolePrecut = m_bHolePrecut;
+	//pPathComb->m_bHolePrecut = m_bHolePrecut;
 	for (int i=0; i<count; i++)
 	{
 		type = -1;
@@ -627,6 +633,7 @@ void CPMPageHandler::CalMovePath()
 		VARIANT_BOOL bIsClosed, bIsPeriodic, bRet;
 		swCurve->GetEndParams(tmpSt,tmpEnd,&bIsClosed, &bIsPeriodic,&bRet);
 		CMovePath* pMovePath = new CMovePath;
+		pMovePath->m_bHolePrecut = m_bHolePrecut;
 		BOOL bClosed = bIsClosed;
 		CalPathNode(ptNum, ptArray, swSurface, pMovePath,bClosed);
 

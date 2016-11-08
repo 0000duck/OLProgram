@@ -7,7 +7,7 @@
 //////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"       
 #include "PathModel.h"
-
+#include "math.h"
 
 //////////////////////////////////////////////////////////////////////////
 // CHoleParam
@@ -17,7 +17,7 @@ CHoleParam::CHoleParam()
 {
 	m_dHoleR      = 0.;
 	m_dOffsetX    = 0.;
-	m_dCenterDis  = 0.;
+	m_dOffsetZ  = 0.;
 	m_dExRotAng   = 0.;
 	m_dOrgRotAng  = 0.;
 	m_dThroughAng = 0.;
@@ -151,6 +151,7 @@ CMovePath::CMovePath()
 	m_PathNodeList.RemoveAll();
 	m_nRefId   = 0;
 	m_pHoleParam = NULL;
+	m_bHolePrecut = TRUE;
 }
 
 CMovePath::~CMovePath()
@@ -158,9 +159,27 @@ CMovePath::~CMovePath()
 	Realse();
 }
 
+void CMovePath::FixHPreCutState()
+{
+	if (NULL == m_pHoleParam)
+	{
+		AfxMessageBox(_T("当前路径没有路径参数，请重建文档。"));
+		return;
+	}
+	if (!m_bHolePrecut)
+	{
+		// 当孔切割到管壁时，必须预切割孔
+		if ((abs(m_pHoleParam->m_dOffsetZ)+m_pHoleParam->m_dHoleR)>(m_pHoleParam->GetParentComb()->m_dTubeDia*0.5-m_pHoleParam->GetParentComb()->m_dTubeThick))
+		{
+			m_bHolePrecut = TRUE;
+		}
+	}
+}
+
 void CMovePath::SetHParam(CHoleParam* pHoleParam)
 {
 	m_pHoleParam = pHoleParam;
+	FixHPreCutState();
 }
 
 CHoleParam* CMovePath::GetHParam()
@@ -284,6 +303,7 @@ CMovePath* CMovePath::CopySelf()
 {
 	CMovePath* pMovePath = new CMovePath;
 	pMovePath->m_pHoleParam = m_pHoleParam;
+	pMovePath->m_bHolePrecut = m_bHolePrecut;
 	pMovePath->m_nRefId = m_nRefId;
 	POSITION pos = m_PathNodeList.GetHeadPosition();
 	while(pos)
@@ -304,7 +324,6 @@ CMovePath* CMovePath::CopySelf()
 //////////////////////////////////////////////////////////////////////////
 CPathComb::CPathComb()
 {
-	m_bHolePrecut = TRUE;
 	m_PathList.RemoveAll();
 	m_nRefID = 0;
 }
@@ -331,7 +350,6 @@ void CPathComb::Release()
 CPathComb* CPathComb::CopySelf()
 {
 	CPathComb* pPComb = new CPathComb;
-	pPComb->m_bHolePrecut = m_bHolePrecut;
 	pPComb->m_nRefID = m_nRefID;
 	POSITION pos = this->m_PathList.GetHeadPosition();
 	while(pos)
