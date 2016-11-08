@@ -7,7 +7,26 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dlgtest", "..\Dlgtest\Dlgte
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math3D", "..\..\Math3D\Math3D.vcxproj", "{5D15E185-435D-4578-BD2D-8471ADB5B10E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PicManager", "..\..\PicManager\PicManager.vcxproj", "{E30D7F6B-BC41-4AA4-BB1B-476C9158E8FF}"
+EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://qqs-elite:8080/tfs/picmanager
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\Dlgtest\\Dlgtest.vcxproj
+		SccProjectName1 = ../Dlgtest
+		SccLocalPath1 = ..\\Dlgtest
+		SccProjectUniqueName2 = EliteSoftWare.vcxproj
+		SccLocalPath2 = .
+		SccProjectUniqueName3 = ..\\..\\Math3D\\Math3D.vcxproj
+		SccProjectName3 = Math3D
+		SccLocalPath3 = ..\\..\\Math3D
+		SccProjectUniqueName4 = ..\\..\\PicManager\\PicManager.vcxproj
+		SccProjectName4 = ../
+		SccLocalPath4 = ..\\..\\PicManager
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
@@ -50,6 +69,15 @@ Global
 		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.ShoeEduDebug|Win32.Build.0 = ShoeEduDebug|Win32
 		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.ShoeEduDebug|x64.ActiveCfg = ShoeEduDebug|x64
 		{5D15E185-435D-4578-BD2D-8471ADB5B10E}.ShoeEduDebug|x64.Build.0 = ShoeEduDebug|x64
+		{E30D7F6B-BC41-4AA4-BB1B-476C9158E8FF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E30D7F6B-BC41-4AA4-BB1B-476C9158E8FF}.Debug|Win32.Build.0 = Debug|Win32
+		{E30D7F6B-BC41-4AA4-BB1B-476C9158E8FF}.Debug|x64.ActiveCfg = Debug|Win32
+		{E30D7F6B-BC41-4AA4-BB1B-476C9158E8FF}.Release|Win32.ActiveCfg = Release|Win32
+		{E30D7F6B-BC41-4AA4-BB1B-476C9158E8FF}.Release|Win32.Build.0 = Release|Win32
+		{E30D7F6B-BC41-4AA4-BB1B-476C9158E8FF}.Release|x64.ActiveCfg = Release|Win32
+		{E30D7F6B-BC41-4AA4-BB1B-476C9158E8FF}.ShoeEduDebug|Win32.ActiveCfg = Debug|Win32
+		{E30D7F6B-BC41-4AA4-BB1B-476C9158E8FF}.ShoeEduDebug|Win32.Build.0 = Debug|Win32
+		{E30D7F6B-BC41-4AA4-BB1B-476C9158E8FF}.ShoeEduDebug|x64.ActiveCfg = Debug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

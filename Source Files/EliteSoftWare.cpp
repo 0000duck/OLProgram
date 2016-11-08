@@ -1189,13 +1189,12 @@ void CEliteSoftWare::ExportPathToTXT()
 
 	// 绘制路径和输出坐标系(测试用)
 	//////////////////////////////////////////////////////////////////////////
-	 DrawPathCombs(pCpyPCombs);
+	// DrawPathCombs(pCpyPCombs);
 	// DrawRFrame(exportFrame);
 	// return;
 	//////////////////////////////////////////////////////////////////////////
 
 	BOOL isOpen = FALSE;                                 //是否打开(否则为保存)  
-	CString defaultDir = L"C:\\Users\\QQS\\Desktop\\";   //默认打开的文件路径  
 	CString sCurrentFileName = GetCurrentFile();
 
 	CString sExt;// 提取后缀名
@@ -1207,7 +1206,10 @@ void CEliteSoftWare::ExportPathToTXT()
 	}
 	CString fileName = sCurrentFileName + "-路径" + ".txt";                   //默认打开的文件名  
 	CString filter = L"文件 (*.txt)|*.txt||";            //文件过虑的类型  
-	CFileDialog openFileDlg(isOpen, defaultDir, fileName, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT, filter, NULL);  
+
+	TCHAR desktopDir[_MAX_PATH]; // 当前电脑桌面路径
+	SHGetSpecialFolderPath(NULL,desktopDir,CSIDL_DESKTOP,0);  
+	CFileDialog openFileDlg(isOpen, desktopDir, fileName, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT, filter, NULL);  
 	openFileDlg.GetOFN().lpstrInitialDir = L"C:\\Users\\QQS\\Desktop\\";  
 	INT_PTR result = openFileDlg.DoModal();  
 	CString filePath = L"";  
