@@ -55,6 +55,8 @@ public:
 	CFont  m_CtrFont;//字体
 	int m_nCurCtrID; // 当前激活的控件ID
 	//////////////////////////////////////////////////////////////////////////
+	CMenu m_cMenu ;
+
 public:
 	// 接口函数
 	//////////////////////////////////////////////////////////////////////////
@@ -69,11 +71,13 @@ public:
 	afx_msg void OnBnClickedButtonHoleadd();
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCancel();
+	afx_msg void OnDelete();
+	afx_msg void OnEdit();
 	//////////////////////////////////////////////////////////////////////////
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnEnSetfocusEditTubedia();
 	afx_msg void OnEnKillfocusEditTubedia();
-	CStatic m_cTDia;
+//	CStatic m_cTDia;
 	afx_msg void OnEnSetfocusEditTubethick();
 	afx_msg void OnEnKillfocusEditTubethick();
 	afx_msg void OnEnSetfocusEditTubelength();
@@ -88,4 +92,5 @@ public:
 	afx_msg void OnEnKillfocusEditHolethroughang();
 	afx_msg void OnEnSetfocusEditHolerotang();
 	afx_msg void OnEnKillfocusEditHolerotang();
+	afx_msg void OnNMRClickListHParam(NMHDR *pNMHDR, LRESULT *pResult);
 };

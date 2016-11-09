@@ -57,7 +57,7 @@ void CBuildTubeDlg::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxDouble(pDX, m_dHoleThroughAng, 0.0000001, 179.9999999);
 	DDX_Text(pDX, IDC_EDIT_HOLEROTANG, m_dHoleRotAng);
 	DDV_MinMaxDouble(pDX, m_dHoleRotAng, 0, 360);
-	DDX_Control(pDX, IDC_STATIC_PIC_TDIA, m_cTDia);
+//	DDX_Control(pDX, IDC_STATIC_PIC_TDIA, m_cTDia);
 }
 
 BOOL CBuildTubeDlg::OnInitDialog()
@@ -106,6 +106,9 @@ BEGIN_MESSAGE_MAP(CBuildTubeDlg, CDialogEx)
 	ON_EN_KILLFOCUS(IDC_EDIT_HOLETHROUGHANG, &CBuildTubeDlg::OnEnKillfocusEditHolethroughang)
 	ON_EN_SETFOCUS(IDC_EDIT_HOLEROTANG, &CBuildTubeDlg::OnEnSetfocusEditHolerotang)
 	ON_EN_KILLFOCUS(IDC_EDIT_HOLEROTANG, &CBuildTubeDlg::OnEnKillfocusEditHolerotang)
+	ON_NOTIFY(NM_RCLICK, IDC_LIST_HPARAM, &CBuildTubeDlg::OnNMRClickListHParam)
+	ON_COMMAND(ID_EDIT, OnEdit)
+	ON_COMMAND(ID_DELETE, OnDelete)
 END_MESSAGE_MAP()
 
 // 检查输入的孔参数的合理性
@@ -394,4 +397,64 @@ void CBuildTubeDlg::OnEnKillfocusEditHolerotang()
 {
 	m_nCurCtrID = ID_CURCTL_NULL;
 	GetDlgItem(IDC_STATIC_PIC_RANG)-> InvalidateRect(NULL); 
+}
+
+void CBuildTubeDlg::OnNMRClickListHParam(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+
+	if (CHParamListCtrl.GetSelectedCount() == 0)
+	{
+		*pResult = 0;
+		return;
+	}
+
+	m_cMenu.LoadMenu(IDR_MENU_HOLE_EDIT);	
+	CPoint CurPoint;
+	GetCursorPos(&CurPoint);
+    if (CHParamListCtrl.GetSelectedCount() > 1)
+	{
+		m_cMenu.RemoveMenu(ID_EDIT, MF_BYCOMMAND);
+	}
+
+	UINT nTestFlags;	
+	CRect rect;
+	int nCurrentID = CHParamListCtrl.HitTest(pNMItemActivate->ptAction, &nTestFlags);
+	CHParamListCtrl.GetItemRect(nCurrentID, &rect,nTestFlags);
+	TrackPopupMenu(m_cMenu.GetSubMenu(0)->m_hMenu,0,CurPoint.x,CurPoint.y,0,this->GetSafeHwnd(),&rect);
+	*pResult = 0;
+}
+
+void CBuildTubeDlg::OnEdit()
+{
+
+}
+
+void CBuildTubeDlg::OnDelete()
+{
+	while (1)
+	{
+		POSITION pos = CHParamListCtrl.GetFirstSelectedItemPosition();
+		if (NULL == pos)
+			break;
+		int nSelectID = CHParamListCtrl.GetNextSelectedItem(pos);
+		CHoleParam* tmp = ( CHoleParam*)CHParamListCtrl.GetItemData(nSelectID);
+		if(NULL != tmp)
+		{
+			delete tmp;
+			tmp = NULL;
+		}
+
+		CHParamListCtrl.DeleteItem(nSelectID);
+		m_nHoleID--;
+	}
+
+	// 更新孔参数ID号
+	int nCount = CHParamListCtrl.GetItemCount();
+	for (int nID=0; nID<nCount; nID++)
+	{
+		CString str;
+		str.Format( _T("%d"), nID+1 ) ;
+		CHParamListCtrl.SetItemText( nID, 0, str) ;
+	}
 }

@@ -218,6 +218,21 @@ IDB_BITMAP_HOLE_GROOVE  BITMAP                  "bmp\\ui_hole_groove.bmp"
 IDB_BITMAP_HOLE_TANG    BITMAP                  "bmp\\ui_hole_throughang.bmp"
 IDC_BITMAP_HOLE_GROOVE_ANG BITMAP                  "bmp\\ui_hole_groove_ang.bmp"
 IDB_BITMAP_HOLE_STR     BITMAP                  "bmp\\ui_hole_straight.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_HOLE_EDIT MENU
+BEGIN
+    POPUP "孔参数编辑菜单"
+    BEGIN
+        MENUITEM "编辑",                          ID_EDIT
+        MENUITEM "删除",                          ID_DELETE
+    END
+END
+
 #endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 

@@ -62,7 +62,6 @@
 #define IDC_EDIT_HOLEZOFFSET            218
 #define IDB_BITMAP_HOLE_GROOVE          218
 #define IDC_CHECK_HSTRA                 218
-#define IDC_CHECK_HPRECUT2              218
 #define IDC_EDIT_HOLETHROUGHANG         219
 #define IDB_BITMAP_HOLE_TANG            219
 #define IDC_EDIT_HOLEROTANG             220
@@ -75,6 +74,7 @@
 #define IDC_STATIC_PIC_XOFF             225
 #define IDB_BITMAP_HOLE_STR             225
 #define IDC_STATIC_PIC_RANG             226
+#define IDR_MENU_HOLE_EDIT              226
 #define IDC_STATIC_PIC_HDIA             227
 #define IDC_STATIC_PIC_TANG             228
 #define IDC_STATIC_PIC_TLEN             229
@@ -89,15 +89,16 @@
 #define IDC_STATIC_DET_UNIT             236
 #define IDC_STATIC_AUTO                 237
 #define IDC_STATIC_HOLE_STRA            238
-#define IDC_EDIT1                       239
 #define IDC_EDIT_FIXANG                 239
+#define ID_EDIT                         32770
+#define ID_DELETE                       32771
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        226
-#define _APS_NEXT_COMMAND_VALUE         32768
+#define _APS_NEXT_RESOURCE_VALUE        227
+#define _APS_NEXT_COMMAND_VALUE         32772
 #define _APS_NEXT_CONTROL_VALUE         240
 #define _APS_NEXT_SYMED_VALUE           114
 #endif
