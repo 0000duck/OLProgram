@@ -11,6 +11,7 @@
 #include "stdafx.h"
 #include "EliteSoftWare.h"
 #include "BuildTubeDlg.h"
+#include "EditHParamDlg.h"
 #include "afxdialogex.h"
 
 // CBuildTubeDlg 对话框
@@ -57,13 +58,11 @@ void CBuildTubeDlg::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxDouble(pDX, m_dHoleThroughAng, 0.0000001, 179.9999999);
 	DDX_Text(pDX, IDC_EDIT_HOLEROTANG, m_dHoleRotAng);
 	DDV_MinMaxDouble(pDX, m_dHoleRotAng, 0, 360);
-//	DDX_Control(pDX, IDC_STATIC_PIC_TDIA, m_cTDia);
 }
 
 BOOL CBuildTubeDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-
 	// TODO: 在此添加额外的初始化代码
 	CHParamListCtrl.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_SINGLESEL & ~LVS_EX_CHECKBOXES);
 
@@ -109,50 +108,119 @@ BEGIN_MESSAGE_MAP(CBuildTubeDlg, CDialogEx)
 	ON_NOTIFY(NM_RCLICK, IDC_LIST_HPARAM, &CBuildTubeDlg::OnNMRClickListHParam)
 	ON_COMMAND(ID_EDIT, OnEdit)
 	ON_COMMAND(ID_DELETE, OnDelete)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST_HPARAM, &CBuildTubeDlg::OnNMDblclkListHparam)
 END_MESSAGE_MAP()
 
+//// 检查输入的孔参数的合理性
+//BOOL CBuildTubeDlg::CheckParam()
+//{
+//	// 1.最大值与最小值合理性判断
+//	/* 此处不满足条件的提示对话框由系统自动弹出*/
+//	if ((m_dTubeDia<0.0000001||m_dTubeDia>100000000) ||
+//		(m_dTubeThick<0.0000001||m_dTubeThick>100000000) ||
+//		(m_dTubeLength<0.0000001||m_dTubeLength>100000000) ||
+//		(m_dHoleDia<0.0000001||m_dHoleDia>100000000) ||
+//		(m_dHoleXOffset<-100000000||m_dHoleXOffset>100000000) ||
+//		(m_dHoleZOffset<-100000000||m_dHoleZOffset>100000000) ||
+//		(m_dHoleThroughAng<0.0000001||m_dHoleThroughAng>179.9999999) ||
+//		(m_dHoleRotAng<0||m_dHoleRotAng>360))
+//	{
+//		return FALSE;
+//	}
+//	// 2.X向负向偏移必须大于孔半径判断
+//	if (m_dHoleXOffset<(-m_dTubeDia*0.5))
+//	{
+//		AfxMessageBox(_T("X向负向偏移必须大于孔半径。"));
+//		return FALSE;
+//	}
+//	// 3.X向偏移不能大于或等于管长度+孔半径判断
+//	if (m_dHoleXOffset>((m_dTubeLength+m_dTubeDia*0.5)-0.0000001))
+//	{
+//		AfxMessageBox(_T("X向偏移不能大于或等于管长度与孔半径之和。"));
+//		return FALSE;
+//	}
+//	// 4.Z向偏移绝对值不能大于或等于管半径加孔半径判断
+//	if (abs(m_dHoleZOffset)>((m_dTubeDia*0.5+m_dTubeDia*0.5)-0.0000001))
+//	{
+//		AfxMessageBox(_T("轴心偏移的绝对值不能大于或等于管半径与孔半径之和。"));
+//		return FALSE;
+//	}
+//	// 5.孔直径必须小于管直径判断
+//	if (m_dTubeDia<(m_dHoleDia+0.0000001))
+//	{
+//		AfxMessageBox(_T("孔直径必须小于管直径。"));
+//		return FALSE;
+//	}
+//	// 6.X向偏移值不能等于孔半径
+//	if (abs(m_dHoleXOffset-(m_dHoleDia*0.5))<0.0000001)
+//	{
+//		AfxMessageBox(_T("X向偏移值不能等于孔半径。"));
+//		return FALSE;
+//	}
+//	return TRUE;
+//}
+
 // 检查输入的孔参数的合理性
-BOOL CBuildTubeDlg::CheckParam()
+BOOL CBuildTubeDlg::CheckParam(BOOL bEditMode, CHoleParam* pHParam)
 {
+	double dHoleDia = m_dHoleDia;
+	double dHoleXOffset = m_dHoleXOffset;
+	double dHoleZOffset = m_dHoleZOffset;
+	double dHoleThroughAng = m_dHoleThroughAng;
+	double dHoleRotAng = m_dHoleRotAng;
+	if (bEditMode)
+	{
+		if (NULL == pHParam)
+		{
+			AfxMessageBox(_T("当前路径参数不合理。"));
+			return FALSE;
+		}
+		dHoleDia = pHParam->m_dHoleR*2.;
+		dHoleXOffset = pHParam->m_dOffsetX;
+		dHoleZOffset = pHParam->m_dOffsetZ;
+		dHoleThroughAng = pHParam->m_dThroughAng;
+		dHoleRotAng = pHParam->m_dOrgRotAng;
+	}
+	
 	// 1.最大值与最小值合理性判断
 	/* 此处不满足条件的提示对话框由系统自动弹出*/
 	if ((m_dTubeDia<0.0000001||m_dTubeDia>100000000) ||
 		(m_dTubeThick<0.0000001||m_dTubeThick>100000000) ||
 		(m_dTubeLength<0.0000001||m_dTubeLength>100000000) ||
-		(m_dHoleDia<0.0000001||m_dHoleDia>100000000) ||
-		(m_dHoleXOffset<-100000000||m_dHoleXOffset>100000000) ||
-		(m_dHoleZOffset<-100000000||m_dHoleZOffset>100000000) ||
-		(m_dHoleThroughAng<0.0000001||m_dHoleThroughAng>179.9999999) ||
-		(m_dHoleRotAng<0||m_dHoleRotAng>360))
+		(dHoleDia<0.0000001||dHoleDia>100000000) ||
+		(dHoleXOffset<-100000000||dHoleXOffset>100000000) ||
+		(dHoleZOffset<-100000000||dHoleZOffset>100000000) ||
+		(dHoleThroughAng<0.0000001||dHoleThroughAng>179.9999999) ||
+		(dHoleRotAng<0||dHoleRotAng>360))
 	{
 		return FALSE;
 	}
 	// 2.X向负向偏移必须大于孔半径判断
-	if (m_dHoleXOffset<(-m_dTubeDia*0.5))
+	if (dHoleXOffset<(-m_dTubeDia*0.5))
 	{
 		AfxMessageBox(_T("X向负向偏移必须大于孔半径。"));
 		return FALSE;
 	}
 	// 3.X向偏移不能大于或等于管长度+孔半径判断
-	if (m_dHoleXOffset>((m_dTubeLength+m_dTubeDia*0.5)-0.0000001))
+	if (dHoleXOffset>((m_dTubeLength+m_dTubeDia*0.5)-0.0000001))
 	{
 		AfxMessageBox(_T("X向偏移不能大于或等于管长度与孔半径之和。"));
 		return FALSE;
 	}
 	// 4.Z向偏移绝对值不能大于或等于管半径加孔半径判断
-	if (abs(m_dHoleZOffset)>((m_dTubeDia*0.5+m_dTubeDia*0.5)-0.0000001))
+	if (abs(dHoleZOffset)>((m_dTubeDia*0.5+m_dTubeDia*0.5)-0.0000001))
 	{
 		AfxMessageBox(_T("轴心偏移的绝对值不能大于或等于管半径与孔半径之和。"));
 		return FALSE;
 	}
 	// 5.孔直径必须小于管直径判断
-	if (m_dTubeDia<(m_dHoleDia+0.0000001))
+	if (m_dTubeDia<(dHoleDia+0.0000001))
 	{
 		AfxMessageBox(_T("孔直径必须小于管直径。"));
 		return FALSE;
 	}
 	// 6.X向偏移值不能等于孔半径
-	if (abs(m_dHoleXOffset-(m_dHoleDia*0.5))<0.0000001)
+	if (abs(dHoleXOffset-(dHoleDia*0.5))<0.0000001)
 	{
 		AfxMessageBox(_T("X向偏移值不能等于孔半径。"));
 		return FALSE;
@@ -172,7 +240,7 @@ void CBuildTubeDlg::OnBnClickedButtonHoleadd()
 	pHParam->m_dThroughAng = m_dHoleThroughAng;
 	pHParam->m_dHoleR = m_dHoleDia*0.5;
 	pHParam->m_dOffsetX = m_dHoleXOffset;
-	pHParam->m_dExRotAng = m_dHoleRotAng;
+	pHParam->m_dOrgRotAng = m_dHoleRotAng;
 	CHParamListCtrl.InsertItem(m_nHoleID,_T(""),0);
 
 	CString str;
@@ -259,7 +327,7 @@ void CBuildTubeDlg::OnBnClickedOk()
 			tmp->m_dOffsetX /= 1000.;
 			tmp->m_dOffsetZ /= 1000.;
 			tmp->m_dThroughAng = tmp->m_dThroughAng*PI/180.;
-			tmp->m_dOrgRotAng = tmp->m_dExRotAng;
+			tmp->m_dExRotAng = tmp->m_dOrgRotAng;
 			double ang = tmp->m_dExRotAng;
 			ang = 180.-ang;
 			if (ang<0.)
@@ -427,7 +495,45 @@ void CBuildTubeDlg::OnNMRClickListHParam(NMHDR *pNMHDR, LRESULT *pResult)
 
 void CBuildTubeDlg::OnEdit()
 {
+	if (CHParamListCtrl.GetSelectedCount() != 1)
+	{
+		AfxMessageBox(_T("请选中一行孔参数进行编辑。"));
+		return;
+	}
+	
+	POSITION pos = CHParamListCtrl.GetFirstSelectedItemPosition();
+	int nSelectID = CHParamListCtrl.GetNextSelectedItem(pos);
+	CHoleParam* pHParam = ( CHoleParam*)CHParamListCtrl.GetItemData(nSelectID);
+	if(NULL == pHParam)
+	{
+		AfxMessageBox(_T("当前孔参数错误，请重建文档。"));
+		return;
+	}
 
+	CEditHParamDlg dlg(this);
+	dlg.SetHParam(pHParam);
+	if (dlg.DoModal() == IDOK)
+	{
+		// TODO: 在此添加控件通知处理程序代码
+		CString str;
+		str.Format( _T("%d"), nSelectID+1 ) ;
+		CHParamListCtrl.SetItemText( nSelectID, 0, str ) ;
+		str.Format( _T("%f"), pHParam->m_dHoleR*2. ) ;
+		TrimZeroForCSring(str);
+		CHParamListCtrl.SetItemText( nSelectID, 1,str) ;
+		str.Format( _T("%f"), pHParam->m_dOffsetX ) ;
+		TrimZeroForCSring(str);
+		CHParamListCtrl.SetItemText( nSelectID, 2,str) ;
+		str.Format( _T("%f"), pHParam->m_dOffsetZ ) ;
+		TrimZeroForCSring(str);
+		CHParamListCtrl.SetItemText( nSelectID, 3,str) ;
+		str.Format( _T("%f"), pHParam->m_dThroughAng ) ;
+		TrimZeroForCSring(str);
+		CHParamListCtrl.SetItemText( nSelectID, 4,str) ;
+		str.Format( _T("%f"), pHParam->m_dOrgRotAng ) ;
+		TrimZeroForCSring(str);
+		CHParamListCtrl.SetItemText( nSelectID, 5,str) ;
+	}
 }
 
 void CBuildTubeDlg::OnDelete()
@@ -457,4 +563,11 @@ void CBuildTubeDlg::OnDelete()
 		str.Format( _T("%d"), nID+1 ) ;
 		CHParamListCtrl.SetItemText( nID, 0, str) ;
 	}
+}
+
+void CBuildTubeDlg::OnNMDblclkListHparam(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	OnEdit();
+	*pResult = 0;
 }

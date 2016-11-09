@@ -32,7 +32,6 @@ CHoleParam::CHoleParam()
 CHoleParam::~CHoleParam()
 {
 };
-
 CHCombParam* CHoleParam::GetParentComb()
 {
 	return m_pParentComb;
@@ -41,6 +40,28 @@ void CHoleParam::SetParentComb(CHCombParam* pParentComb)
 {
 	m_pParentComb = pParentComb;
 }
+CHoleParam* CHoleParam::CopySelf()
+{
+	CHoleParam* pCpy = new CHoleParam;
+	pCpy->m_dHoleR = m_dHoleR;        
+	pCpy->m_dExRotAng = m_dExRotAng;
+	pCpy->m_dOrgRotAng = m_dOrgRotAng;
+	pCpy->m_dOffsetX = m_dOffsetX; 
+	pCpy->m_dOffsetZ = m_dOffsetZ;
+	pCpy->m_dThroughAng = m_dThroughAng;
+	pCpy->m_nAddOrder = m_nAddOrder; 
+	pCpy->m_nExOrder = m_nExOrder;  
+	for (int i=0; i<3; i++)
+	{
+		pCpy->m_dThroughVec[i] = m_dThroughVec[i];
+	}
+
+	pCpy->m_pParentComb = m_pParentComb;     
+	pCpy->m_bChanged = m_bChanged;      
+	pCpy->m_dChangedVal = m_dChangedVal;  
+	return pCpy;
+}
+;
 
 //////////////////////////////////////////////////////////////////////////
 

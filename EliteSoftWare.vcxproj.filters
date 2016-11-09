@@ -63,6 +63,7 @@
     <ClCompile Include="EliteSoftWare_i.c">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="EditHParamDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\MathBase.h">
@@ -107,6 +108,7 @@
     <ClInclude Include="Resource\resource.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
+    <ClInclude Include="EditHParamDlg.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\BitmapHandler.rgs">

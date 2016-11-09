@@ -76,6 +76,7 @@
 #define IDC_STATIC_PIC_RANG             226
 #define IDR_MENU_HOLE_EDIT              226
 #define IDC_STATIC_PIC_HDIA             227
+#define IDD_DIALOG_HPARAM_EDIT          227
 #define IDC_STATIC_PIC_TANG             228
 #define IDC_STATIC_PIC_TLEN             229
 #define IDC_STATIC_PIC_TTHK             230
@@ -97,7 +98,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        227
+#define _APS_NEXT_RESOURCE_VALUE        228
 #define _APS_NEXT_COMMAND_VALUE         32772
 #define _APS_NEXT_CONTROL_VALUE         240
 #define _APS_NEXT_SYMED_VALUE           114

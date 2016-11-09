@@ -51,16 +51,15 @@ public:
 	CHCombParam* m_pHCombParam; // 当前文档孔参数集合
 	int  m_nHoleID;             // 孔ID
 	BOOL m_bBulidTube;          // 标记管件是否已经创建
-	CBrush m_CtrBrush;  
-	CFont  m_CtrFont;//字体
-	int m_nCurCtrID; // 当前激活的控件ID
+	int m_nCurCtrID;  // 当前激活的控件ID
+	BOOL m_bEditMode; // 是否为编辑参数状态
 	//////////////////////////////////////////////////////////////////////////
-	CMenu m_cMenu ;
+	CMenu m_cMenu ; // 右键菜单
 
 public:
 	// 接口函数
 	//////////////////////////////////////////////////////////////////////////
-	BOOL CheckParam();  // 用于检验参数合理性
+	BOOL CheckParam(BOOL bEditMode = FALSE, CHoleParam* pHParam = NULL);// 用于检验参数合理性
 	void SetHParamList(CHCombParam* pHCombList); 
 	void CorrectParams(); //对路径参数组进行参数调整
 	virtual BOOL OnInitDialog();	
@@ -93,4 +92,5 @@ public:
 	afx_msg void OnEnSetfocusEditHolerotang();
 	afx_msg void OnEnKillfocusEditHolerotang();
 	afx_msg void OnNMRClickListHParam(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMDblclkListHparam(NMHDR *pNMHDR, LRESULT *pResult);
 };

@@ -24,6 +24,7 @@
     <ClCompile Include="Dialog\BuildTubeDlg.cpp" />
     <ClCompile Include="Dialog\CutParamDlg.cpp" />
     <ClCompile Include="Dialog\ExportDlg.cpp" />
+    <ClCompile Include="EditHParamDlg.cpp" />
     <ClCompile Include="EliteSoftWare_i.c" />
     <ClCompile Include="Source Files\BitmapHandler.cpp" />
     <ClCompile Include="Source Files\DocView.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="Dialog\BuildTubeDlg.h" />
     <ClInclude Include="Dialog\CutParamDlg.h" />
     <ClInclude Include="Dialog\ExportDlg.h" />
+    <ClInclude Include="EditHParamDlg.h" />
     <ClInclude Include="EliteSoftWare_i.h" />
     <ClInclude Include="Header Files\BitmapHandler.h" />
     <ClInclude Include="Header Files\DocView.h" />
