@@ -9,7 +9,7 @@
 #pragma once
 
 const double CVALUE = 0.01;
-const double PI = 3.1415926536;
+const double PI = 3.1415926535898;
 #define MIN_DBL 1.0e-10
 #define MAX_DBL 1.0e+10
 #define MIN_LEN 1.0e-8
@@ -59,11 +59,11 @@ double mathDis3D(PNT3D pt1, PNT3D pt2);
 //////////////////////////////////////////////////////////////////////////
 // 将向量绕着轴axis和点pivot旋转角度angle，得到旋后的向量rot_v
 //////////////////////////////////////////////////////////////////////////
-void mathRotVec(VEC3D axis,   // [IN] 旋转轴方向
-				PNT3D pivot,  // [IN] 旋转轴过点
-				double angle, // [IN] 旋转角度
-				VEC3D v,      // [IN] 原始向量
-				VEC3D rot_v); // [OUT]旋转后向量
+void mathRotVec(VEC3D  axis,   // [IN] 旋转轴方向
+				PNT3D  pivot,  // [IN] 旋转轴过点
+				double angle,  // [IN] 旋转角度
+				VEC3D  v,      // [IN] 原始向量
+				VEC3D  rot_v); // [OUT]旋转后向量
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -80,23 +80,24 @@ void mathPrjPntLin(PNT3D p,      // [IN]  原始点
 //////////////////////////////////////////////////////////////////////////
 // 将点p绕轴经过pivot点的旋转轴axis旋转
 //////////////////////////////////////////////////////////////////////////
-void mathRotPnt(VEC3D axis,   // [IN] 旋转轴方向
-				PNT3D pivot,  // [IN] 旋转轴过点
-				double angle, // [IN] 旋转角度
-				PNT3D p,      // [IN] 原始点
-				PNT3D rot_p); // [OUT]旋转后的点
+void mathRotPnt(VEC3D  axis,   // [IN] 旋转轴方向
+				PNT3D  pivot,  // [IN] 旋转轴过点
+				double angle,  // [IN] 旋转角度
+				PNT3D  p,      // [IN] 原始点
+				PNT3D  rot_p); // [OUT]旋转后的点
 //////////////////////////////////////////////////////////////////////////
 
 
 //////////////////////////////////////////////////////////////////////////
 // 将坐标系绕轴经过p点的旋转轴axis旋转
 //////////////////////////////////////////////////////////////////////////
-void mathRotateRFrame(PNT3D p,     // [IN]	   旋转轴过点
-					  VEC3D axis,  // [IN]	   旋转轴
-					  double angle,// [IN]     旋转角度
-					  RFRAME& pLF);// [IN&OUT] 输入和输出坐标系
+void mathRotateRFrame(PNT3D   p,     // [IN]	   旋转轴过点
+					  VEC3D   axis,  // [IN]	   旋转轴
+					  double  angle, // [IN]     旋转角度
+					  RFRAME& pLF);  // [IN&OUT] 输入和输出坐标系
 //////////////////////////////////////////////////////////////////////////
 
+void mathRevVec(VEC3D v);
 
 //////////////////////////////////////////////////////////////////////////
 // 初始化坐标系
@@ -137,6 +138,7 @@ void mathTransLocalPnt3D(RFRAME& local_frame, // [IN] 局部坐标系
 void mathVProduct(VEC3D v1, VEC3D v2, VEC3D rtvec);
 //////////////////////////////////////////////////////////////////////////
 
+double mathOProduct(VEC3D v1, VEC3D v2);
 
 //////////////////////////////////////////////////////////////////////////
 // 单位化向量
@@ -191,3 +193,5 @@ double mathASin(double sinAlfa);
 //////////////////////////////////////////////////////////////////////////
 double mathGetAngle(VEC3D v1, VEC3D v2, double min_len);
 //////////////////////////////////////////////////////////////////////////
+
+void mathMatxRFrameToRFrame (RFRAME& ucs1, RFRAME& ucs2, double matrix[4][4]);

@@ -26,6 +26,7 @@
     <ClCompile Include="Dialog\ExportDlg.cpp" />
     <ClCompile Include="EditHParamDlg.cpp" />
     <ClCompile Include="EliteSoftWare_i.c" />
+    <ClCompile Include="posinv6.cpp" />
     <ClCompile Include="Source Files\BitmapHandler.cpp" />
     <ClCompile Include="Source Files\DocView.cpp" />
     <ClCompile Include="Source Files\EliteSoftWare.cpp" />

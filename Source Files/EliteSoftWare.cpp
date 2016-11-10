@@ -428,10 +428,19 @@ STDMETHODIMP CEliteSoftWare::ToolbarBuildTube(void)
     BuildTubeAndHole();
 	return S_OK;
 }
-
+//extern  void axis6_joint2matrix(double matrix[][4],double af[]);
+//extern void axis6_matrix2joint(double xp_joint[],double T[4][4],int outside);
 // 参数化创建管件
+
 void CEliteSoftWare::BuildTubeAndHole()
 {
+//  	double a[4][4];
+//  	double b[6]={0,-90,0,0,90,0};
+//  	axis6_joint2matrix(a,b);
+//  	a[0][3] = 1050;
+//  	double d[6]={0,-90,0,0,90,0};
+//  	int c = 0;
+//  	axis6_matrix2joint(b,a,c);
 	long docType = -1;
 	CComPtr<IModelDoc2> iSwModel;
 	iSwApp->get_IActiveDoc2(&iSwModel);
@@ -711,7 +720,7 @@ void CEliteSoftWare::TransWorldPathComb(RFRAME& local_frame, LPathCombList &Path
 	}
 }
 
-// 将路径组中每条路径的点坐标从世界坐标系转换到局部坐标系中
+// 将路径组中每条路径的点坐标从局部坐标系转换到世界坐标系中
 void CEliteSoftWare::TransLocalPathComb(RFRAME& local_frame, LPathCombList &PathCombList)
 {
 	POSITION nPCombPos = PathCombList.GetHeadPosition();
@@ -754,7 +763,7 @@ void CEliteSoftWare::TransWorldPath(RFRAME& local_frame, CMovePath* pMovePath)
 	}
 }
 
-// 将一条路径点坐标从世界坐标系转换到局部坐标系中
+// 将一条路径点坐标从局部坐标系转换到世界坐标系中
 void CEliteSoftWare::TransLocalPath(RFRAME& local_frame, CMovePath* pMovePath)
 {
 	if (NULL == pMovePath)
@@ -827,7 +836,7 @@ void CEliteSoftWare::SetExportRFrame(RFRAME& _export_rframe)
 	if (NULL == pHCombParam)
 		return;
 	mathInitRFrame(_export_rframe);
-	_export_rframe.O[2] = -pHCombParam->m_dTubeDia*0.5;
+//	_export_rframe.O[2] = -pHCombParam->m_dTubeDia*0.5;
 }
 
 // 绘制整个文档所有路径
@@ -1099,7 +1108,9 @@ void CEliteSoftWare::SetPCombExOrder(CPathCombList* pPathCombs, int nOrder)
 		tmpPaths.RemoveAll();
 	}
 }
-
+extern void GenToolPosToJoint(PNT3D cutPnt, VEC3D cutVec, VEC3D toolVec, double dJoint[6], int& outside, double ToolRotaMatrix[4][4]);
+extern void axis6_joint2matrix(double matrix[][4],double af[]);
+extern void Matrix2pose(double pos[6], double matrix[][4]);
 // 路径输出
 void CEliteSoftWare::ExportPathToTXT()
 {
@@ -1144,6 +1155,23 @@ void CEliteSoftWare::ExportPathToTXT()
 
 	//将当前路径坐标变换到输出坐标系中。
 	TransWorldPathComb(exportFrame, pCpyPCombs->m_LPathCombList);
+	RFRAME baseFrame; // 机器人坐标系
+	baseFrame.X[0] = 0;
+	baseFrame.X[1] = 1;
+	baseFrame.X[2] = 0;
+
+	baseFrame.Y[0] = 1;
+	baseFrame.Y[1] = 0;
+	baseFrame.Y[2] = 0;
+
+	baseFrame.Z[0] = 0;
+	baseFrame.Z[1] = 0;
+	baseFrame.Z[2] = 1;
+
+	baseFrame.O[0] = 0.;
+	baseFrame.O[1] = -0.6;
+	baseFrame.O[2] = -0.6;
+
 
 	//设置路径输出顺序
 	SetPCombExOrder(pCpyPCombs, m_nExportOrder);
@@ -1194,12 +1222,47 @@ void CEliteSoftWare::ExportPathToTXT()
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////
+	TransWorldPathComb(baseFrame, pCpyPCombs->m_LPathCombList);
+	
+	VEC3D toolvec = {1,0,0};
+	double dJoint[6] = {0,-90,0,0,90,0};
+	int outside = 0;
+	pcPos = pCpyPCombs->m_LPathCombList.GetHeadPosition();
+	while(pcPos)
+	{
+		CPathComb* pPathComb = pCpyPCombs->m_LPathCombList.GetNext(pcPos);
+		if (NULL == pPathComb)
+			continue;
 
+		POSITION pos = pPathComb->m_PathList.GetHeadPosition();
+		while(pos)
+		{
+			CMovePath* pMovePath = (CMovePath*)pPathComb->m_PathList.GetNext(pos);
+			if (NULL == pMovePath)
+				continue;
+			POSITION nodePos = pMovePath->m_PathNodeList.GetHeadPosition();
+			while (nodePos)
+			{
+				CPathNode* pNode = pMovePath->m_PathNodeList.GetNext(nodePos);
+				if(NULL == pNode)
+					continue;
+				double matrix[4][4]; 
+				GenToolPosToJoint(pNode->m_OffsetPosition, pNode->m_OffsetDirection, toolvec, dJoint, outside,matrix );
+				double matrix2[4][4];
+				axis6_joint2matrix(matrix2,dJoint);
+				double posi[6] = {0,0,0,0,0,0};
+				Matrix2pose(posi, matrix2);
+				int a = 0;
+			}
+		}
+	}
+
+	//GenToolPosToJoint(PNT3D cutPnt, VEC3D cutVec, VEC3D toolVec, double dJoint[6], int& outside )
 	// 绘制路径和输出坐标系(测试用)
 	//////////////////////////////////////////////////////////////////////////
-	// DrawPathCombs(pCpyPCombs);
+	 DrawPathCombs(pCpyPCombs);
 	// DrawRFrame(exportFrame);
-	// return;
+	 return;
 	//////////////////////////////////////////////////////////////////////////
 
 	BOOL bIsOpen = FALSE;                                 //是否打开(否则为保存)  

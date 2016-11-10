@@ -63,7 +63,12 @@
     <ClCompile Include="EliteSoftWare_i.c">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="EditHParamDlg.cpp" />
+    <ClCompile Include="EditHParamDlg.cpp">
+      <Filter>Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="posinv6.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\MathBase.h">
@@ -108,7 +113,9 @@
     <ClInclude Include="Resource\resource.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="EditHParamDlg.h" />
+    <ClInclude Include="EditHParamDlg.h">
+      <Filter>Dialog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\BitmapHandler.rgs">
