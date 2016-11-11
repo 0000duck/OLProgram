@@ -758,8 +758,9 @@ void CEliteSoftWare::TransWorldPath(RFRAME& local_frame, CMovePath* pMovePath)
 
 		mathTransWorldPnt3D(local_frame,pPathNode->m_OffsetPosition,pPathNode->m_OffsetPosition);
 		mathTransWorldVec3D(local_frame,pPathNode->m_OffsetDirection,pPathNode->m_OffsetDirection);
-		mathUniVec(pPathNode->m_OffsetDirection);
-		mathUniVec(pPathNode->m_OrgDirection);
+		pPathNode->FixValue();
+	//	mathUniVec(pPathNode->m_OffsetDirection);
+	//	mathUniVec(pPathNode->m_OrgDirection);
 	}
 }
 
@@ -780,8 +781,9 @@ void CEliteSoftWare::TransLocalPath(RFRAME& local_frame, CMovePath* pMovePath)
 
 		mathTransLocalPnt3D(local_frame,pPathNode->m_OffsetPosition,pPathNode->m_OffsetPosition);
 		mathTransLocalVec3D(local_frame,pPathNode->m_OffsetDirection,pPathNode->m_OffsetDirection);
-		mathUniVec(pPathNode->m_OffsetDirection);
-		mathUniVec(pPathNode->m_OrgDirection);
+		pPathNode->FixValue();
+	//	mathUniVec(pPathNode->m_OffsetDirection);
+	//	mathUniVec(pPathNode->m_OrgDirection);
 	}
 }
 
@@ -1260,9 +1262,9 @@ void CEliteSoftWare::ExportPathToTXT()
 	//GenToolPosToJoint(PNT3D cutPnt, VEC3D cutVec, VEC3D toolVec, double dJoint[6], int& outside )
 	// 绘制路径和输出坐标系(测试用)
 	//////////////////////////////////////////////////////////////////////////
-	 DrawPathCombs(pCpyPCombs);
+	// DrawPathCombs(pCpyPCombs);
 	// DrawRFrame(exportFrame);
-	 return;
+	// return;
 	//////////////////////////////////////////////////////////////////////////
 
 	BOOL bIsOpen = FALSE;                                 //是否打开(否则为保存)  
@@ -1299,6 +1301,9 @@ void CEliteSoftWare::ExportPathToTXT()
 	}
 
 	ofstream fout(filePath);
+	fout.setf(ios::fixed, ios::floatfield);  // 设定为 fixed 模式，以小数点表示浮点数
+	fout.precision(6); 
+
 	int nPathCombId = 1;
 	int nPathCombCount = (int)pCpyPCombs->m_LPathCombList.GetCount();
 	std::string str = CStringA(sCurrentFileName); 

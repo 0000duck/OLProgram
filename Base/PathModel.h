@@ -101,17 +101,16 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// 坡口切割路径的刀具悬空点
 	PNT3D m_OffsetPosition;   // 根据坡口宽度偏移后的路径点坐标
-	//PNT3D m_OffsetDrawEndPnt; // 绘制标识段末点
 
 	// 孔边缘原始点的刀具悬空点
 	PNT3D m_OrgCutPosition;   // 增加刀头悬空距离后的孔边缘点
-	//PNT3D m_OrgCutDrawEndPnt; // 增加刀头悬空距离后的孔边缘标识段末点
 	//////////////////////////////////////////////////////////////////////////
 public:
 	void Init();
 	CPathNode* CopySelf();
 	// bflag 为0时，计算原始点drawend，为1时，计算偏移点drawend。
 	void GetDrawEnd(int nFlag, PNT3D dDrawPt, double dLength = 0.005);
+	void FixValue();
 };
 // 一条路径（如一个孔的切割路径）
 typedef CTypedPtrList<CPtrList, CPathNode*> LNodeList; 

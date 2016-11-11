@@ -391,6 +391,7 @@ void axis6_joint2matrix(double matrix[][4],double af[])
     MULmatrix(matrix, toolmatrix,tempmatrix);
     memcpy(matrix,tempmatrix,sizeof(double)*16);
 }
+
 void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
 {
     double px=0.0,py=0.0,pz=0.0;
@@ -431,22 +432,28 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
     // GetMatrix(L,toolmatrix);
 
 
-    for (i = 0; i <4; i++){
-        for (j = 0; j <4; j++){
+    for (i = 0; i <4; i++)
+	{
+        for (j = 0; j <4; j++)
+		{
             tempLine[i*4+j] = toolmatrix[i][j];
         }
     }
 
     matrixInver(tempLine,invLine,4);
 
-    for (i = 0; i < 4; i++){
-        for (j = 0; j <4; j++){
+    for (i = 0; i < 4; i++)
+	{
+        for (j = 0; j <4; j++)
+		{
             inverse_matrix[i][j] = invLine[i*4+j];
         }
     }
 
-    for(i=0;i<4;i++){
-        for(j=0;j<4;j++){
+    for(i=0;i<4;i++)
+	{
+        for(j=0;j<4;j++)
+		{
             temp[i][j]=inverse_matrix[i][j];
         }
     }
@@ -485,9 +492,12 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
     Ra[0]=AtanX(Ra[0],range[0]);
     Fa[0]=AtanX(Fa[0],range[0]);
     Ta[0]=SelectAngle(Ra[0],Fa[0],xp_joint[0]);
-    if ( (Ta[0]>=min_ang[0])&&(Ta[0]<=max_ang[0]) ){
+    if ( (Ta[0]>=min_ang[0])&&(Ta[0]<=max_ang[0]) )
+	{
         xp_joint[0]=Ta[0]*anglePerRadian;
-    } else{
+    }
+	else
+	{
         outside|=0x01;
     }
 
@@ -503,7 +513,8 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
     m=a3Square+d4Square-uSquare-vSquare-a2Square;
     m=-0.5*m/g_a2;
     genhao=vSquare+uSquare-m*m;
-    if ( genhao>=0 ){
+    if ( genhao>=0 )
+	{
         At2_VU = atan2(-v,u);
         At2SgM = atan2(sqrt(genhao),m);
         Ra[1]=At2_VU+At2SgM;
@@ -512,12 +523,17 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
         Fa[1]=AtanX(Fa[1],range[1]);
         Ta[1]=SelectAngle(Ra[1],Fa[1],xp_joint[1]);
 
-        if ( (Ta[1]>=min_ang[1])&&(Ta[1]<=max_ang[1]) ){
+        if ( (Ta[1]>=min_ang[1])&&(Ta[1]<=max_ang[1]) )
+		{
             xp_joint[1]=Ta[1]*anglePerRadian;
-        } else{
+        } 
+		else
+		{
             outside|=0x02;
         }
-    } else{
+    } 
+	else
+	{
         outside|=0x02;
     }
 
@@ -526,7 +542,8 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
     m=-m/(2*g_a2);
     genhao=d4Square+a3Square-m*m;
 
-    if ( genhao>=0 ){
+    if ( genhao>=0 )
+	{
         At2_D4A3= atan2(zya,zyb);
         At2SgM = atan2(sqrt(genhao),m);
         Ra[2]=At2_D4A3+At2SgM;
@@ -536,10 +553,14 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
         Ta[2]=SelectAngle(Ra[2],Fa[2],xp_joint[2]);
         if ( (Ta[2]>=min_ang[2])&&(Ta[2]<=max_ang[2]) ){
             xp_joint[2]=Ta[2]*anglePerRadian;
-        } else{
+        } 
+		else
+		{
             outside|=0x04;
         }
-    } else{
+    } 
+	else
+	{
         outside|=0x04;
     }
 
@@ -580,22 +601,31 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
         Ta[3]=SelectAngle(Ra[3],Fa[3],xp_joint[3]);
         if ( Ta[3]==Fa[3]){
             Ta[4]=Fa[4];
-        } else{
+        } 
+		else
+		{
             Ta[4]=Ra[4];
         }
-        if ( (Ta[3]>=min_ang[3])&&(Ta[3]<=max_ang[3]) ){
+        if ( (Ta[3]>=min_ang[3])&&(Ta[3]<=max_ang[3]) )
+		{
             xp_joint[3]=Ta[3]*anglePerRadian;
-        } else{
+        }
+		else
+		{
             outside|=0x08;
         }
     }
-    else{
+    else
+	{
         Ta[3]=xp_joint[3]*radianPerAngle;
         xp_joint[3]=xp_j1;
     }
-    if ( (Ta[4]>=min_ang[4])&&(Ta[4]<=max_ang[4]) ){
+    if ( (Ta[4]>=min_ang[4])&&(Ta[4]<=max_ang[4]) )
+	{
         xp_joint[4]=Ta[4]*anglePerRadian;
-    } else{
+    } 
+	else
+	{
         outside|=0x10;
     }
 
@@ -618,9 +648,12 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
     Fa[5]=AtanX(Fa[5],range[5]);
     Ta[5]=SelectAngle(Ra[5],Fa[5],xp_j3);
 
-    if ( (Ta[5]>=min_ang[5])&&(Ta[5]<=max_ang[5]) ){
+    if ( (Ta[5]>=min_ang[5])&&(Ta[5]<=max_ang[5]) )
+	{
         xp_joint[5]=Ta[5]*anglePerRadian;
-    } else{
+    } 
+	else
+	{
         outside|=0x20;
     }
 }

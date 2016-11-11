@@ -160,6 +160,36 @@ void CPathNode::GetDrawEnd(int nFlag, PNT3D dDrawPt, double dLength)
 		}
 	}
 }
+
+void CPathNode::FixValue()
+{
+	mathUniVec(m_OrgDirection);
+	mathUniVec(m_OffsetDirection);
+	for (int i=0; i<3; i++)
+	{
+		if (abs(m_OrgPosition[i])<MIN_LEN)
+		{
+			m_OrgPosition[i] = 0.;
+		}
+		if (abs(m_OrgDirection[i])<MIN_LEN)
+		{
+			m_OrgDirection[i] = 0.;
+		}
+		if (abs(m_OffsetDirection[i])<MIN_LEN)
+		{
+			m_OffsetDirection[i] = 0.;
+		}
+		if (abs(m_OffsetPosition[i])<MIN_LEN)
+		{
+			m_OffsetPosition[i] = 0.;
+		}
+		if (abs(m_OrgCutPosition[i])<MIN_LEN)
+		{
+			m_OrgCutPosition[i] = 0.;
+		}			
+	}
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 
