@@ -106,6 +106,8 @@ TMapIUnknownToDocument OpenDocumentsTable() { return openDocs; }
 	void TransLocalPath(RFRAME& local_frame, CMovePath* pMovePath);
 	BOOL CheckTransFrame(RFRAME& local_frame, LPathCombList &PathCombList);
 	void ExportPathToTXT(); // 输出路径
+	void PathCheck(); // 检查路径合理性
+	void TransPathToWRFrame(CMovePath* pMovePath);// 将路径变换到输出坐标系中
 	void SetExportRFrame(RFRAME& _export_rframe); // 设置输出坐标系
 	CHCombParam*   GetCurHoleParam(); // 获取当前激活文档的管参数
 	CPathCombList* GetCurPComb();      // 获取当前激活文档的路径集合

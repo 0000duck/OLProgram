@@ -204,6 +204,7 @@ CMovePath::CMovePath()
 	m_pHoleParam = NULL;
 	m_bHolePrecut = TRUE;
 	m_bStrHole = FALSE;
+	m_dFixAng = 0.;
 }
 
 CMovePath::~CMovePath()
@@ -358,6 +359,7 @@ CMovePath* CMovePath::CopySelf()
 	pMovePath->m_bHolePrecut = m_bHolePrecut;
 	pMovePath->m_bStrHole = m_bStrHole;
 	pMovePath->m_nRefId = m_nRefId;
+	pMovePath->m_dFixAng = m_dFixAng;
 	POSITION pos = m_PathNodeList.GetHeadPosition();
 	while(pos)
 	{

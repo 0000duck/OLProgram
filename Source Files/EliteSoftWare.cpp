@@ -1119,7 +1119,186 @@ void CEliteSoftWare::SetPCombExOrder(CPathCombList* pPathCombs, int nOrder)
 
 extern void axis6_joint2matrix(double matrix[][4],double af[]);
 extern void Matrix2pose(double pos[6], double matrix[][4]);
+
+void CEliteSoftWare::TransPathToWRFrame(CMovePath* pMovePath)
+{
+	//根据水平的X偏移和转动角度，求出对应的坐标
+	double dOffsetX = pMovePath->GetOffsetX(); //输入：X轴向偏移距离
+	double dRotAng = PI-pMovePath->GetExRotAng();//输入：管旋转的角度
+	VEC3D RFrameOffset;
+	RFrameOffset[0] = dOffsetX;
+	RFrameOffset[1] = 0.; // 偏移向量随着输出坐标系改变而改变
+	RFrameOffset[2] = 0.; // 偏移向量随着输出坐标系改变而改变
+
+	//创建新的坐标系，用于平移旋转。
+	RFRAME ChangeFrame;
+	mathInitRFrame(ChangeFrame);
+	//step0:沿X轴平移新的坐标系
+	mathMoveRFrame(RFrameOffset,ChangeFrame);
+	//step1:将路径点坐标从基线坐标系转换到沿X轴平移后的坐标系。
+	TransWorldPath(ChangeFrame, pMovePath);
+	//step2:将平移后的坐标系旋转dRotAng，路径点跟着旋转，所以旋转后点坐标不发生改变。
+	double tmpAng = mathASin(pMovePath->GetHParam()->m_dOffsetZ/pMovePath->GetTubeR());
+	double dRealRotAng = tmpAng-pMovePath->m_dFixAng*PI/180.+dRotAng;
+	mathRotateRFrame(ChangeFrame.O,ChangeFrame.X,dRealRotAng,ChangeFrame);
+	//step3:将旋转后的坐标系中的路径点坐标转换到基线坐标系中。
+	TransLocalPath(ChangeFrame,pMovePath);
+	//step4:将基线坐标系中的坐标转换到平移X后的坐标系中。
+	VEC3D offsetX= {dOffsetX,0.,0.};
+	mathInitRFrame(ChangeFrame);
+	mathMoveRFrame(offsetX,ChangeFrame);
+	TransWorldPath(ChangeFrame, pMovePath);
+}
+
 // 路径输出
+void CEliteSoftWare::PathCheck()
+{
+	long docType = -1;
+	CComPtr<IModelDoc2> iSwModel;
+	iSwApp->get_IActiveDoc2(&iSwModel);
+	if(iSwModel != NULL)
+	{
+		iSwModel->GetType(&docType);
+	}
+	if (docType != swDocPART && docType != swDocASSEMBLY)
+	{
+		AfxMessageBox(_T("打开的不是零件"),MB_OK|MB_ICONINFORMATION);
+		iSwModel = NULL;
+		return ;
+	}
+
+	// 获取当前文档路径数据
+	CPathCombList* pPathCombList = GetCurPComb();
+	if(NULL == pPathCombList)
+	{
+		AfxMessageBox(_T("请先计算切割路径。"));
+		return;
+	}
+	RFRAME robFrame; 
+	robFrame.X[0] = 0;
+	robFrame.X[1] = 1;
+	robFrame.X[2] = 0;
+
+	robFrame.Y[0] = 1;
+	robFrame.Y[1] = 0;
+	robFrame.Y[2] = 0;
+
+	robFrame.Z[0] = 0;
+	robFrame.Z[1] = 0;
+	robFrame.Z[2] = 1;
+
+	robFrame.O[0] = 0.;
+	robFrame.O[1] = -0.6;
+	robFrame.O[2] = -0.6;
+	DrawRFrame(robFrame);
+
+	VEC3D toolvec = {1,0,0};//工具姿态，暂时固定为1，0，0
+	double dJoints[6] = {0,-90,0,0,90,0}; //初始关节角姿态，可以调整，或根据现场实际情况获取
+
+	DWORD timeSt, timeEnd;
+	timeSt = GetTickCount();
+	double dFixAng = 0.;
+	// 拷贝路径，防止输出路径时，改变当前文档中的原始路径数据。
+	CPathCombList* pCpyPCombs = pPathCombList->CopySelf();
+	// 路径坐标系变换（此时将世界坐标系下的路径进行变换，最后变回到输出坐标系中）
+	//////////////////////////////////////////////////////////////////////////
+	POSITION pcPos = pCpyPCombs->m_LPathCombList.GetHeadPosition();
+	while(pcPos)
+	{
+		CPathComb* pPathComb = pCpyPCombs->m_LPathCombList.GetNext(pcPos);
+		if (NULL == pPathComb)
+			continue;
+
+		POSITION pos = pPathComb->m_PathList.GetHeadPosition();
+		while(pos)
+		{
+			CMovePath* pMovePath = (CMovePath*)pPathComb->m_PathList.GetAt(pos);
+			if (NULL == pMovePath)
+				continue;
+			BOOL bSuccess = TRUE;
+			CMovePath* pCpyPath = pMovePath->CopySelf();
+			TransPathToWRFrame(pCpyPath);
+			
+			// 将世界坐标系中的路径坐标变换到机器人坐标中
+			TransWorldPath(robFrame,pCpyPath);
+		//	DrawMovePath(pCpyPath,pMovePath->m_bHolePrecut);
+		//	break;
+			BOOL bflag = FALSE;
+			POSITION nodePos = pCpyPath->m_PathNodeList.GetHeadPosition();
+			while (nodePos)
+			{
+				CPathNode* pNode = pCpyPath->m_PathNodeList.GetNext(nodePos);
+				if(NULL == pNode)
+					continue;
+				double matrix[4][4]; 
+				int nErrFlag = ERR_OUTOFRANGE_NONE; // 返回错误代码
+				GenToolPosToJoint(pNode->m_OffsetPosition, pNode->m_OffsetDirection, toolvec, dJoints, nErrFlag,matrix );
+				if (nErrFlag != ERR_OUTOFRANGE_NONE)
+				{
+					bSuccess = FALSE;
+					break;
+				}
+				continue;
+				// 正解验证数据正确性
+				//////////////////////////////////////////////////////////////////////////
+				/*double matrix2[4][4];
+				axis6_joint2matrix(matrix2,dJoints);
+				double posi[6] = {0,0,0,0,0,0};
+				Matrix2pose(posi, matrix2);*/
+				//////////////////////////////////////////////////////////////////////////
+			}
+			if (NULL != pCpyPath)
+			{
+				delete pCpyPath;
+				pCpyPath = NULL;
+			}
+			if (!bSuccess)
+			{
+				dFixAng += 1.;
+				if (dFixAng>(359.+MIN_LEN))
+				{
+					AfxMessageBox(_T("当前孔无法进行切割。"));
+					pPathComb->m_PathList.GetNext(pos);
+				}
+				continue;
+			}
+			// 将当前dFixAng赋给pMovePath。			
+			pMovePath->m_dFixAng = dFixAng;
+			TransPathToWRFrame(pMovePath);
+
+			DrawMovePath(pMovePath,pMovePath->m_bHolePrecut);
+			dFixAng = 0.;
+			pPathComb->m_PathList.GetNext(pos);
+		}
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////
+	// 逆解机器人关节角（测试部分）
+	//////////////////////////////////////////////////////////////////////////
+
+	// 机器人坐标系，检测之前，用户需要明确机器人和用户（即输出）坐标系的位置关系
+	
+	
+
+	//DrawPathCombs(pCpyPCombs);
+	//DrawRFrame(exportFrame);
+	//return;
+
+	timeEnd = GetTickCount();
+	CString s ;
+	s.Format(_T("时间: %lld ms\n"), timeEnd - timeSt);
+	AfxMessageBox(s);
+	//////////////////////////////////////////////////////////////////////////
+
+	// 绘制路径和输出坐标系(测试用)
+	//////////////////////////////////////////////////////////////////////////
+	//	 DrawPathCombs(pCpyPCombs);
+	//	 DrawRFrame(baseFrame);
+	return;
+	//////////////////////////////////////////////////////////////////////////
+}
+
 void CEliteSoftWare::ExportPathToTXT()
 {
 	long docType = -1;
@@ -1143,7 +1322,8 @@ void CEliteSoftWare::ExportPathToTXT()
 		AfxMessageBox(_T("请先计算切割路径。"));
 		return;
 	}
-
+	PathCheck();
+	return;
 	// 设置路径输出顺序
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	CExportDlg dlg;
@@ -1154,17 +1334,8 @@ void CEliteSoftWare::ExportPathToTXT()
 	m_nExportOrder = dlg.m_nExportOrder ;
 	m_dFixAng = dlg.m_dFixAng;
 
-	DWORD timeSt, timeEnd;
-	timeSt = GetTickCount();
 	// 拷贝路径，防止输出路径时，改变当前文档中的原始路径数据。
 	CPathCombList* pCpyPCombs = pPathCombList->CopySelf();
-
-	
-
- //	//将当前路径坐标变换到输出坐标系中。
- //	TransWorldPathComb(exportFrame, pCpyPCombs->m_LPathCombList);
-
-
 	//设置路径输出顺序
 	SetPCombExOrder(pCpyPCombs, m_nExportOrder);
 
@@ -1186,7 +1357,6 @@ void CEliteSoftWare::ExportPathToTXT()
 
 			//根据水平的X偏移和转动角度，求出对应的坐标
 			double dOffsetX = pMovePath->GetOffsetX(); //输入：X轴向偏移距离
-			//double dOffsetZ = pMovePath->GetTubeR();   // Z向偏移为大管的半径
 			double dRotAng = PI-pMovePath->GetExRotAng();//输入：管旋转的角度
 			VEC3D RFrameOffset;
 			RFrameOffset[0] = dOffsetX;
@@ -1214,9 +1384,7 @@ void CEliteSoftWare::ExportPathToTXT()
 		}
 	}
 
-	//////////////////////////////////////////////////////////////////////////
 	// 将当前路径坐标变换到输出坐标系中。
-	//////////////////////////////////////////////////////////////////////////
 	// 设置输出坐标系
 	RFRAME exportFrame;//坐标系值为相对于SW世界坐标系的值
 	SetExportRFrame(exportFrame);
@@ -1224,125 +1392,11 @@ void CEliteSoftWare::ExportPathToTXT()
 	TransWorldPathCombs(exportFrame, pCpyPCombs);
 	//////////////////////////////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////////////////////////////
-	// 逆解机器人关节角（测试部分）
-	//////////////////////////////////////////////////////////////////////////
-	// 将输出坐标系中的路径坐标变换到世界坐标系中
-	TransLocalPathCombs(exportFrame, pCpyPCombs);
-
-	// 机器人坐标系，检测之前，用户需要明确机器人和用户（即输出）坐标系的位置关系
-	RFRAME baseFrame; 
-	baseFrame.X[0] = 0;
-	baseFrame.X[1] = 1;
-	baseFrame.X[2] = 0;
-
-	baseFrame.Y[0] = 1;
-	baseFrame.Y[1] = 0;
-	baseFrame.Y[2] = 0;
-
-	baseFrame.Z[0] = 0;
-	baseFrame.Z[1] = 0;
-	baseFrame.Z[2] = 1;
-
-	baseFrame.O[0] = 0.;
-	baseFrame.O[1] = -0.6;
-	baseFrame.O[2] = -0.6;
-	// 将世界坐标系中的路径坐标变换到机器人坐标中
-	TransWorldPathCombs(baseFrame,pCpyPCombs);
-
-	DrawPathCombs(pCpyPCombs);
-	DrawRFrame(exportFrame);
-	return;
-//	DrawRFrame(baseFrame);
-
-	VEC3D toolvec = {1,0,0};//工具姿态，暂时固定为1，0，0
-	double dJoints[6] = {0,-90,0,0,90,0}; //初始关节角姿态，可以调整，或根据现场实际情况获取
-	pcPos = pCpyPCombs->m_LPathCombList.GetHeadPosition();
-	while(pcPos)
-	{
-		CPathComb* pPathComb = pCpyPCombs->m_LPathCombList.GetNext(pcPos);
-		if (NULL == pPathComb)
-			continue;
-
-		POSITION pos = pPathComb->m_PathList.GetHeadPosition();
-		while(pos)
-		{
-			CMovePath* pMovePath = (CMovePath*)pPathComb->m_PathList.GetNext(pos);
-			if (NULL == pMovePath)
-				continue;
-			BOOL bflag = TRUE;
-			POSITION nodePos = pMovePath->m_PathNodeList.GetHeadPosition();
-			while (nodePos)
-			{
-				CPathNode* pNode = pMovePath->m_PathNodeList.GetNext(nodePos);
-				if(NULL == pNode)
-					continue;
-				double matrix[4][4]; 
-				int nErrFlag = 0; // 返回错误代码
-				GenToolPosToJoint(pNode->m_OffsetPosition, pNode->m_OffsetDirection, toolvec, dJoints, nErrFlag,matrix );
-				if (bflag)
-				{
-					if (nErrFlag & ERR_OUTOFRANGE_AXIS_1)
-					{
-						AfxMessageBox(_T("Axis 1 out of range"));
-						bflag = FALSE;
-					}
-					if (nErrFlag & ERR_OUTOFRANGE_AXIS_2)
-					{
-						AfxMessageBox(_T("Axis 2 out of range"));
-						bflag = FALSE;
-					}
-					if (nErrFlag & ERR_OUTOFRANGE_AXIS_3)
-					{
-						AfxMessageBox(_T("Axis 3 out of range"));
-						bflag = FALSE;
-					}
-					if (nErrFlag & ERR_OUTOFRANGE_AXIS_4)
-					{
-						AfxMessageBox(_T("Axis 4 out of range"));
-						bflag = FALSE;
-					}
-					if (nErrFlag & ERR_OUTOFRANGE_AXIS_5)
-					{
-						AfxMessageBox(_T("Axis 5 out of range"));
-						bflag = FALSE;
-					}
-					if (nErrFlag & ERR_OUTOFRANGE_AXIS_6)
-					{
-						AfxMessageBox(_T("Axis 6 out of range"));
-						bflag = FALSE;
-					}
-					if (nErrFlag & ERR_OUTOFRANGE_AXIS_7)
-					{
-						AfxMessageBox(_T("Axis 7 out of range"));
-						bflag = FALSE;
-					}
-					if (nErrFlag & ERR_OUTOFRANGE_AXIS_8)
-					{
-						AfxMessageBox(_T("Axis 8 out of range"));
-						bflag = FALSE;
-					}
-				}
-				continue;
-				double matrix2[4][4];
-				axis6_joint2matrix(matrix2,dJoints);
-				double posi[6] = {0,0,0,0,0,0};
-				Matrix2pose(posi, matrix2);
-				int a = 0;
-			}
-		}
-	}
-	timeEnd = GetTickCount();
-	CString s ;
-	s.Format(_T("时间: %lld ms\n"), timeEnd - timeSt);
-	AfxMessageBox(s);
-	//////////////////////////////////////////////////////////////////////////
-
 	// 绘制路径和输出坐标系(测试用)
 	//////////////////////////////////////////////////////////////////////////
 //	 DrawPathCombs(pCpyPCombs);
 //	 DrawRFrame(baseFrame);
-	 return;
+//	 return;
 	//////////////////////////////////////////////////////////////////////////
 
 	BOOL bIsOpen = FALSE;                                 //是否打开(否则为保存)  

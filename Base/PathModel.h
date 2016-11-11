@@ -134,6 +134,7 @@ public:
 	int       m_nRefId;
 	BOOL m_bHolePrecut;
 	BOOL m_bStrHole;
+	double m_dFixAng; //输出纠正角度
 public:
 	// 当路径孔轴向偏移满足
 	void FixHPreCutState();

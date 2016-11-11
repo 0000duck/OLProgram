@@ -756,6 +756,10 @@ void Matrix2pose(double pos[6], double matrix[][4])
 void GenToolPosToJoint(PNT3D cutPnt, VEC3D cutVec, VEC3D toolVec, double dJoints[6], int& nErrFlag,double ToolRotaMatrix[4][4] )
 {
 	//double ToolRotaMatrix[4][4];
+	for (int i=0; i<3; i++)
+	{
+		cutPnt[i] *= 1000;
+	}
 	GenToolRotaMatrix4(cutPnt, cutVec, toolVec, ToolRotaMatrix);
 	axis6_matrix2joint(dJoints,ToolRotaMatrix,nErrFlag);
 }
