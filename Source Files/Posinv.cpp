@@ -2,6 +2,7 @@
 #include <math.h>
 #include <string.h>
 #include "MathBase.h"
+#include "posinv.h"
 
 #define g_a1	138//150
 #define g_a2	870//580
@@ -12,7 +13,7 @@
 #define anglePerRadian (180/PI)
 #define AXIS_COUNT 6
 
-double  em = 0.0000000001;
+
 
 static double max_ang[8]={PI,0,0.5*PI,2.0*PI,PI,2.0*PI,2.0*PI,2.0*PI};
 static double min_ang[8]={-PI,-PI,-PI,-2.0*PI,-PI,-2.0*PI,-2.0*PI,-2.0*PI};
@@ -165,7 +166,7 @@ void matrixInver(double lineA[],double lineAInver[], int num)
 double Atan3(double y, double x)
 {
     double at=0.0,at2=0.0;
-    if (fabs(x)<em){
+    if (iszero(x)){
         if(y>0)
             at2=PI/2;
         else if (y<0)
@@ -179,9 +180,9 @@ double Atan3(double y, double x)
         at2=2*PI+at;
     else if ((x<0)&&(y>0))
         at2=at+PI;
-    else if ((x<0)&&(fabs(y)<em))
+    else if ((x<0)&&iszero(y))
         at2=PI;
-    else if ((x>0)&&(fabs(y)<em))
+    else if ((x>0)&&iszero(y))
         at2=0;
     else if ((x<0)&&(y<0))
         at2=PI+at;
@@ -190,7 +191,7 @@ double Atan3(double y, double x)
 double Atan4(double y, double x)
 {
     double at=0.0,at2=0.0;
-    if (fabs(x)<em){
+    if (iszero(x)){
         if(y>0)
             at2=-3*PI/2;
         else if (y<0)
@@ -204,9 +205,9 @@ double Atan4(double y, double x)
         at2=at;
     } else if ( (x<0)&&(y>0) ){
         at2=at-PI;
-    } else if ( (x<0)&&(fabs(y)<em) ){
+    } else if ( (x<0)&&iszero(y) ){
         at2=-PI;
-    } else if ( (x>0)&&(fabs(y)<em) ){
+    } else if ( (x>0)&&iszero(y) ){
         at2=0;
     } else if ( (x<0)&&(y<0) ){
         at2=-PI+at;
@@ -392,7 +393,7 @@ void axis6_joint2matrix(double matrix[][4],double af[])
     memcpy(matrix,tempmatrix,sizeof(double)*16);
 }
 
-void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
+void axis6_matrix2joint(double xp_joint[],double T[4][4],int& nErrFlag)
 {
     double px=0.0,py=0.0,pz=0.0;
     double ox=0.0,oy=0.0,oz=0.0;
@@ -498,7 +499,7 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
     }
 	else
 	{
-        outside|=0x01;
+        nErrFlag|=ERR_OUTOFRANGE_AXIS_1;
     }
 
     //******************************计算theta2********************************//
@@ -529,12 +530,12 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
         } 
 		else
 		{
-            outside|=0x02;
+            nErrFlag|=ERR_OUTOFRANGE_AXIS_2;
         }
     } 
 	else
 	{
-        outside|=0x02;
+        nErrFlag|=ERR_OUTOFRANGE_AXIS_2;
     }
 
     //******************************计算theta3********************************//
@@ -556,12 +557,12 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
         } 
 		else
 		{
-            outside|=0x04;
+            nErrFlag|=ERR_OUTOFRANGE_AXIS_3;
         }
     } 
 	else
 	{
-        outside|=0x04;
+        nErrFlag|=ERR_OUTOFRANGE_AXIS_3;
     }
 
     //******************************计算theta5********************************//
@@ -612,7 +613,7 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
         }
 		else
 		{
-            outside|=0x08;
+            nErrFlag|=ERR_OUTOFRANGE_AXIS_4;
         }
     }
     else
@@ -626,7 +627,7 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
     } 
 	else
 	{
-        outside|=0x10;
+        nErrFlag|=ERR_OUTOFRANGE_AXIS_5;
     }
 
     //******************************计算theta6********************************//
@@ -654,7 +655,7 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
     } 
 	else
 	{
-        outside|=0x20;
+        nErrFlag|=ERR_OUTOFRANGE_AXIS_6;
     }
 }
 
@@ -663,7 +664,7 @@ void axis6_matrix2joint(double xp_joint[],double T[4][4],int& outside)
 // toolVec:[IN] 工具姿态方向 （设置为1,0,0）
 // ToolRotaMatrix3:[OUT] 旋转矩阵
 // 此处输入都为机器人坐标系下的坐标
-static void GenToolRotaMatrix4(PNT3D cutPnt, VEC3D cutVec, VEC3D toolVec, double ToolRotaMatrix[4][4])
+void GenToolRotaMatrix4(PNT3D cutPnt, VEC3D cutVec, VEC3D toolVec, double ToolRotaMatrix[4][4])
 {
 	VEC3D X,Y,Z;
 	
@@ -707,7 +708,6 @@ static void GenToolRotaMatrix4(PNT3D cutPnt, VEC3D cutVec, VEC3D toolVec, double
 	ToolRotaMatrix[3][3] = 1;
 }
 
-#define iszero( x)	(fabs(x)<em?1:0)
 
 void Matrix2pose(double pos[6], double matrix[][4])
 {
@@ -751,41 +751,11 @@ void Matrix2pose(double pos[6], double matrix[][4])
 	pos[4]=r_y;
 	pos[5]=r_z;
 }
-// 
-// void MatrixBuit(double Matrix[][4],double pos[])
-// {
-// 	double s[3]={0,};
-// 	double c[3]={0,}; 
-// 	c[0]=cos(pos[3]);
-// 	c[1]=cos(pos[4]);
-// 	c[2]=cos(pos[5]);
-// 	s[0]=sin(pos[3]);
-// 	s[1]=sin(pos[4]);
-// 	s[2]=sin(pos[5]);
-// 
-// 	Matrix[0][0]=c[2]*c[1]; 					 
-// 	Matrix[0][1]=c[2]*s[1]*s[0]-s[2]*c[0];
-// 	Matrix[0][2]= c[2]*s[1]*c[0]+s[2]*s[0];
-// 	Matrix[0][3]=pos[0];
-// 
-// 	Matrix[1][0]=s[2]*c[1];
-// 	Matrix[1][1]=s[2]*s[1]*s[0]+c[2]*c[0];
-// 	Matrix[1][2]=s[2]*s[1]*c[0]-c[2]*s[0];
-// 	Matrix[1][3]=pos[1];
-// 
-// 	Matrix[2][0]=-s[1];
-// 	Matrix[2][1]=c[1]*s[0];
-// 	Matrix[2][2]=c[1]*c[0];
-// 	Matrix[2][3]=pos[2];
-// 
-// 	Matrix[3][0]=0;
-// 	Matrix[3][1]=0;
-// 	Matrix[3][2]=0;
-// 	Matrix[3][3]=1;
-//
-void GenToolPosToJoint(PNT3D cutPnt, VEC3D cutVec, VEC3D toolVec, double dJoint[6], int& outside,double ToolRotaMatrix[4][4] )
+
+
+void GenToolPosToJoint(PNT3D cutPnt, VEC3D cutVec, VEC3D toolVec, double dJoints[6], int& nErrFlag,double ToolRotaMatrix[4][4] )
 {
 	//double ToolRotaMatrix[4][4];
 	GenToolRotaMatrix4(cutPnt, cutVec, toolVec, ToolRotaMatrix);
-	axis6_matrix2joint(dJoint,ToolRotaMatrix,outside);
+	axis6_matrix2joint(dJoints,ToolRotaMatrix,nErrFlag);
 }

@@ -100,8 +100,8 @@ TMapIUnknownToDocument OpenDocumentsTable() { return openDocs; }
 	void AddPMP();
 	void RemovePMP();
 	BSTR GetCurrentFile();
-	void TransWorldPathComb(RFRAME& local_frame, LPathCombList &PathCombList);
-	void TransLocalPathComb(RFRAME& local_frame, LPathCombList &PathCombList);
+	void TransWorldPathCombs(RFRAME& local_frame, CPathCombList* pPCombs);
+	void TransLocalPathCombs(RFRAME& local_frame, CPathCombList* pPCombs);
 	void TransWorldPath(RFRAME& local_frame, CMovePath* pMovePath);
 	void TransLocalPath(RFRAME& local_frame, CMovePath* pMovePath);
 	BOOL CheckTransFrame(RFRAME& local_frame, LPathCombList &PathCombList);

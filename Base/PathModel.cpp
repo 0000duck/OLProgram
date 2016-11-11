@@ -167,23 +167,23 @@ void CPathNode::FixValue()
 	mathUniVec(m_OffsetDirection);
 	for (int i=0; i<3; i++)
 	{
-		if (abs(m_OrgPosition[i])<MIN_LEN)
+		if (iszero(m_OrgPosition[i]))
 		{
 			m_OrgPosition[i] = 0.;
 		}
-		if (abs(m_OrgDirection[i])<MIN_LEN)
+		if (iszero(m_OrgDirection[i]))
 		{
 			m_OrgDirection[i] = 0.;
 		}
-		if (abs(m_OffsetDirection[i])<MIN_LEN)
+		if (iszero(m_OffsetDirection[i]))
 		{
 			m_OffsetDirection[i] = 0.;
 		}
-		if (abs(m_OffsetPosition[i])<MIN_LEN)
+		if (iszero(m_OffsetPosition[i]))
 		{
 			m_OffsetPosition[i] = 0.;
 		}
-		if (abs(m_OrgCutPosition[i])<MIN_LEN)
+		if (iszero(m_OrgCutPosition[i]))
 		{
 			m_OrgCutPosition[i] = 0.;
 		}			

@@ -63,11 +63,11 @@
     <ClCompile Include="EliteSoftWare_i.c">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="EditHParamDlg.cpp">
+    <ClCompile Include="Dialog\EditHParamDlg.cpp">
       <Filter>Dialog</Filter>
     </ClCompile>
-    <ClCompile Include="posinv6.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="Source Files\Posinv.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,8 +113,11 @@
     <ClInclude Include="Resource\resource.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="EditHParamDlg.h">
+    <ClInclude Include="Dialog\EditHParamDlg.h">
       <Filter>Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\Posinv.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

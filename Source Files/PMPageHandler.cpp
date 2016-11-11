@@ -316,7 +316,7 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		double dRWTube = pHParam->GetParentComb()->m_dTubeDia*0.5;
 		double dRNTube = pHParam->GetParentComb()->m_dTubeDia*0.5 - pHParam->GetParentComb()->m_dTubeThick;
 		double dis1 = dRWTube*dRWTube - ptCDis*ptCDis;
-		if (abs(dis1)<MIN_LEN )
+		if (iszero(dis1))
 		{
 			dis1 = 0;
 		}
@@ -327,7 +327,7 @@ void CPMPageHandler::CalPathNode(int ptNum, double* ptArray, ISurface* swSurface
 		}
 
 		double dis2 = dRNTube*dRNTube - ptCDis*ptCDis;
-		if (abs(dis2)<MIN_LEN )
+		if (iszero(dis2) )
 		{
 			dis2 = 0;
 		}
